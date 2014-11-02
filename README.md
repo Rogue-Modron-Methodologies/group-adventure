@@ -1,4 +1,4 @@
 group-adventure
 ===============
 
-Team Project 
+Team Project - BSTs and Hash Tables.
