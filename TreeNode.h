@@ -6,7 +6,6 @@
 #ifndef _TREE_NODE
 #define _TREE_NODE
 
-#include <iomanip>
 #include "Card.h"
 
 class TreeNode
