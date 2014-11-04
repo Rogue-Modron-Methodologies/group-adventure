@@ -1,0 +1,351 @@
+US	Urza's Saga 		
+1	Absolute Grace	1W	Uncommon			
+2	Absolute Law	1W	Uncommon			
+3	Angelic Chorus	3WW	Rare			
+4	Angelic Page	1W	Common			
+5	Brilliant Halo	1W	Common			
+6	Catastrophe	4WW	Rare			
+7	Clear	1W	Uncommon			
+8	Congregate	3W	Common			
+9	Defensive Formation	W	Uncommon			
+10	Disciple of Grace	1W	Common			
+11	Disciple of Law	1W	Common			
+12	Disenchant	1W	Common			
+13	Elite Archers	5W	Rare			
+14	Faith Healer	1W	Rare			
+15	Glorious Anthem	1WW	Rare			
+16	Healing Salve	W	Common			
+17	Herald of Serra	2WW	Rare			
+18	Humble	1W	Uncommon			
+19	Intrepid Hero	2W	Rare			
+20	Monk Idealist	2W	Uncommon			
+21	Monk Realist	1W	Common			
+22	Opal Acrolith	2W	Uncommon			
+23	Opal Archangel	4W	Rare			
+24	Opal Caryatid	W	Common			
+25	Opal Gargoyle	1W	Common			
+26	Opal Titan	2WW	Rare			
+27	Pacifism	1W	Common			
+28	Pariah	2W	Rare			
+29	Path of Peace	3W	Common			
+30	Pegasus Charger	2W	Common			
+31	Planar Birth	1W	Rare			
+32	Presence of the Master	3W	Uncommon			
+33	Redeem	1W	Uncommon			
+34	Remembrance	3W	Rare			
+35	Rune of Protection: Artifacts	1W	Uncommon			
+36	Rune of Protection: Black	1W	Common			
+37	Rune of Protection: Blue	1W	Common			
+38	Rune of Protection: Green	1W	Common			
+39	Rune of Protection: Lands	1W	Rare			
+40	Rune of Protection: Red	1W	Common			
+41	Rune of Protection: White	1W	Common			
+42	Sanctum Custodian	2W	Common			
+43	Sanctum Guardian	1WW	Uncommon			
+44	Seasoned Marshal	2WW	Uncommon			
+45	Serra Avatar	4WWW	Rare			
+46	Serra Zealot	W	Common			
+47	Serra's Embrace	2WW	Uncommon			
+48	Serra's Hymn	W	Uncommon			
+49	Serra's Liturgy	2WW	Rare			
+50	Shimmering Barrier	1W	Uncommon			
+51	Silent Attendant	2W	Common			
+52	Songstitcher	W	Uncommon			
+53	Soul Sculptor	2W	Rare			
+54	Voice of Grace	3W	Uncommon			
+55	Voice of Law	3W	Uncommon			
+56	Waylay	2W	Uncommon			
+57	Worship	3W	Rare			
+58	Academy Researchers	1UU	Uncommon			
+59	Annul	U	Common			
+60	Arcane Laboratory	2U	Uncommon			
+61	Attunement	2U	Rare			
+62	Back to Basics	2U	Rare			
+63	Barrin, Master Wizard	1UU	Rare			
+64	Catalog	2U	Common			
+65	Cloak of Mists	1U	Common			
+66	Confiscate	4UU	Uncommon			
+67	Coral Merfolk	1U	Common			
+68	Curfew	U	Common			
+69	Disruptive Student	2U	Common			
+70	Douse	2U	Uncommon			
+71	Drifting Djinn	4UU	Rare			
+72	Enchantment Alteration	U	Uncommon			
+73	Energy Field	1U	Rare			
+74	Exhaustion	2U	Uncommon			
+75	Fog Bank	1U	Uncommon			
+76	Gilded Drake	1U	Rare			
+77	Great Whale	5UU	Rare			
+78	Hermetic Study	1U	Common			
+79	Hibernation	2U	Uncommon			
+80	Horseshoe Crab	2U	Common			
+81	Imaginary Pet	1U	Rare			
+82	Launch	1U	Common			
+83	Lilting Refrain	1U	Uncommon			
+84	Lingering Mirage	1U	Uncommon			
+85	Morphling	3UU	Rare			
+86	Pendrell Drake	3U	Common			
+87	Pendrell Flux	1U	Common			
+88	Peregrine Drake	4U	Uncommon			
+89	Power Sink	XU	Common			
+90	Power Taint	1U	Common			
+91	Recantation	3UU	Rare			
+92	Rescind	1UU	Common			
+93	Rewind	2UU	Common			
+94	Sandbar Merfolk	U	Common			
+95	Sandbar Serpent	4U	Uncommon			
+96	Show and Tell	2U	Rare			
+97	Somnophore	2UU	Rare			
+98	Spire Owl	1U	Common			
+99	Stern Proctor	UU	Uncommon			
+100	Stroke of Genius	X2U	Rare			
+101	Sunder	3UU	Rare			
+102	Telepathy	U	Uncommon			
+103	Time Spiral	4UU	Rare			
+104	Tolarian Winds	1U	Common			
+105	Turnabout	2UU	Uncommon			
+106	Veil of Birds	U	Common			
+107	Veiled Apparition	1U	Uncommon			
+108	Veiled Crocodile	2U	Rare			
+109	Veiled Sentry	U	Uncommon			
+110	Veiled Serpent	2U	Common			
+111	Windfall	2U	Uncommon			
+112	Wizard Mentor	2U	Common			
+113	Zephid	4UU	Rare			
+114	Zephid's Embrace	2UU	Uncommon			
+115	Abyssal Horror	4BB	Rare			
+116	Befoul	2BB	Common			
+117	Bereavement	1B	Uncommon			
+118	Blood Vassal	2B	Common			
+119	Bog Raiders	2B	Common			
+120	Breach	2B	Common			
+121	Cackling Fiend	2BB	Common			
+122	Carrion Beetles	B	Common			
+123	Contamination	2B	Rare			
+124	Corrupt	5B	Common			
+125	Crazed Skirge	3B	Uncommon			
+126	Dark Hatchling	4BB	Rare			
+127	Dark Ritual	B	Common			
+128	Darkest Hour	B	Rare			
+129	Despondency	1B	Common			
+130	Diabolic Servitude	3B	Uncommon			
+131	Discordant Dirge	3BB	Rare			
+132	Duress	B	Common			
+133	Eastern Paladin	2BB	Rare			
+134	Exhume	1B	Common			
+135	Expunge	2B	Common			
+136	Flesh Reaver	1B	Uncommon			
+137	Hollow Dogs	4B	Common			
+138	Ill-Gotten Gains	2BB	Rare			
+139	Looming Shade	2B	Common			
+140	Lurking Evil	BBB	Rare			
+141	Mana Leech	2B	Uncommon			
+142	No Rest for the Wicked	1B	Uncommon			
+143	Oppression	1BB	Rare			
+144	Order of Yawgmoth	2BB	Uncommon			
+145	Parasitic Bond	3B	Uncommon			
+146	Persecute	2BB	Rare			
+147	Pestilence	2BB	Common			
+148	Phyrexian Ghoul	2B	Common			
+149	Planar Void	B	Uncommon			
+150	Priest of Gix	2B	Uncommon			
+151	Rain of Filth	B	Uncommon			
+152	Ravenous Skirge	2B	Common			
+153	Reclusive Wight	3B	Uncommon			
+154	Reprocess	2BB	Rare			
+155	Sanguine Guard	1BB	Uncommon			
+156	Sicken	B	Common			
+157	Skirge Familiar	4B	Uncommon			
+158	Skittering Skirge	BB	Common			
+159	Sleeper Agent	B	Rare			
+160	Spined Fluke	2B	Uncommon			
+161	Tainted Æther	2BB	Rare			
+162	Unnerve	3B	Common			
+163	Unworthy Dead	1B	Common			
+164	Vampiric Embrace	2BB	Uncommon			
+165	Vebulid	B	Rare			
+166	Victimize	2B	Uncommon			
+167	Vile Requiem	2BB	Uncommon			
+168	Western Paladin	2BB	Rare			
+169	Witch Engine	5B	Rare			
+170	Yawgmoth's Edict	1B	Uncommon			
+171	Yawgmoth's Will	2B	Rare			
+172	Acidic Soil	2R	Uncommon			
+173	Antagonism	3R	Rare			
+174	Arc Lightning	2R	Common			
+175	Bedlam	2RR	Rare			
+176	Brand	R	Rare			
+177	Bravado	1R	Common			
+178	Bulwark	3RR	Rare			
+179	Crater Hellion	4RR	Rare			
+180	Destructive Urge	1RR	Uncommon			
+181	Disorder	1R	Uncommon			
+182	Dromosaur	2R	Common			
+183	Electryte	3RR	Rare			
+184	Falter	1R	Common			
+185	Fault Line	XRR	Rare			
+186	Fiery Mantle	1R	Common			
+187	Fire Ants	2R	Uncommon			
+188	Gamble	R	Rare			
+189	Goblin Cadets	R	Uncommon			
+190	Goblin Lackey	R	Uncommon			
+191	Goblin Matron	2R	Common			
+192	Goblin Offensive	X1RR	Uncommon			
+193	Goblin Patrol	R	Common			
+194	Goblin Raider	1R	Common			
+195	Goblin Spelunkers	2R	Common			
+196	Goblin War Buggy	1R	Common			
+197	Guma	2R	Uncommon			
+198	Headlong Rush	1R	Common			
+199	Heat Ray	XR	Common			
+200	Jagged Lightning	3RR	Uncommon			
+201	Lay Waste	3R	Common			
+202	Lightning Dragon	2RR	Rare			
+203	Meltdown	XR	Uncommon			
+204	Okk	1R	Rare			
+205	Outmaneuver	XR	Uncommon			
+206	Rain of Salt	4RR	Uncommon			
+207	Raze	R	Common			
+208	Reflexes	R	Common			
+209	Retromancer	2RR	Common			
+210	Rumbling Crescendo	3RR	Rare			
+211	Scald	1R	Uncommon			
+212	Scoria Wurm	4R	Rare			
+213	Scrap	2R	Common			
+214	Shivan Hellkite	5RR	Rare			
+215	Shivan Raptor	2R	Uncommon			
+216	Shiv's Embrace	2RR	Uncommon			
+217	Shower of Sparks	R	Common			
+218	Sneak Attack	3R	Rare			
+219	Steam Blast	2R	Uncommon			
+220	Sulfuric Vapors	3R	Rare			
+221	Thundering Giant	3RR	Uncommon			
+222	Torch Song	2R	Uncommon			
+223	Viashino Outrider	2R	Common			
+224	Viashino Runner	3R	Common			
+225	Viashino Sandswimmer	2RR	Rare			
+226	Viashino Weaponsmith	3R	Common			
+227	Vug Lizard	1RR	Uncommon			
+228	Wildfire	4RR	Rare			
+229	Abundance	2GG	Rare			
+230	Acridian	1G	Common			
+231	Albino Troll	1G	Uncommon			
+232	Anaconda	3G	Uncommon			
+233	Argothian Elder	3G	Uncommon			
+234	Argothian Enchantress	1G	Rare			
+235	Argothian Swine	3G	Common			
+236	Argothian Wurm	3G	Rare			
+237	Blanchwood Armor	2G	Uncommon			
+238	Blanchwood Treefolk	4G	Common			
+239	Bull Hippo	3G	Uncommon			
+240	Carpet of Flowers	G	Uncommon			
+241	Cave Tiger	2G	Common			
+242	Child of Gaea	3GGG	Rare			
+243	Citanul Centaurs	3G	Rare			
+244	Citanul Hierophants	3G	Rare			
+245	Cradle Guard	1GG	Uncommon			
+246	Crosswinds	1G	Uncommon			
+247	Elvish Herder	G	Common			
+248	Elvish Lyrist	G	Common			
+249	Endless Wurm	3GG	Rare			
+250	Exploration	G	Rare			
+251	Fecundity	2G	Uncommon			
+252	Fertile Ground	1G	Common			
+253	Fortitude	1G	Common			
+254	Gaea's Bounty	2G	Common			
+255	Gaea's Embrace	2GG	Uncommon			
+256	Gorilla Warrior	2G	Common			
+257	Greater Good	2GG	Rare			
+258	Greener Pastures	2G	Rare			
+259	Hawkeater Moth	3G	Uncommon			
+260	Hidden Ancients	1G	Uncommon			
+261	Hidden Guerrillas	G	Uncommon			
+262	Hidden Herd	G	Rare			
+263	Hidden Predators	G	Rare			
+264	Hidden Spider	G	Common			
+265	Hidden Stag	1G	Rare			
+266	Hush	3G	Common			
+267	Lull	1G	Common			
+268	Midsummer Revel	3GG	Rare			
+269	Pouncing Jaguar	G	Common			
+270	Priest of Titania	1G	Common			
+271	Rejuvenate	3G	Common			
+272	Retaliation	2G	Uncommon			
+273	Sporogenesis	3G	Rare			
+274	Spreading Algae	G	Uncommon			
+275	Symbiosis	1G	Common			
+276	Titania's Boon	3G	Uncommon			
+277	Titania's Chosen	2G	Uncommon			
+278	Treefolk Seedlings	2G	Uncommon			
+279	Treetop Rangers	2G	Common			
+280	Venomous Fangs	2G	Common			
+281	Vernal Bloom	3G	Rare			
+282	War Dance	G	Uncommon			
+283	Whirlwind	2GG	Rare			
+284	Wild Dogs	G	Common			
+285	Winding Wurm	4G	Common			
+286	Barrin's Codex	4	Rare			
+287	Cathodion	3	Uncommon			
+288	Chimeric Staff	4	Rare			
+289	Citanul Flute	5	Rare			
+290	Claws of Gix	0	Uncommon			
+291	Copper Gnomes	2	Rare			
+292	Crystal Chimes	3	Uncommon			
+293	Dragon Blood	3	Uncommon			
+294	Endoskeleton	2	Uncommon			
+295	Fluctuator	2	Rare			
+296	Grafted Skullcap	4	Rare			
+297	Hopping Automaton	3	Uncommon			
+298	Karn, Silver Golem	5	Rare			
+299	Lifeline	5	Rare			
+300	Lotus Blossom	2	Rare			
+301	Metrognome	4	Rare			
+302	Mishra's Helix	5	Rare			
+303	Mobile Fort	4	Uncommon			
+304	Noetic Scales	4	Rare			
+305	Phyrexian Colossus	7	Rare			
+306	Phyrexian Processor	4	Rare			
+307	Pit Trap	2	Uncommon			
+308	Purging Scythe	5	Rare			
+309	Smokestack	4	Rare			
+310	Temporal Aperture	2	Rare			
+311	Thran Turbine	1	Uncommon			
+312	Umbilicus	4	Rare			
+313	Urza's Armor	6	Uncommon			
+314	Voltaic Key	1	Uncommon			
+315	Wall of Junk	2	Uncommon			
+316	Whetstone	3	Rare			
+317	Wirecat	4	Uncommon			
+318	Worn Powerstone	3	Uncommon			
+319	Blasted Landscape	N/A	Uncommon			
+320	Drifting Meadow	N/A	Common			
+321	Gaea's Cradle	N/A	Rare			
+322	Phyrexian Tower	N/A	Rare			
+323	Polluted Mire	N/A	Common			
+324	Remote Isle	N/A	Common			
+325	Serra's Sanctum	N/A	Rare			
+326	Shivan Gorge	N/A	Rare			
+327	Slippery Karst	N/A	Common			
+328	Smoldering Crater	N/A	Common			
+329	Thran Quarry	N/A	Rare			
+330	Tolarian Academy	N/A	Rare			
+331	Plains	N/A	Land			
+332	Plains	N/A	Land			
+333	Plains	N/A	Land			
+334	Plains	N/A	Land			
+335	Island	N/A	Land			
+336	Island	N/A	Land			
+337	Island	N/A	Land			
+338	Island	N/A	Land			
+339	Swamp	N/A	Land			
+340	Swamp	N/A	Land			
+341	Swamp	N/A	Land			
+342	Swamp	N/A	Land			
+343	Mountain	N/A	Land			
+344	Mountain	N/A	Land			
+345	Mountain	N/A	Land			
+346	Mountain	N/A	Land			
+347	Forest	N/A	Land			
+348	Forest	N/A	Land			
+349	Forest	N/A	Land			
+350	Forest	N/A	Land			
