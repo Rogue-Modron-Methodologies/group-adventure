@@ -13,7 +13,7 @@ class BinarySearchTree : public BinaryTree
 private:
 	// internal insert node: insert newNode in nodePtr subtree
 	TreeNode* _insert(TreeNode* nodePtr, TreeNode* newNode);
-
+    //edward was here
 	// internal remove node: locate and delete target node under nodePtr subtree
 	TreeNode* _remove(TreeNode* nodePtr, const string target, bool & success);
 
