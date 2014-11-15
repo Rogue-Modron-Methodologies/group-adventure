@@ -9,6 +9,7 @@ using namespace std;
 
 int main(){
 
-	
+	//i might write some thing useful at somepoint - JDC
+
 	return 0;
 }
