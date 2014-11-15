@@ -7,7 +7,7 @@
 #define _BINARY_SEARCH_TREE
 
 #include "BinaryTree.h"
-
+// Yo!
 class BinarySearchTree : public BinaryTree
 {
 private:
