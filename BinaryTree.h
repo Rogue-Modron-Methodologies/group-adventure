@@ -3,10 +3,6 @@
 // CIS 22C - 2014
 // Jamie Johnson, Edward Lim, Nick Arduini, Efrain Esquivel, Jordan Cox, and Steven Bennett
 
-// Binary tree abstract base class
-// Created by Frank M. Carrano and Tim Henry.
-// modified by Jamie Johnson
-
 #ifndef _BINARY_TREE
 #define _BINARY_TREE
 

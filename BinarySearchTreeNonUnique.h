@@ -6,9 +6,9 @@
 #ifndef _BINARY_SEARCH_TREE_NON_UNIQUE
 #define _BINARY_SEARCH_TREE_NON_UNIQUE
 
-#include "BinarySearchTree.h"
+#include "BinaryTree.h"
 
-class BinarySearchTreeNonUnique : public BinarySearchTree
+class BinarySearchTreeNonUnique : public BinaryTree
 {
 private:
 	// internal insert node: insert newNode in nodePtr subtree
