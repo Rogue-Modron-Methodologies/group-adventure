@@ -31,7 +31,7 @@ class Card
         string getRarity() const { return rarity; }
 
 
-        static oat_hash(const string &key, int num);
+        static unsigned int oat_hash(const string &key, int num);
 };
 
 #endif // CARD_H
