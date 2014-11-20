@@ -50,17 +50,17 @@ public:
     // If key is already in table, returns false
     bool addEntry(const KeyType &key, const ItemType &item);
     // Displays all items in the table in list form - takes in display func ptr
-    void displayTable(void display(const ItemType&));
+    void displayTable(void display(const ItemType&)) const;
     // Displays table locations and entries therein - takes in display func ptr
-    void printTable(void display(const ItemType&));
+    void printTable(void display(const ItemType&)) const;
     // Takes key, empty item. Returns true if item
     // is found in table and sets item to the item found
-    bool search(const KeyType &key, ItemType &item);
+    bool search(const KeyType &key, ItemType &item) const;
     // Takes in key, empty item. Returns true if item
     // is found in table and sets item to the item found.
     // Removes item from table and updates stats
     bool remove(const KeyType &key, ItemType &item);
-    void displayStatistics();
+    void displayStatistics() const;
     // Getters and Setters
     HeadHashNode<KeyType, ItemType>** getTable() const { return table; }
     int getTableSize() const { return tableSize; }
@@ -161,7 +161,7 @@ bool HashTable<KeyType, ItemType>::
 
 // Takes in a func ptr and displays list of entries in table
 template <class KeyType, class ItemType>
-void HashTable<KeyType, ItemType>::displayTable(void display(const ItemType&))
+void HashTable<KeyType, ItemType>::displayTable(void display(const ItemType&)) const
 {
     for (int i = 0; i < tableSize; i++) {
         HashNode<KeyType, ItemType> *hn = table[i];
@@ -177,7 +177,7 @@ void HashTable<KeyType, ItemType>::displayTable(void display(const ItemType&))
 
 // Takes in a func ptr and displays table locations and entries therein
 template <class KeyType, class ItemType>
-void HashTable<KeyType, ItemType>::printTable(void display(const ItemType&))
+void HashTable<KeyType, ItemType>::printTable(void display(const ItemType&)) const
 {
     short numSpaces = 3;
     int maxIndex = tableSize - 1;
@@ -187,7 +187,8 @@ void HashTable<KeyType, ItemType>::printTable(void display(const ItemType&))
         ss << i << ": ";
         cout << "Index " << setw(numSpaces) << left << ss.str();
         HashNode<KeyType, ItemType> *hn = table[i];
-        if (hn) {
+        if (hn)
+        {
             ItemType item;
             hn->getItem(item);
             display(item);
@@ -210,7 +211,7 @@ void HashTable<KeyType, ItemType>::printTable(void display(const ItemType&))
 // is found in table and sets item to the item found.
 template <class KeyType, class ItemType>
 bool HashTable<KeyType, ItemType>::
-    search(const KeyType &target, ItemType& foundItem)
+    search(const KeyType &target, ItemType& foundItem) const
 {
     int index = hashPtr(target, tableSize);
     HashNode<KeyType, ItemType> *node = table[index];
@@ -272,7 +273,7 @@ bool HashTable<KeyType, ItemType>::
 
 // Displays stats
 template <class KeyType, class ItemType>
-void HashTable<KeyType, ItemType>::displayStatistics()
+void HashTable<KeyType, ItemType>::displayStatistics() const
 {
     cout << fixed << setprecision(2);
     cout << "STATISTICS\n"
