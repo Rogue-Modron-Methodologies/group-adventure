@@ -34,36 +34,31 @@ private:
     int totalInLists;
     double avgInLists;
 
-    // Member function takes in a hash function pointer and a key and
-    // returns an index between 0 and (tableSize - 1)
-    unsigned int getHashValue(unsigned int hash(const KeyType &, int),
-                              const KeyType &key);
+    unsigned int (*hashPtr)(const KeyType&, int);
+
     // Initialize function called by constructors
-    void init(int size);
+    void init(unsigned int (*hash)(const KeyType&, int), int size);
 
 public:
 
     // Constructors
-    HashTable(int size);
-    HashTable(unsigned int hash(const KeyType&, int), const HashTable&, int size);
+    HashTable(unsigned int (*hash)(const KeyType&, int), int size);
+    HashTable(unsigned int (*hash)(const KeyType&, int), const HashTable&, int size);
     // Destructor
     ~HashTable() { destroyTable(); }
-    // Takes in a hash function ptr, a key, and an item and adds to table
-    void addEntry(unsigned int hash(const KeyType&, int),
-                  const KeyType &key, const ItemType &item);
+    // Takes in a key, and an item and adds to table
+    void addEntry(const KeyType &key, const ItemType &item);
     // Displays all items in the table in list form - takes in display func ptr
     void displayTable(void display(const ItemType&));
     // Displays table locations and entries therein - takes in display func ptr
     void printTable(void display(const ItemType&));
-    // Takes in hash function ptr, key, empty item. Returns true if item
+    // Takes key, empty item. Returns true if item
     // is found in table and sets item to the item found
-    bool search(unsigned int hash(const KeyType&, int),
-                  const KeyType &key, ItemType &item);
-    // Takes in hash function ptr, key, empty item. Returns true if item
+    bool search(const KeyType &key, ItemType &item);
+    // Takes in key, empty item. Returns true if item
     // is found in table and sets item to the item found. Removes item from
     // table and updates stats
-    bool remove(unsigned int hash(const KeyType&, int),
-                  const KeyType &key, ItemType &item);
+    bool remove(const KeyType &key, ItemType &item);
     void displayStatistics();
     // Getters and Setters
     HeadHashNode<KeyType, ItemType>** getTable() const { return table; }
@@ -84,9 +79,10 @@ public:
 
 /// Private functions
 
-// Allocates table, initializes all table entries and statistics
+// Takes in function pointer and size, allocates table,
+// initializes all table entries and statistics
 template <class KeyType, class ItemType>
-void HashTable<KeyType, ItemType>::init(int size)
+void HashTable<KeyType, ItemType>::init(unsigned int (*hash)(const KeyType&, int), int size)
 {
     table = new HeadHashNode<KeyType, ItemType>*[size];
     for (int i = 0; i < size; i++)
@@ -99,35 +95,27 @@ void HashTable<KeyType, ItemType>::init(int size)
     longListCount = 0;
     totalInLists = 0;
     avgInLists = 0;
-}
-
-// Takes in a hash function pointer and a key, calls function and
-// returns an index between 0 and (tableSize - 1)
-template <class KeyType, class ItemType>
-unsigned int HashTable<KeyType, ItemType>::
-    getHashValue(unsigned int hash(const KeyType&, int), const KeyType &key)
-{
-    return hash(key, tableSize);
+    hashPtr = hash;
 }
 
 /// Public members
 
-// Constructor takes in table size and initializes
+// Constructor takes in pointer to hash function, table size and initializes
 template <class KeyType, class ItemType>
-HashTable<KeyType, ItemType>::HashTable(int size)
+HashTable<KeyType, ItemType>::HashTable(unsigned int (*hash)(const KeyType&, int), int size)
 {
-    init(size);
+    init(hash, size);
 }
 
 // Constructor takes in a hash func ptr, an existing HashTable, and a table
 // size, and rehashes entries in existing table into a new table of the
 // specified size
 template <class KeyType, class ItemType>
-HashTable<KeyType, ItemType>::HashTable(unsigned int hash(const KeyType&, int),
+HashTable<KeyType, ItemType>::HashTable(unsigned int (*hash)(const KeyType&, int),
                                         const HashTable<KeyType, ItemType> &oldHT,
                                         int size)
 {
-    init(size);
+    init(hash, size);
     HeadHashNode<KeyType, ItemType> **oldTable = oldHT.getTable();
     for (int i = 0, oldSize = oldHT.getTableSize(); i < oldSize; i++) {
         HashNode<KeyType, ItemType> *node = oldTable[i];
@@ -136,20 +124,19 @@ HashTable<KeyType, ItemType>::HashTable(unsigned int hash(const KeyType&, int),
             node->getKey(key);
             ItemType item;
             node->getItem(item);
-            addEntry(hash, key, item);
+            addEntry(key, item);
             node = node->getNext();
         }
     }
 }
 
 
-// Takes in a hash func ptr, a key, and an item and adds to table, updates stats
+// Takes in a key, and an item and adds to table, updates stats
 template <class KeyType, class ItemType>
 void HashTable<KeyType, ItemType>::
-    addEntry(unsigned int hash(const KeyType&, int),
-             const KeyType &key, const ItemType &value)
+    addEntry(const KeyType &key, const ItemType &value)
 {
-    int index = getHashValue(hash, key);
+    int index = hashPtr(key, tableSize);
     // If no collision, add to table
     if (!table[index]) {
         table[index] = new HeadHashNode<KeyType, ItemType>(key, value);
@@ -220,10 +207,9 @@ void HashTable<KeyType, ItemType>::printTable(void display(const ItemType&))
 // is found in table and sets item to the item found.
 template <class KeyType, class ItemType>
 bool HashTable<KeyType, ItemType>::
-    search(unsigned int hash(const KeyType&, int),
-           const KeyType &target, ItemType& foundItem)
+    search(const KeyType &target, ItemType& foundItem)
 {
-    int index = getHashValue(hash, target);
+    int index = hashPtr(target, tableSize);
     HashNode<KeyType, ItemType> *node = table[index];
     while (node) {
         KeyType k;
@@ -242,10 +228,9 @@ bool HashTable<KeyType, ItemType>::
 // table and updates stats
 template <class KeyType, class ItemType>
 bool HashTable<KeyType, ItemType>::
-    remove(unsigned int hash(const KeyType&, int),
-           const KeyType &target, ItemType& removeItem)
+    remove(const KeyType &target, ItemType& removeItem)
 {
-    int index = getHashValue(hash, target);
+    int index = hashPtr(target, tableSize);
     if (!table[index]->removeFromList(target, removeItem))
         return false;
     totalInLists--;
