@@ -31,23 +31,24 @@ private:
     double loadFactor;
     int listCount;
     int longListCount;
-    int totalInLists;
     double avgInLists;
 
+    // Pointer to hash function
     unsigned int (*hashPtr)(const KeyType&, int);
 
-    // Initialize function called by constructors
-    void init(unsigned int (*hash)(const KeyType&, int), int size);
+    // Initialize function (called by constructors)
+    void init(unsigned int (*hashFunc)(const KeyType&, int), int size);
 
 public:
 
     // Constructors
-    HashTable(unsigned int (*hash)(const KeyType&, int), int size);
-    HashTable(unsigned int (*hash)(const KeyType&, int), const HashTable&, int size);
+    HashTable(unsigned int (*hashFunc)(const KeyType&, int), int size);
+    HashTable(unsigned int (*hashFunc)(const KeyType&, int), const HashTable&, int size);
     // Destructor
     ~HashTable() { destroyTable(); }
-    // Takes in a key, and an item and adds to table
-    void addEntry(const KeyType &key, const ItemType &item);
+    // Takes in a key, and an item and adds to table if key not alredy in table.
+    // If key is already in table, returns false
+    bool addEntry(const KeyType &key, const ItemType &item);
     // Displays all items in the table in list form - takes in display func ptr
     void displayTable(void display(const ItemType&));
     // Displays table locations and entries therein - takes in display func ptr
@@ -56,8 +57,8 @@ public:
     // is found in table and sets item to the item found
     bool search(const KeyType &key, ItemType &item);
     // Takes in key, empty item. Returns true if item
-    // is found in table and sets item to the item found. Removes item from
-    // table and updates stats
+    // is found in table and sets item to the item found.
+    // Removes item from table and updates stats
     bool remove(const KeyType &key, ItemType &item);
     void displayStatistics();
     // Getters and Setters
@@ -68,7 +69,6 @@ public:
     double getLoadFactor() const {return loadFactor; }
     int getListCount() const { return listCount; }
     int getLongListCount() const { return longListCount; }
-    int getTotalInLists() const { return totalInLists; }
     double getAvgInLists() const { return avgInLists; }
     void getKeys(vector<KeyType> &keys);
     void getItems(vector<ItemType> &items);
@@ -82,7 +82,7 @@ public:
 // Takes in function pointer and size, allocates table,
 // initializes all table entries and statistics
 template <class KeyType, class ItemType>
-void HashTable<KeyType, ItemType>::init(unsigned int (*hash)(const KeyType&, int), int size)
+void HashTable<KeyType, ItemType>::init(unsigned int (*hashFunc)(const KeyType&, int), int size)
 {
     table = new HeadHashNode<KeyType, ItemType>*[size];
     for (int i = 0; i < size; i++)
@@ -93,29 +93,28 @@ void HashTable<KeyType, ItemType>::init(unsigned int (*hash)(const KeyType&, int
     loadFactor= 0;
     listCount = 0;
     longListCount = 0;
-    totalInLists = 0;
     avgInLists = 0;
-    hashPtr = hash;
+    hashPtr = hashFunc;
 }
 
 /// Public members
 
 // Constructor takes in pointer to hash function, table size and initializes
 template <class KeyType, class ItemType>
-HashTable<KeyType, ItemType>::HashTable(unsigned int (*hash)(const KeyType&, int), int size)
+HashTable<KeyType, ItemType>::HashTable(unsigned int (*hashFunc)(const KeyType&, int), int size)
 {
-    init(hash, size);
+    init(hashFunc, size);
 }
 
 // Constructor takes in a hash func ptr, an existing HashTable, and a table
 // size, and rehashes entries in existing table into a new table of the
 // specified size
 template <class KeyType, class ItemType>
-HashTable<KeyType, ItemType>::HashTable(unsigned int (*hash)(const KeyType&, int),
+HashTable<KeyType, ItemType>::HashTable(unsigned int (*hashFunc)(const KeyType&, int),
                                         const HashTable<KeyType, ItemType> &oldHT,
                                         int size)
 {
-    init(hash, size);
+    init(hashFunc, size);
     HeadHashNode<KeyType, ItemType> **oldTable = oldHT.getTable();
     for (int i = 0, oldSize = oldHT.getTableSize(); i < oldSize; i++) {
         HashNode<KeyType, ItemType> *node = oldTable[i];
@@ -133,9 +132,12 @@ HashTable<KeyType, ItemType>::HashTable(unsigned int (*hash)(const KeyType&, int
 
 // Takes in a key, and an item and adds to table, updates stats
 template <class KeyType, class ItemType>
-void HashTable<KeyType, ItemType>::
+bool HashTable<KeyType, ItemType>::
     addEntry(const KeyType &key, const ItemType &value)
 {
+    ItemType blankItem;
+    if (search(key, blankItem))
+        return false;
     int index = hashPtr(key, tableSize);
     // If no collision, add to table
     if (!table[index]) {
@@ -146,14 +148,15 @@ void HashTable<KeyType, ItemType>::
     // If collision, add to entry in that table location
     else {
         table[index]->addToList(key, value);
-        collisions++, totalInLists++;
+        collisions++;
         int count = table[index]->getListCount();
         if (count == 1)
             listCount++;
         if (count > longListCount)
             longListCount = count;
-        avgInLists = totalInLists / static_cast<double>(listCount);
+        avgInLists = collisions / static_cast<double>(listCount);
     }
+    return true;
 }
 
 // Takes in a func ptr and displays list of entries in table
@@ -233,7 +236,6 @@ bool HashTable<KeyType, ItemType>::
     int index = hashPtr(target, tableSize);
     if (!table[index]->removeFromList(target, removeItem))
         return false;
-    totalInLists--;
     ItemType headItem;
     table[index]->getItem(headItem);
     // If the removeItem is still in the list, then that means it is the only
@@ -245,11 +247,11 @@ bool HashTable<KeyType, ItemType>::
         table[index] = 0;
     }
     else {
-        collisions--, totalInLists--;
-        avgInLists = totalInLists / static_cast<double>(listCount);
+        collisions--;
         int count = table[index]->getListCount();
         // If only head remains in list, must decrement listCount
         if (!count) listCount--;
+        avgInLists = collisions / static_cast<double>(listCount);
         // If updated list has one less entry than the long list, we need
         // to make sure longListCount still accurate
         if (count == (longListCount - 1)) {
@@ -276,11 +278,10 @@ void HashTable<KeyType, ItemType>::displayStatistics()
     cout << "STATISTICS\n"
          << "Table Size: " << tableSize << endl
          << "Filled Slots: " << filledSlots << endl
-         << "Collisions: " << collisions << endl
          << "Load Factor: " << loadFactor << endl
-         << "List Count: " << listCount << endl
          << "Longest List Length: " << longListCount << endl
-         << "Total In Lists: " << totalInLists << endl
+         << "List Count: " << listCount << endl
+         << "Collisions: " << collisions << endl
          << "Average in Lists: " << avgInLists << "\n\n";
 
 }

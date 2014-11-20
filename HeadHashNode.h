@@ -103,7 +103,6 @@ bool HeadHashNode<KeyType, ItemType>::removeFromList(const KeyType &target, Item
         if (key == target) {
             listCount--;
             nWalk->getItem(item);
-            listCount--;
             prev->setNext(nWalk->getNext());
             delete nWalk;
             return true;
