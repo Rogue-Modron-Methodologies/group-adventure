@@ -7,6 +7,7 @@
 #define CARD_H
 
 #include <string>
+#include <iostream>
 
 using namespace std;
 
@@ -30,8 +31,13 @@ class Card
         string getCost() const { return cost; }
         string getRarity() const { return rarity; }
 
+        // Overloaded ostream operators to display Card and Card*
+        friend ostream& operator<<(ostream& os, const Card &card);
+        friend ostream& operator<<(ostream& os, Card* const &card);
 
+        // These two static functions are used to pass into generic containers
         static unsigned int oat_hash(const string &key, int num);
+        static void display(Card* const &card) { cout << card; }
 };
 
 #endif // CARD_H

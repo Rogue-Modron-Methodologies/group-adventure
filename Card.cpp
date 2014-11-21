@@ -18,3 +18,15 @@ unsigned int Card::oat_hash(const string &key, int num )
     h += ( h << 15 );
     return h % num;
  }
+
+// These are not actually Card member functions, but overloaded friend functions
+ostream& operator<<(ostream& os, const Card &card) {
+    os << card.getCode() << " " << card.getName() << " "
+       << card.getCost() << " " << card.getRarity();
+    return os;
+}
+
+ostream& operator<<(ostream& os, const Card* const &card) {
+    os << *card;
+    return os;
+}
