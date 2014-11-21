@@ -29,8 +29,6 @@ int main(){
 	tempMenu();
 //	runMenu(hashTable, keyTree, nameTree, deleteStack);
 
-	//Save Manager - by Efrain
-
 	//Farewell Function - by Efrain
 
 	//Destroy Structures - by Jordan

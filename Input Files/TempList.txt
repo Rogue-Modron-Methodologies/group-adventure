@@ -1,0 +1,26 @@
+AL	Limited Edition Alpha 		
+001	Animate Dead	1B	Uncommon
+002	Bad Moon	1B	Rare
+003	Black Knight	BB	Uncommon
+004	Bog Wraith	3B	Uncommon
+005	Contract from Below	B	Rare
+006	Cursed Land	2BB	Uncommon
+007	Dark Ritual	B	Common
+008	Darkpact	BBB	Rare
+009	Deathgrip	BB	Uncommon
+010	Deathlace	B	Rare
+011	Demonic Attorney	1BB	Rare
+012	Demonic Hordes	3BBB	Rare
+013	Demonic Tutor	1B	Uncommon
+014	Drain Life	X1B	Common
+015	Drudge Skeletons	1B	Common
+016	Evil Presence	B	Uncommon
+017	Fear	BB	Common
+018	Frozen Shade	2B	Common
+019	Gloom	2B	Uncommon
+020	Howl from Beyond	XB	Common
+021	Hypnotic Specter	1BB	Uncommon
+022	Lich	BBBB	Rare
+023	Lord of the Pit	4BBB	Rare
+024	Mind Twist	XB	Rare
+025	Nether Shadow	BB	Rare
