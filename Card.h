@@ -1,4 +1,3 @@
-// Node for a binary tree
 // Team 3 Group Project
 // CIS 22C - 2014
 // Jamie Johnson, Edward Lim, Nick Arduini, Efrain Esquivel, Jordan Cox, and Steven Bennett
@@ -19,8 +18,14 @@ class Card
         string cost;			// Casting Cost of the Card
         string rarity;			// Rarity of the Card
     public:
-        Card();
-        ~Card();
+		Card(string code = "", string name = "", string cost = "", string rarity = "")
+		{
+			this->code = code;
+			this->name = name;
+			this->cost = cost;
+			this->rarity = rarity;
+		};
+		~Card(){};
         void setCode(string newCode) { code = newCode; }
         void setName(string newName) { name = newName; }
         void setCost(string newCost) { cost = newCost; }

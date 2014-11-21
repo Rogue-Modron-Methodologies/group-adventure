@@ -1,3 +1,5 @@
 AlphaCardList.txt
+
 RevisedCardList.txt
+
 UrzasSagaCardList.txt
