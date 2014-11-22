@@ -45,7 +45,7 @@ void InventoryManager::inventoryCreation(BinarySearchTree* binary_tree, AVLTree*
 	{
 		makeVector(card_collection, card_block);		//read file into vector
 
-		shuffleCollection(card_collection);				//shuffle vector of card pointer 
+		//shuffleCollection(card_collection);				//shuffle vector of card pointer 
 
 		populateStructures(binary_tree, avl_tree, hash_table, card_collection);	//CreateAndPopulateStructures
 
@@ -116,15 +116,24 @@ poepulate the structures with cards (pointers)
 */
 void InventoryManager::populateStructures(BinarySearchTree* binary_tree, AVLTree* avl_tree, HashTable<string, Card*>* hash_table, vector<Card*>& card_collection)
 {
+	int random_select;		//
+	Card* hold;
+
+	srand(time(NULL));		//
+
 	//for loop repeats with size of vector and calls following functions from 
 	//team's work
-	for (int i = 0; i < card_collection.size(); i++)
+	while (0 < card_collection.size())
 	{
-		hash_table->addEntry(card_collection[i]->getCode(), card_collection[i]);	//Insert Hash
+		random_select = rand() % card_collection.size();
 
-		binary_tree->insert(card_collection[i]);		//Insert binary Tree
+		hash_table->addEntry(card_collection[random_select]->getCode(), card_collection[random_select]);	//Insert Hash
 
-		avl_tree->insert(card_collection[i]);		//Insert avl Tree
+		binary_tree->insert(card_collection[random_select]);		//Insert binary Tree
+
+		avl_tree->insert(card_collection[random_select]);		//Insert avl Tree
+
+		card_collection.erase(card_collection.begin() + random_select);
 	}
 }
 
