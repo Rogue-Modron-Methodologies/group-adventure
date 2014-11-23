@@ -34,3 +34,37 @@ ostream& operator<<(ostream& os, const Card* const &card) {
     os << *card;
     return os;
 }
+
+/**~*~*
+Comparison operators are defined so that Card objects are compared based on their code data field.
+*~**/
+bool Card::operator>(const Card& other)
+{
+	if (code <= other.code)
+		return false;
+	return true;
+}
+bool Card::operator<(const Card& other)
+{
+	if (code >= other.code)
+		return false;
+	return true;
+}
+bool Card::operator>=(const Card& other)
+{
+	return !(*this < other);
+}
+bool Card::operator<=(const Card& other)
+{
+	return !(*this > other);
+}
+bool Card::operator==(const Card& other)
+{
+	if (code == other.code)
+		return true;
+	return false;
+}
+bool Card::operator!=(const Card& other)
+{
+	return !(*this == other);
+}
