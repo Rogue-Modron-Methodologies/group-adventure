@@ -27,16 +27,13 @@ class InventoryManager
 private:
 	void makeVector(vector<Card*> &, string);
 //	void shuffleCollection(vector<Card*> &);
-	void populateStructures(BinarySearchTree*, AVLTree*, HashTable<string, Card*>* &, vector<Card*> &);
+	void populateStructures(BinarySearchTree*, AVLTree*, HashTable<string, Card*>*, vector<Card*> &);
 	void checkLoadFactor(HashTable<string, Card*>* &);
 	void reformHashTable(HashTable<string, Card*>* &);
 	int getHashSizePrime(int);
 	bool checkNotPrime(int);
-	void saveCurrentCollection(BinarySearchTree*);
-	void createNewHashTable(HashTable<string, Card*>* &, vector<Card*> &);
 	bool getSaveFileName(string);
 	void makeSaveFile(BinarySearchTree*, string);
-	void destroyEverything(BinarySearchTree*, AVLTree*, HashTable<string, Card*>* );
 	void ripEmUp(HashTable<string, Card*>* );
 
 public:

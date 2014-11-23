@@ -2,36 +2,41 @@
 // CIS 22C - 2014
 // Jamie Johnson, Edward Lim, Nick Arduini, Efrain Esquivel, Jordan Cox, and Steven Bennett
 
-#include "BinarySearchTreeNonUnique.h"
+#include "AVLTree.h"
 #include "BinarySearchTree.h"
 #include "HashTable.h"
+#include "InventoryManager.h"
 #include <stack>
 #include <iostream>
 
 using namespace std;
 
 void displayMenuOptions();
-//void runMenu(HashTable &hashTable, BinarySearchTree &keyTree,
-//	BinarySearchTreeNonUnique &nameTree, stack<Card>& deleteStack);
-void tempMenu();
+void runMenu(HashTable<string, Card*>* hashTable, BinarySearchTree* keyTree,
+	AVLTree* nameTree, stack<Card*>* deleteStack, InventoryManager& manage_inventory);
+//void tempMenu();
 
 int main(){
 
-//	HashTable					hashTable;
-//	BinarySearchTree			keyTree;
-//	BinarySearchTreeNonUnique	nameTree;
-//	stack<Card>					deleteStack;
+	HashTable<string, Card*>* hashTable = 0;
+	BinarySearchTree* keyTree = new BinarySearchTree;
+	AVLTree* nameTree = new AVLTree;
+	stack<Card*>* deleteStack = new stack<Card*>;
+	InventoryManager manage_inventory;
+
 
 	//Welcome Function - by Efrain
 
-	//InvManager - by Jordan
+	manage_inventory.inventoryCreation(keyTree, nameTree, hashTable);		//InvManager - by Jordan
 
-	tempMenu();
-//	runMenu(hashTable, keyTree, nameTree, deleteStack);
+	hashTable->printTable(Card::display);
+	//runMenu(hashTable, keyTree, nameTree, deleteStack, manage_inventory);
 
 	//Farewell Function - by Efrain
 
 	//Destroy Structures - by Jordan
+
+	//manage_inventory->destroyEverything(keyTree, nameTree, hashTable);
 
 	return 0;
 }
@@ -58,9 +63,8 @@ void displayMenuOptions()
 //  Basic Menu - gets user input and switches between options.
 //  Continues until user decides to quit.
 // (¯`'•.¸//(*_*)\\¸.•'´¯`'•.¸//(*_*)\\¸.•'´¯`'•.¸//(*_*)\\¸.•'´¯)
-//void runMenu(HashTable &hashTable, BinarySearchTree &keyTree,
-//	BinarySearchTreeNonUnique &nameTree, stack<Card>& deleteStack)
-void tempMenu()
+void runMenu(HashTable<string, Card*>* hashTable, BinarySearchTree* keyTree,
+	AVLTree* nameTree, stack<Card*>* deleteStack, InventoryManager& manage_inventory)
 {
 	string choice;
 	do{										//cycles through commands until the user decides to quit

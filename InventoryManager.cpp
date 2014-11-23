@@ -32,11 +32,11 @@ void InventoryManager::inventoryCreation(BinarySearchTree* binary_tree, AVLTree*
 	string card_block;
 	vector<Card*> card_collection;
 
-	input_file_names.open("InputFileNames.txt");
+	input_file_names.open("InputFileName.txt");
 
 	if (!input_file_names)														//if statement to ensure .txt file exists
 	{
-		cout << "\n\tERROR! InputFileNames.txt was not found!\n\n";
+		cout << "\n\tERROR! InputFileName.txt was not found!\n\n";
 
 		exit(EXIT_FAILURE);
 	}
@@ -44,6 +44,15 @@ void InventoryManager::inventoryCreation(BinarySearchTree* binary_tree, AVLTree*
 	while (getline(input_file_names, card_block))
 	{
 		makeVector(card_collection, card_block);		//read file into vector
+
+		if (!hash_table)
+		{
+			int prime;
+
+			prime = getHashSizePrime(card_collection.size());
+
+			hash_table = new HashTable<string, Card*>(Card::oat_hash, prime);
+		}
 
 		//shuffleCollection(card_collection);				//shuffle vector of card pointer 
 
@@ -108,7 +117,7 @@ void InventoryManager::shuffleCollection(vector<Card*> &card_collection)
 /** (っ◕‿◕)っ <(n_n<)
 poepulate the structures with cards (pointers)
 */
-void InventoryManager::populateStructures(BinarySearchTree* binary_tree, AVLTree* avl_tree, HashTable<string, Card*>* &hash_table, vector<Card*>& card_collection)
+void InventoryManager::populateStructures(BinarySearchTree* binary_tree, AVLTree* avl_tree, HashTable<string, Card*>* hash_table, vector<Card*>& card_collection)
 {
 	int random_select;		//
 	Card* hold;
@@ -148,7 +157,7 @@ void InventoryManager::reformHashTable(HashTable<string, Card*>* &hash_table)
 {
 	cout << "\n\n\tHash table load factor over 75%.\n\n\tRe-hashing.\n";
 
-	int big_prime_number = getHashSizePrime(hash_table->getTotalInLists());
+	int big_prime_number = getHashSizePrime(hash_table->getLongListCount());
 
 	cout << "\n\tNew hash table size:- " << big_prime_number << endl;
 
