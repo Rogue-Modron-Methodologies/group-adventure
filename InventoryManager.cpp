@@ -26,7 +26,7 @@ using namespace std;
 /** (っ◕‿◕)っ <(n_n<)
 function calls other function, together they read files and creat initial data structures
 */
-void InventoryManager::inventoryCreation(BinarySearchTree* binary_tree, AVLTree* avl_tree, HashTable<string, Card*>* hash_table)
+void InventoryManager::inventoryCreation(BinarySearchTree* binary_tree, AVLTree* avl_tree, HashTable<string, Card*>* &hash_table)
 {
 	ifstream input_file_names;
 	string card_block;
@@ -88,7 +88,7 @@ void InventoryManager::makeVector(vector<Card*> &card_collection, string card_bl
 
 /** (っ◕‿◕)っ <(n_n<)
 shuffle the vector to make better BST
-*/
+
 void InventoryManager::shuffleCollection(vector<Card*> &card_collection)
 {
 	int swtchIndex;
@@ -104,11 +104,11 @@ void InventoryManager::shuffleCollection(vector<Card*> &card_collection)
 		card_collection[swtchIndex] = hold;
 	}
 }
-
+*/
 /** (っ◕‿◕)っ <(n_n<)
 poepulate the structures with cards (pointers)
 */
-void InventoryManager::populateStructures(BinarySearchTree* binary_tree, AVLTree* avl_tree, HashTable<string, Card*>* hash_table, vector<Card*>& card_collection)
+void InventoryManager::populateStructures(BinarySearchTree* binary_tree, AVLTree* avl_tree, HashTable<string, Card*>* &hash_table, vector<Card*>& card_collection)
 {
 	int random_select;		//
 	Card* hold;
@@ -134,7 +134,7 @@ void InventoryManager::populateStructures(BinarySearchTree* binary_tree, AVLTree
 /** (っ◕‿◕)っ <(n_n<)
 checks load factor of hash
 */
-void InventoryManager::checkLoadFactor(HashTable<string, Card*>* hash_table)
+void InventoryManager::checkLoadFactor(HashTable<string, Card*>* &hash_table)
 {
 	//if statment to check if load factor is greater then 75%, if yes call below
 	if (hash_table->getLoadFactor() > 0.75)
@@ -144,7 +144,7 @@ void InventoryManager::checkLoadFactor(HashTable<string, Card*>* hash_table)
 /** (っ◕‿◕)っ <(n_n<)
 reform hash table using count of old tables pointers
 */
-void InventoryManager::reformHashTable(HashTable<string, Card*>* hash_table)
+void InventoryManager::reformHashTable(HashTable<string, Card*>* &hash_table)
 {
 	cout << "\n\n\tHash table load factor over 75%.\n\n\tRe-hashing.\n";
 
