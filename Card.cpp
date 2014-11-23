@@ -30,7 +30,7 @@ ostream& operator<<(ostream& os, const Card &card) {
     return os;
 }
 
-ostream& operator<<(ostream& os, const Card* const &card) {
+ostream& operator<<(ostream& os, Card* const &card) {
     os << *card;
     return os;
 }

@@ -7,10 +7,7 @@
 //
 
 #include <stdio.h>
-<<<<<<< HEAD
-#include "BinaryTree.h"
-=======
->>>>>>> 78f6e996f33ec374414674b67dbcdf5a20487cd8
+
 #include "BinarySearchTree.h"
 #include <iomanip>
 #include <fstream>
@@ -146,20 +143,12 @@ void BinarySearchTree::_displayTree(TreeNode* nodePtr){
     
     if(nodePtr){
         _displayTree(nodePtr->getLeftPtr());
-<<<<<<< HEAD
+
 
              cout << "Name: "<< nodePtr->getCardPtr()->getName() << " "
                   << "Code: "<<nodePtr->getCardPtr()->getCode() << endl;
 
-=======
-        
-        cout << "\n---------------------------\n"
-             << "Name: "<< nodePtr->getCardPtr()->getName() << endl
-             << "Code: "<<nodePtr->getCardPtr()->getCode() << endl
-             << "Rarity: "<<nodePtr->getCardPtr()->getRarity() << endl
-             << "Cost: "<<nodePtr->getCardPtr()->getCost() << endl
-             << "\n---------------------------\n";
->>>>>>> 78f6e996f33ec374414674b67dbcdf5a20487cd8
+
         _displayTree(nodePtr->getRightPtr());
     }
 }
@@ -181,13 +170,10 @@ void BinarySearchTree::_displayIndentedTree(TreeNode* nodePtr, int &lineNum){ //
         for(int i=0;i<lineNum;i++) {    cout << "\t";}
         lineNum++;
         
-<<<<<<< HEAD
+
         cout << lineNum << ".) " << "Name: "<< nodePtr->getCardPtr()->getName();
         cout << " " << "Code: " << nodePtr->getCardPtr()->getCode() << endl;
-=======
-        cout << lineNum << ".) " << nodePtr->getCardPtr()->getName();
-        cout << "\t" << nodePtr->getCardPtr()->getCode() << endl;
->>>>>>> 78f6e996f33ec374414674b67dbcdf5a20487cd8
+
         _displayIndentedTree(nodePtr->getRightPtr(),lineNum);
         _displayIndentedTree(nodePtr->getLeftPtr(),lineNum);
         
@@ -251,11 +237,9 @@ void BinarySearchTree::writeTreeToFile(ofstream &outFile){
 void BinarySearchTree::_writeTreeToFile(TreeNode* root,ofstream &outFile){
     _writeTreeToFile(root->getLeftPtr(),outFile);
     outFile << root->getCardPtr()->getName() << " "
-<<<<<<< HEAD
+
             << root->getCardPtr()->getCode() << endl;
-=======
-            << root->getCardPtr()->getCode();
->>>>>>> 78f6e996f33ec374414674b67dbcdf5a20487cd8
+
     _writeTreeToFile(root->getRightPtr(),outFile);
 }
 

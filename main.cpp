@@ -29,7 +29,6 @@ int main(){
 
 	manage_inventory.inventoryCreation(keyTree, nameTree, hashTable);		//InvManager - by Jordan
 
-	hashTable->printTable(Card::display);
 	//runMenu(hashTable, keyTree, nameTree, deleteStack, manage_inventory);
 
 	//Farewell Function - by Efrain
@@ -117,5 +116,3 @@ void runMenu(HashTable<string, Card*>* hashTable, BinarySearchTree* keyTree,
 		}
 	} while (toupper(choice[0]) != 'Q');
 }
-
-
