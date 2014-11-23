@@ -62,33 +62,27 @@ void InventoryManager::makeVector(vector<Card*> &card_collection, string card_bl
 {
 	ifstream block_source;
 	string temp_code, block_name, temp_buff, code, name, cost, rarity;
-	stringstream card_stats;
 
-	block_source.open(card_block);										//first 2 characters of first line of document represent block of magic cards
+	block_source.open(card_block); //first 2 characters of first line of document represent block of magic cards
 
-	getline(block_source, temp_buff);									//get first line of document
+	getline(block_source, temp_buff); //get first line of document
 
-	block_name = temp_buff.substr(0, 2);								//get first 2 characters
-
-	while (getline(block_source, temp_buff))							//read document and assign card
+	block_name = temp_buff.substr(0, 2); //get first 2 characters
+	
+	while (getline(block_source, code, '\t')) //read document and assign card
 	{
-		card_stats << temp_buff;
+		code.insert(0, block_name); //isnerts block code before card number to create unique key
 
-		getline(card_stats, code, '\t');								//puts card number into string
+		getline(block_source, name, '\t'); //puts card name into string
 
-		code.insert(0, block_name);										//isnerts block code before card number to create unique key
+		getline(block_source, cost, '\t'); //puts card cost into string
 
-		getline(card_stats, name, '\t');								//puts card name into string
+		getline(block_source, rarity, '\n'); //puts card rarity into string
 
-		getline(card_stats, cost, '\t');								//puts card cost into string
+		Card* new_ptr = new Card(code, name, cost, rarity); //create new card object
 
-		getline(card_stats, rarity, '\t');								//puts card rarity into string
-
-		Card* new_ptr = new Card(code, name, cost, rarity);				//create new card object
-
-		card_collection.push_back(new_ptr);								//add card pointer to vector
+		card_collection.push_back(new_ptr); //add card pointer to vector
 	}
-
 	block_source.close();
 }
 
