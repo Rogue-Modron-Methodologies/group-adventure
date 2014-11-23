@@ -39,6 +39,14 @@ class Card
         // Overloaded ostream operators to display Card and Card*
         friend ostream& operator<<(ostream& os, const Card &card);
         friend ostream& operator<<(ostream& os, Card* const &card);
+        
+        // Overload comparison operators to compare by code
+	bool operator>(const Card& other);
+	bool operator<(const Card& other);
+	bool operator>=(const Card& other);
+	bool operator<=(const Card& other);
+	bool operator==(const Card& other);
+	bool operator!=(const Card& other);
 
         // These two static functions are used to pass into generic containers
         static unsigned int oat_hash(const string &key, int num);
