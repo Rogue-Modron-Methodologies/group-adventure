@@ -51,8 +51,14 @@ void InventoryManager::inventoryCreation(BinarySearchTree* binary_tree, AVLTree*
 
 			prime = getHashSizePrime(card_collection.size());
 
+			cout << "\n\t" << prime;
+
 			hash_table = new HashTable<string, Card*>(Card::oat_hash, prime);
+
+			cout << "Hash size: " << hash_table->getTableSize() << "\n";
+
 		}
+
 
 		//shuffleCollection(card_collection);				//shuffle vector of card pointer 
 
@@ -157,7 +163,7 @@ void InventoryManager::reformHashTable(HashTable<string, Card*>* &hash_table)
 {
 	cout << "\n\n\tHash table load factor over 75%.\n\n\tRe-hashing.\n";
 
-	int big_prime_number = getHashSizePrime(hash_table->getLongListCount());
+	int big_prime_number = getHashSizePrime((hash_table->getFilledSlots() + hash_table->getCollisions()));
 
 	cout << "\n\tNew hash table size:- " << big_prime_number << endl;
 
