@@ -45,22 +45,17 @@ void InventoryManager::inventoryCreation(BinarySearchTree* binary_tree, AVLTree*
 	{
 		makeVector(card_collection, card_block);		//read file into vector
 
-		if (!hash_table)
+		if (!hash_table)								//beginning size of hash table
 		{
 			int prime;
 
 			prime = getHashSizePrime(card_collection.size());
-
-			cout << "\n\t" << prime;
 
 			hash_table = new HashTable<string, Card*>(Card::oat_hash, prime);
 
 			cout << "Hash size: " << hash_table->getTableSize() << "\n";
 
 		}
-
-
-		//shuffleCollection(card_collection);				//shuffle vector of card pointer 
 
 		populateStructures(binary_tree, avl_tree, hash_table, card_collection);	//CreateAndPopulateStructures
 
@@ -78,63 +73,50 @@ void InventoryManager::makeVector(vector<Card*> &card_collection, string card_bl
 	ifstream block_source;
 	string temp_code, block_name, temp_buff, code, name, cost, rarity;
 
-	block_source.open(card_block); //first 2 characters of first line of document represent block of magic cards
+	block_source.open(card_block);						//first 2 characters of first line of document represent block of magic cards
 
-	getline(block_source, temp_buff); //get first line of document
+	getline(block_source, temp_buff);					//get first line of document
 
-	block_name = temp_buff.substr(0, 2); //get first 2 characters
+	block_name = temp_buff.substr(0, 2);				//get first 2 characters
 	
-	while (getline(block_source, code, '\t')) //read document and assign card
+	while (getline(block_source, code, '\t'))			//read document and assign card
 	{
-		code.insert(0, block_name); //isnerts block code before card number to create unique key
+		code.insert(0, block_name);						//isnerts block code before card number to create unique key
 
-		getline(block_source, name, '\t'); //puts card name into string
+		getline(block_source, name, '\t');				//puts card name into string
 
-		getline(block_source, cost, '\t'); //puts card cost into string
+		for (int i = 0; i < name.length(); i++)			//needs to be uppercase
+			name[i] = toupper(name[i]);
 
-		getline(block_source, rarity, '\n'); //puts card rarity into string
+		getline(block_source, cost, '\t');				//puts card cost into string
+
+		getline(block_source, rarity, '\n');			//puts card rarity into string
+
+		for (int i = 0; i < rarity.length(); i++)		//needs to be uppercase
+			rarity[i] = toupper(rarity[i]);
 
 		Card* new_ptr = new Card(code, name, cost, rarity); //create new card object
 
-		card_collection.push_back(new_ptr); //add card pointer to vector
+		card_collection.push_back(new_ptr);				//add card pointer to vector
 	}
 	block_source.close();
 }
 
 /** (っ◕‿◕)っ <(n_n<)
-shuffle the vector to make better BST
-
-void InventoryManager::shuffleCollection(vector<Card*> &card_collection)
-{
-	int swtchIndex;
-	Card* hold;
-
-	srand(time(NULL));
-
-	for (int i = 0; i < card_collection.size(); i++)					//shuffles vector
-	{
-		swtchIndex = rand() % card_collection.size();
-		hold = card_collection[i];
-		card_collection[i] = card_collection[swtchIndex];
-		card_collection[swtchIndex] = hold;
-	}
-}
-*/
-/** (っ◕‿◕)っ <(n_n<)
-poepulate the structures with cards (pointers)
+populate the structures with cards (pointers)
 */
 void InventoryManager::populateStructures(BinarySearchTree* binary_tree, AVLTree* avl_tree, HashTable<string, Card*>* hash_table, vector<Card*>& card_collection)
 {
-	int random_select;		//
+	int random_select;		
 	Card* hold;
 
-	srand(time(NULL));		//
+	srand(time(NULL));		
 
 	//for loop repeats with size of vector and calls following functions from 
 	//team's work
 	while (0 < card_collection.size())
 	{
-		random_select = rand() % card_collection.size();
+		random_select = rand() % card_collection.size();			//randomise entree into structures (doesn't matter for hash, but what the hell)
 
 		hash_table->addEntry(card_collection[random_select]->getCode(), card_collection[random_select]);	//Insert Hash
 
@@ -142,7 +124,7 @@ void InventoryManager::populateStructures(BinarySearchTree* binary_tree, AVLTree
 
 		avl_tree->insert(card_collection[random_select]);		//Insert avl Tree
 
-		card_collection.erase(card_collection.begin() + random_select);
+		card_collection.erase(card_collection.begin() + random_select);			//removes item just entered so it can't be randomly selected again
 	}
 }
 
@@ -213,9 +195,9 @@ void InventoryManager::saveCurrentCollection(BinarySearchTree* binary_tree)
 	string save_file_name;
 
 	//while statment is to help get good name (don't forget there is a ! before the function call)
-	while (!getSaveFileName(save_file_name));	//ask for name of save-too file and check availabilty of the name
+	while (!getSaveFileName(save_file_name));			//ask for name of save-too file and check availabilty of the name
 
-	makeSaveFile(binary_tree, save_file_name);//create file with user entered name and output card collection to file 
+	makeSaveFile(binary_tree, save_file_name);			//create file with user entered name and output card collection to file 
 }
 
 /** (っ◕‿◕)っ <(n_n<)
@@ -223,17 +205,25 @@ make sure user enters good name for save file
 */
 bool InventoryManager::getSaveFileName(string save_file_name)
 {
-	cout << "\n\n\tEnter name of save file.\n";//cout message to request name
+	ifstream check_name;
+
+	cout << "\n\n\tEnter name of save file.\n";		//cout message to request name
 
 	cin >> save_file_name;
 
-	if (ifstream(save_file_name))	//check name is good
+	check_name.open(save_file_name);
+
+	if (!check_name)				//check name is good
+	{
+		return true;
+	}
+	else
 	{
 		cout << "\n\n\tFile already exists\n";
 		return false;
 	}
 
-	return true;
+	
 }
 
 /** (っ◕‿◕)っ <(n_n<)
@@ -245,7 +235,7 @@ void InventoryManager::makeSaveFile(BinarySearchTree* binary_tree, string save_f
 
 	save_file.open(save_file_name);
 
-	binary_tree->writeTreeToFile(save_file);				//save tree to user named file
+	binary_tree->writeTreeToFile(save_file);		//save tree to user named file
 }
 
 /** (っ◕‿◕)っ <(n_n<)
@@ -271,7 +261,7 @@ void InventoryManager::ripEmUp(HashTable<string, Card*>* hash_table)
 
 	hash_table->getItems(card_collection);
 
-	for (int i = card_collection.size(); i >= card_collection.size(); i--)	//traverse hash_table deleting all card objects
+	for (int i = card_collection.size(); i >= card_collection.size(); i--)		//traverse hash_table deleting all card objects
 	{
 		delete card_collection[i];
 	}

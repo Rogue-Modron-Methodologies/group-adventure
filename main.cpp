@@ -17,7 +17,7 @@ void addManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashTable<string, 
 void searchManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashTable<string, Card*>* hashTable);
 void deleteManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashTable<string, Card*>* hashTable, stack<Card*>* deleteStack);
 void pushOnStack(Card *TempCard, stack<Card*>* deleteStack);
-void saveManager(BinarySearchTree* keyTree, stack<Card*>* deleteStack);
+void saveManager(BinarySearchTree* keyTree, stack<Card*>* deleteStack, InventoryManager &);
 void DeleteStack(stack<Card*>* deleteStack);
 void displayHashStats(HashTable<string, Card*>* hashTable);
 void displayTreeManager(BinarySearchTree* keyTree, AVLTree* nameTree);
@@ -101,7 +101,7 @@ void runMenu(HashTable<string, Card*>* hashTable, BinarySearchTree* keyTree,
 			displayIndentedTreeManager(keyTree, nameTree);
 			break;
 		case 'V':
-			saveManager(keyTree, deleteStack);
+			saveManager(keyTree, deleteStack, manage_inventory);
 			break;
 		case 'T':
 			displayHashStats(hashTable);
@@ -238,10 +238,10 @@ void pushOnStack(Card *TempCard, stack<Card*>* deleteStack) {
 	deleteStack->push(TempCard);
 }
 
-void saveManager(BinarySearchTree* keyTree, stack<Card*>* deleteStack) {
+void saveManager(BinarySearchTree* keyTree, stack<Card*>* deleteStack, InventoryManager &manage_inventory) {
 	DeleteStack(deleteStack);
 	cout << "Deleting stack..." << endl;
-	//keyTree->writeTreeToFile();
+	manage_inventory.saveCurrentCollection(keyTree);
 	cout << "Saving current collection..." << endl;
 }
 
