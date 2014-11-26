@@ -234,13 +234,15 @@ void BinarySearchTree::writeTreeToFile(ofstream &outFile){
     _writeTreeToFile(rootPtr,outFile);
 }
 
-void BinarySearchTree::_writeTreeToFile(TreeNode* root,ofstream &outFile){
-    _writeTreeToFile(root->getLeftPtr(),outFile);
-    outFile << root->getCardPtr()->getName() << " "
+void BinarySearchTree::_writeTreeToFile(TreeNode* current_pointer,ofstream &outFile){
+    _writeTreeToFile(current_pointer->getLeftPtr(),outFile);
+    
+    outFile << current_pointer->getCardPtr()->getCode() << "\t"
+            << current_pointer->getCardPtr()->getName() << "\t"
+            << current_pointer->getCardPtr()->getCost() << "\t"
+            << current_pointer->getCardPtr()->getRarity() << endl;
 
-            << root->getCardPtr()->getCode() << endl;
-
-    _writeTreeToFile(root->getRightPtr(),outFile);
+    _writeTreeToFile(current_pointer->getRightPtr(),outFile);
 }
 
 
