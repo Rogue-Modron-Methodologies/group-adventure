@@ -1,26 +1,125 @@
-AL	Limited Edition Alpha 		
-001	Animate Dead	1B	Uncommon
-002	Bad Moon	1B	Rare
-003	Black Knight	BB	Uncommon
-004	Bog Wraith	3B	Uncommon
-005	Contract from Below	B	Rare
-006	Cursed Land	2BB	Uncommon
-007	Dark Ritual	B	Common
-008	Darkpact	BBB	Rare
-009	Deathgrip	BB	Uncommon
-010	Deathlace	B	Rare
-011	Demonic Attorney	1BB	Rare
-012	Demonic Hordes	3BBB	Rare
-013	Demonic Tutor	1B	Uncommon
-014	Drain Life	X1B	Common
-015	Drudge Skeletons	1B	Common
-016	Evil Presence	B	Uncommon
-017	Fear	BB	Common
-018	Frozen Shade	2B	Common
-019	Gloom	2B	Uncommon
-020	Howl from Beyond	XB	Common
-021	Hypnotic Specter	1BB	Uncommon
-022	Lich	BBBB	Rare
-023	Lord of the Pit	4BBB	Rare
-024	Mind Twist	XB	Rare
-025	Nether Shadow	BB	Rare
+GP	Group 3 Edition 		
+1	Animate Dead	1B	Uncommon
+3	Black Knight	BB	Uncommon
+6	Cursed Land	2BB	Uncommon
+7	Dark Ritual	B	Common
+8	Darkpact	BBB	Rare
+11	Demonic Attorney	1BB	Rare
+13	Demonic Tutor	1B	Uncommon
+14	Drain Life	X1B	Common
+15	Drudge Skeletons	1B	Common
+16	El-Hajjâj	1BB	Rare
+20	Frozen Shade	2B	Common
+24	Lord of the Pit	4BBB	Rare
+25	Mind Twist	XB	Rare
+29	Paralyze	B	Common
+30	Pestilence	2BB	Common
+31	Plague Rats	2B	Common
+32	Raise Dead	B	Common
+36	Scavenging Ghoul	3B	Uncommon
+40	Terror	1B	Common
+41	Unholy Strength	B	Common
+44	Weakness	B	Common
+46	Zombie Master	1BB	Rare
+52	Control Magic	2UU	Uncommon
+53	Copy Artifact	1U	Rare
+55	Creature Bond	1U	Common
+59	Flight	U	Common
+62	Jump	U	Common
+67	Mana Short	2U	Rare
+69	Phantasmal Forces	3U	Uncommon
+70	Phantasmal Terrain	UU	Common
+77	Reconstruction	U	Common
+80	Siren's Call	U	Uncommon
+84	Steal Artifact	2UU	Uncommon
+88	Vesuvan Doppelganger	3UU	Rare
+90	Wall of Air	1UU	Uncommon
+91	Wall of Water	1UU	Uncommon
+96	Cockatrice	3GG	Rare
+101	Fastbond	G	Rare
+102	Fog	G	Common
+105	Gaea's Liege	3GGG	Rare
+107	Giant Spider	3G	Common
+113	Ley Druid	2G	Uncommon
+116	Living Artifact	G	Rare
+117	Living Lands	3G	Rare
+121	Regrowth	1G	Uncommon
+125	Thicket Basilisk	3GG	Uncommon
+130	Verduran Enchantress	1GG	Rare
+132	Wall of Ice	2G	Uncommon
+134	Wanderlust	2G	Uncommon
+135	War Mammoth	3G	Common
+141	Disintegrate	XR	Common
+143	Dwarven Warriors	2R	Common
+147	Earthquake	XR	Rare
+150	Firebreathing	R	Common
+154	Goblin King	1RR	Rare
+159	Keldon Warlord	2RR	Uncommon
+161	Lightning Bolt	R	Common
+163	Mana Flare	2R	Rare
+168	Orcish Oriflamme	3R	Uncommon
+171	Roc of Kher Ridges	3R	Rare
+178	Stone Giant	2RR	Uncommon
+180	Tunnel	R	Uncommon
+185	Animate Wall	W	Rare
+190	Blessing	WW	Rare
+191	Blue Ward	W	Uncommon
+196	Circle of Protection: Red	1W	Common
+197	Circle of Protection: White	1W	Common
+202	Eye for an Eye	WW	Rare
+204	Green Ward	W	Uncommon
+207	Holy Armor	W	Common
+209	Island Sanctuary	1W	Rare
+210	Karma	2WW	Uncommon
+213	Northern Paladin	2WW	Rare
+216	Purelace	W	Rare
+218	Resurrection	2WW	Uncommon
+226	Veteran Bodyguard	3WW	Rare
+228	White Knight	WW	Uncommon
+235	Basalt Monolith	3	Uncommon
+237	Bottle of Suleiman	4	Rare
+240	Clockwork Beast	6	Rare
+246	Dragon Engine	3	Rare
+250	Helm of Chatzuk	1	Rare
+251	Howling Mine	2	Rare
+252	Iron Star	1	Uncommon
+255	Jade Monolith	4	Rare
+257	Jandor's Saddlebags	2	Rare
+258	Jayemdae Tome	4	Rare
+260	Kormus Bell	4	Rare
+262	Living Wall	4	Uncommon
+265	Millstone	2	Rare
+266	Mishra's War Machine	7	Rare
+268	Obsianus Golem	6	Uncommon
+269	Onulet	3	Rare
+271	Primal Clay	4	Rare
+272	Rocket Launcher	4	Rare
+273	Rod of Ruin	4	Uncommon
+276	Sunglasses of Urza	3	Rare
+279	Throne of Bone	1	Uncommon
+280	Winter Orb	2	Rare
+282	Badlands	N/A	Rare
+283	Bayou	N/A	Rare
+284	Forest	N/A	Land
+285	Forest	N/A	Land
+286	Forest	N/A	Land
+287	Island	N/A	Land
+288	Island	N/A	Land
+289	Island	N/A	Land
+290	Mountain	N/A	Land
+291	Mountain	N/A	Land
+292	Mountain	N/A	Land
+293	Plains	N/A	Land
+294	Plains	N/A	Land
+295	Plains	N/A	Land
+296	Plateau	N/A	Rare
+297	Savannah	N/A	Rare
+298	Scrubland	N/A	Rare
+299	Swamp	N/A	Land
+300	Swamp	N/A	Land
+301	Swamp	N/A	Land
+302	Taiga	N/A	Rare
+303	Tropical Island	N/A	Rare
+304	Tundra	N/A	Rare
+305	Underground Sea	N/A	Rare
+306	Volcanic Island	N/A	Rare
