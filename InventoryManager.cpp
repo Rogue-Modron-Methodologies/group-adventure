@@ -200,9 +200,7 @@ void InventoryManager::saveCurrentCollection(BinarySearchTree* binary_tree)
 
 	//save_file.open(save_file_name.c_str());
 
-	binary_tree->writeTreeToFile(save_file);			//create file with user entered name and output card collection to file 
-
-	save_file.close();
+	makeSaveFile(binary_tree, save_file_name);			//create file with user entered name and output card collection to file 
 }
 
 /** (っ◕‿◕)っ <(n_n<)
@@ -223,6 +221,7 @@ bool InventoryManager::getSaveFileName(string &save_file_name)
 
 	if (!check_name)				//check name is good
 	{
+		check_name.close();
 		return true;
 	}
 	else
@@ -244,6 +243,8 @@ void InventoryManager::makeSaveFile(BinarySearchTree* binary_tree, string save_f
 	save_file.open(save_file_name.c_str());
 
 	binary_tree->writeTreeToFile(save_file);		//save tree to user named file
+
+	save_file.close();
 }
 
 /** (っ◕‿◕)っ <(n_n<)

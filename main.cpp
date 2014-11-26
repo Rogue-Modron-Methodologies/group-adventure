@@ -9,15 +9,15 @@
 using namespace std;
 
 void displayMenuOptions();
-void runMenu(HashTable<string, Card*>* hashTable, BinarySearchTree* keyTree,
-	AVLTree* nameTree, stack<Card*>* deleteStack, InventoryManager& manage_inventory);
+void runMenu(HashTable<string, Card*>* &hashTable, BinarySearchTree* keyTree,
+	AVLTree* nameTree, stack<Card*>* deleteStack);
 void welcome();
 void displayMenuOptions();
-void addManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashTable<string, Card*>* hashTable);
+void addManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashTable<string, Card*>* &hashTable);
 void searchManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashTable<string, Card*>* hashTable);
 void deleteManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashTable<string, Card*>* hashTable, stack<Card*>* deleteStack);
 void pushOnStack(Card *TempCard, stack<Card*>* deleteStack);
-void saveManager(BinarySearchTree* keyTree, stack<Card*>* deleteStack, InventoryManager &);
+void saveManager(BinarySearchTree* keyTree, stack<Card*>* deleteStack);
 void DeleteStack(stack<Card*>* deleteStack);
 void displayHashStats(HashTable<string, Card*>* hashTable);
 void displayTreeManager(BinarySearchTree* keyTree, AVLTree* nameTree);
@@ -33,20 +33,19 @@ int main(){
 	BinarySearchTree* keyTree = new BinarySearchTree;
 	AVLTree* nameTree = new AVLTree;
 	stack<Card*>* deleteStack = new stack<Card*>;
-	InventoryManager manage_inventory;
 
 
 	welcome();
 
-	manage_inventory.inventoryCreation(keyTree, nameTree, hashTable);		//InvManager - by Jordan
+	InventoryManager::inventoryCreation(keyTree, nameTree, hashTable);		//InvManager - by Jordan
 
-	runMenu(hashTable, keyTree, nameTree, deleteStack, manage_inventory);
+	runMenu(hashTable, keyTree, nameTree, deleteStack);
 
 	farewell();
 
 	//Destroy Structures - by Jordan
 
-	//manage_inventory->destroyEverything(keyTree, nameTree, hashTable);
+	//InventoryManager::destroyEverything(keyTree, nameTree, hashTable);
 
 	return 0;
 }
@@ -73,8 +72,8 @@ void displayMenuOptions()
 //  Basic Menu - gets user input and switches between options.
 //  Continues until user decides to quit.
 // (¯`'•.¸//(*_*)\\¸.•'´¯`'•.¸//(*_*)\\¸.•'´¯`'•.¸//(*_*)\\¸.•'´¯)
-void runMenu(HashTable<string, Card*>* hashTable, BinarySearchTree* keyTree,
-	AVLTree* nameTree, stack<Card*>* deleteStack, InventoryManager& manage_inventory)
+void runMenu(HashTable<string, Card*>* &hashTable, BinarySearchTree* keyTree,
+	AVLTree* nameTree, stack<Card*>* deleteStack)
 {
 	string choice;
 	do{										//cycles through commands until the user decides to quit
@@ -101,7 +100,7 @@ void runMenu(HashTable<string, Card*>* hashTable, BinarySearchTree* keyTree,
 			displayIndentedTreeManager(keyTree, nameTree);
 			break;
 		case 'V':
-			saveManager(keyTree, deleteStack, manage_inventory);
+			saveManager(keyTree, deleteStack);
 			break;
 		case 'T':
 			displayHashStats(hashTable);
@@ -122,7 +121,7 @@ void runMenu(HashTable<string, Card*>* hashTable, BinarySearchTree* keyTree,
 
 ///////////////////////////////////////////////////////////////////////////////
 
-void addManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashTable<string, Card*>* hashTable) {
+void addManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashTable<string, Card*>* &hashTable) {
 	string key = "", buffer = "";
 
 	cout << "ADD MANAGER\n\tPlease enter a valid serial number in the format AA111." << endl;
@@ -149,6 +148,8 @@ void addManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashTable<string, 
 		cout << "Inserting into nameTree..." << endl;
 		hashTable->addEntry(TempCard->getCode(), TempCard);
 		cout << "Inserting into hashTable..." << endl;
+
+		InventoryManager::checkLoadFactor(hashTable);
 	}
 }
 
@@ -238,10 +239,10 @@ void pushOnStack(Card *TempCard, stack<Card*>* deleteStack) {
 	deleteStack->push(TempCard);
 }
 
-void saveManager(BinarySearchTree* keyTree, stack<Card*>* deleteStack, InventoryManager &manage_inventory) {
+void saveManager(BinarySearchTree* keyTree, stack<Card*>* deleteStack) {
 	DeleteStack(deleteStack);
 	cout << "Deleting stack..." << endl;
-	manage_inventory.saveCurrentCollection(keyTree);
+	InventoryManager::saveCurrentCollection(keyTree);
 	cout << "Saving current collection..." << endl;
 }
 
