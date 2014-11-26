@@ -20,7 +20,7 @@ modified pointer to node is passed in
  */
 bool BinarySearchTree::insert(Card* newCardPtr){
     
-    TreeNode* newCard = new TreeNode;
+    TreeNode* newCard = new TreeNode();
     newCard->setCardPtr(newCardPtr);
     rootPtr = _insert(rootPtr,newCard);
     count++;
@@ -235,14 +235,19 @@ void BinarySearchTree::writeTreeToFile(ofstream &outFile){
 }
 
 void BinarySearchTree::_writeTreeToFile(TreeNode* current_pointer,ofstream &outFile){
-    _writeTreeToFile(current_pointer->getLeftPtr(),outFile);
-    
-    outFile << current_pointer->getCardPtr()->getCode() << "\t"
-            << current_pointer->getCardPtr()->getName() << "\t"
-            << current_pointer->getCardPtr()->getCost() << "\t"
-            << current_pointer->getCardPtr()->getRarity() << endl;
 
-    _writeTreeToFile(current_pointer->getRightPtr(),outFile);
+	if (current_pointer == 0)
+		return;
+
+	_writeTreeToFile(current_pointer->getLeftPtr(), outFile);
+		
+	outFile << current_pointer->getCardPtr()->getCode() << "\t"
+			<< current_pointer->getCardPtr()->getName() << "\t"
+			<< current_pointer->getCardPtr()->getCost() << "\t"
+			<< current_pointer->getCardPtr()->getRarity() << endl;
+
+	_writeTreeToFile(current_pointer->getRightPtr(), outFile);
+	
 }
 
 

@@ -73,7 +73,7 @@ void InventoryManager::makeVector(vector<Card*> &card_collection, string card_bl
 	ifstream block_source;
 	string temp_code, block_name, temp_buff, code, name, cost, rarity;
 
-	block_source.open(card_block);						//first 2 characters of first line of document represent block of magic cards
+	block_source.open(card_block.c_str());						//first 2 characters of first line of document represent block of magic cards
 
 	getline(block_source, temp_buff);					//get first line of document
 
@@ -198,7 +198,7 @@ void InventoryManager::saveCurrentCollection(BinarySearchTree* binary_tree)
 	//while statment is to help get good name (don't forget there is a ! before the function call)
 	while (!getSaveFileName(save_file_name));			//ask for name of save-too file and check availabilty of the name
 
-	save_file.open(save_file_name);
+	//save_file.open(save_file_name.c_str());
 
 	binary_tree->writeTreeToFile(save_file);			//create file with user entered name and output card collection to file 
 
@@ -208,15 +208,18 @@ void InventoryManager::saveCurrentCollection(BinarySearchTree* binary_tree)
 /** (っ◕‿◕)っ <(n_n<)
 make sure user enters good name for save file
 */
-bool InventoryManager::getSaveFileName(string save_file_name)
+bool InventoryManager::getSaveFileName(string &save_file_name)
 {
 	ifstream check_name;
 
 	cout << "\n\n\tEnter name of save file.\n";		//cout message to request name
 
-	cin >> save_file_name;
+	getline(cin, save_file_name);
 
-	check_name.open(save_file_name);
+	//cin >> save_file_name;
+
+
+	check_name.open(save_file_name.c_str());
 
 	if (!check_name)				//check name is good
 	{
@@ -238,7 +241,7 @@ void InventoryManager::makeSaveFile(BinarySearchTree* binary_tree, string save_f
 {
 	ofstream save_file;
 
-	save_file.open(save_file_name);
+	save_file.open(save_file_name.c_str());
 
 	binary_tree->writeTreeToFile(save_file);		//save tree to user named file
 }

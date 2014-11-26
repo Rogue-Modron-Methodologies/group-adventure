@@ -31,7 +31,7 @@ private:
 	static void reformHashTable(HashTable<string, Card*>* &);
 	static int getHashSizePrime(int);
 	static bool checkNotPrime(int);
-	static bool getSaveFileName(string);
+	static bool getSaveFileName(string&);
 	static void makeSaveFile(BinarySearchTree*, string);
 	static void ripEmUp(HashTable<string, Card*>*);
 
