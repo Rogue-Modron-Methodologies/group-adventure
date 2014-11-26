@@ -146,7 +146,7 @@ void BinarySearchTree::_displayTree(TreeNode* nodePtr){
 
 
              cout << "Name: "<< nodePtr->getCardPtr()->getName() << " "
-                  << "Code: "<<nodePtr->getCardPtr()->getCode() << endl;
+                  << "Code: "<< nodePtr->getCardPtr()->getCode() << endl;
 
 
         _displayTree(nodePtr->getRightPtr());

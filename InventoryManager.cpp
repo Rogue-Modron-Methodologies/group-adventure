@@ -193,11 +193,16 @@ save the current collection of cards with user chosen name
 void InventoryManager::saveCurrentCollection(BinarySearchTree* binary_tree)
 {
 	string save_file_name;
+	ofstream save_file;
 
 	//while statment is to help get good name (don't forget there is a ! before the function call)
 	while (!getSaveFileName(save_file_name));			//ask for name of save-too file and check availabilty of the name
 
-	makeSaveFile(binary_tree, save_file_name);			//create file with user entered name and output card collection to file 
+	save_file.open(save_file_name);
+
+	binary_tree->writeTreeToFile(save_file);			//create file with user entered name and output card collection to file 
+
+	save_file.close();
 }
 
 /** (っ◕‿◕)っ <(n_n<)

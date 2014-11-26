@@ -63,7 +63,7 @@ private:
     // recursive traversals
     void _inorder(TreeNode* nodePtr) const;
     
-    void _writeTreeToFile(TreeNode* root,ofstream &outFile);
+	void _writeTreeToFile(TreeNode* current_pointer, ofstream &outFile);
 
 };
 

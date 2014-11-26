@@ -25,21 +25,22 @@ using namespace std;
 class InventoryManager
 {
 private:
-	void makeVector(vector<Card*> &, string);
-//	void shuffleCollection(vector<Card*> &);
-	void populateStructures(BinarySearchTree*, AVLTree*, HashTable<string, Card*>*, vector<Card*> &);
-	void checkLoadFactor(HashTable<string, Card*>* &);
-	void reformHashTable(HashTable<string, Card*>* &);
-	int getHashSizePrime(int);
-	bool checkNotPrime(int);
-	bool getSaveFileName(string);
-	void makeSaveFile(BinarySearchTree*, string);
-	void ripEmUp(HashTable<string, Card*>* );
+
+	static void makeVector(vector<Card*> &, string);
+	static void populateStructures(BinarySearchTree*, AVLTree*, HashTable<string, Card*>*, vector<Card*> &);
+	static void reformHashTable(HashTable<string, Card*>* &);
+	static int getHashSizePrime(int);
+	static bool checkNotPrime(int);
+	static bool getSaveFileName(string);
+	static void makeSaveFile(BinarySearchTree*, string);
+	static void ripEmUp(HashTable<string, Card*>*);
 
 public:
-	void inventoryCreation(BinarySearchTree*, AVLTree*, HashTable<string, Card*>* &);
-	void saveCurrentCollection(BinarySearchTree*);
-	void destroyEverything(BinarySearchTree*, AVLTree*, HashTable<string, Card*>* );
+
+	static void inventoryCreation(BinarySearchTree*, AVLTree*, HashTable<string, Card*>* &);
+	static void checkLoadFactor(HashTable<string, Card*>* &);
+	static void saveCurrentCollection(BinarySearchTree*);
+	static void destroyEverything(BinarySearchTree*, AVLTree*, HashTable<string, Card*>*);
 };
 
 #endif //INVENTORY_MANAGER_H
