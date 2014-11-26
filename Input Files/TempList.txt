@@ -1,41 +1,41 @@
 GP	Group 3 Edition 		
-1	Animate Dead	1B	Uncommon
-3	Black Knight	BB	Uncommon
-6	Cursed Land	2BB	Uncommon
-7	Dark Ritual	B	Common
-8	Darkpact	BBB	Rare
-11	Demonic Attorney	1BB	Rare
-13	Demonic Tutor	1B	Uncommon
-14	Drain Life	X1B	Common
-15	Drudge Skeletons	1B	Common
-16	El-Hajjâj	1BB	Rare
-20	Frozen Shade	2B	Common
-24	Lord of the Pit	4BBB	Rare
-25	Mind Twist	XB	Rare
-29	Paralyze	B	Common
-30	Pestilence	2BB	Common
-31	Plague Rats	2B	Common
-32	Raise Dead	B	Common
-36	Scavenging Ghoul	3B	Uncommon
-40	Terror	1B	Common
-41	Unholy Strength	B	Common
-44	Weakness	B	Common
-46	Zombie Master	1BB	Rare
-52	Control Magic	2UU	Uncommon
-53	Copy Artifact	1U	Rare
-55	Creature Bond	1U	Common
-59	Flight	U	Common
-62	Jump	U	Common
-67	Mana Short	2U	Rare
-69	Phantasmal Forces	3U	Uncommon
-70	Phantasmal Terrain	UU	Common
-77	Reconstruction	U	Common
-80	Siren's Call	U	Uncommon
-84	Steal Artifact	2UU	Uncommon
-88	Vesuvan Doppelganger	3UU	Rare
-90	Wall of Air	1UU	Uncommon
-91	Wall of Water	1UU	Uncommon
-96	Cockatrice	3GG	Rare
+001	Animate Dead	1B	Uncommon
+003	Black Knight	BB	Uncommon
+006	Cursed Land	2BB	Uncommon
+007	Dark Ritual	B	Common
+008	Darkpact	BBB	Rare
+011	Demonic Attorney	1BB	Rare
+013	Demonic Tutor	1B	Uncommon
+014	Drain Life	X1B	Common
+015	Drudge Skeletons	1B	Common
+016	El-Hajjâj	1BB	Rare
+020	Frozen Shade	2B	Common
+024	Lord of the Pit	4BBB	Rare
+025	Mind Twist	XB	Rare
+029	Paralyze	B	Common
+030	Pestilence	2BB	Common
+031	Plague Rats	2B	Common
+032	Raise Dead	B	Common
+036	Scavenging Ghoul	3B	Uncommon
+040	Terror	1B	Common
+041	Unholy Strength	B	Common
+044	Weakness	B	Common
+046	Zombie Master	1BB	Rare
+052	Control Magic	2UU	Uncommon
+053	Copy Artifact	1U	Rare
+055	Creature Bond	1U	Common
+059	Flight	U	Common
+062	Jump	U	Common
+067	Mana Short	2U	Rare
+069	Phantasmal Forces	3U	Uncommon
+070	Phantasmal Terrain	UU	Common
+077	Reconstruction	U	Common
+080	Siren's Call	U	Uncommon
+084	Steal Artifact	2UU	Uncommon
+088	Vesuvan Doppelganger	3UU	Rare
+090	Wall of Air	1UU	Uncommon
+091	Wall of Water	1UU	Uncommon
+096	Cockatrice	3GG	Rare
 101	Fastbond	G	Rare
 102	Fog	G	Common
 105	Gaea's Liege	3GGG	Rare
