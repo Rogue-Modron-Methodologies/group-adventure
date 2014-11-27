@@ -54,10 +54,13 @@ TreeNode* BinarySearchTree::_insert(TreeNode* nodePtr, TreeNode* newNode){
  */
 bool BinarySearchTree::remove(const string & code){
     bool isRemoved = false;
-    _remove(rootPtr, code);
-    isRemoved = true, count--;
     
-    return isRemoved;
+        if(findNode(code) != NULL){
+            _remove(rootPtr, code);
+            isRemoved = true, count--;
+            return isRemoved;
+        }
+    return isRemoved; // toggles if not found
 }
 
 TreeNode* BinarySearchTree::_remove(TreeNode* root, string target){
