@@ -117,8 +117,7 @@ void runMenu(HashTable<string, Card*>* &hashTable, BinarySearchTree* keyTree,
 			displayMenuOptions();
 			break;
 		case 'Q':
-			// Save Manager 
-			cout << "Save the database and quitting - Coming Soon!\n";
+			//saveManager(keyTree, deleteStack);
 			break;
 		default:
 			cout << "\nCommand not understood.  Please try again!\n\n";
@@ -134,35 +133,36 @@ void addManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashTable<string, 
 
 	cout << "ADD MANAGER\n\tPlease enter a valid serial number in the format AA111." << endl;
 
-	if (validKey(key)) {
-		Card *TempCard = new Card;
+	if (!validKey(key))
+		return;
 
-		TempCard->setCode(key);
+	Card *TempCard = new Card;
 
-		cout << "Enter name: ";
-		getline(cin, buffer);
-		upper(buffer);
-		TempCard->setName(buffer);
+	TempCard->setCode(key);
 
-		cout << "Enter cost: ";
-		getline(cin, buffer);
-		upper(buffer);
-		TempCard->setCost(buffer);
+	cout << "Enter name: ";
+	getline(cin, buffer);
+	upper(buffer);
+	TempCard->setName(buffer);
 
-		cout << "Enter rarity: ";
-		getline(cin, buffer);
-		upper(buffer);
-		TempCard->setRarity(buffer);
+	cout << "Enter cost: ";
+	getline(cin, buffer);
+	upper(buffer);
+	TempCard->setCost(buffer);
 
-		keyTree->insert(TempCard);
-		cout << "Inserting into keyTree..." << endl;
-		nameTree->insert(TempCard);
-		cout << "Inserting into nameTree..." << endl;
-		hashTable->addEntry(TempCard->getCode(), TempCard);
-		cout << "Inserting into hashTable..." << endl;
+	cout << "Enter rarity: ";
+	getline(cin, buffer);
+	upper(buffer);
+	TempCard->setRarity(buffer);
 
-		InventoryManager::checkLoadFactor(hashTable);
-	}
+	keyTree->insert(TempCard);
+	cout << "\nInserting " << "(" << TempCard << ")" << " into keyTree..." << endl;
+	nameTree->insert(TempCard);
+	cout << "Inserting " << "(" << TempCard << ")" << " into nameTree..." << endl;
+	hashTable->addEntry(TempCard->getCode(), TempCard);
+	cout << "Inserting " << "(" << TempCard << ")" << " into hashTable..." << endl;
+
+	InventoryManager::checkLoadFactor(hashTable);
 }
 
 void upper(string &s) {
@@ -187,7 +187,7 @@ void searchManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashTable<strin
 		}
 		break;
 	case '2':
-		cout << "Enter the name of the card: ";
+		cout << "Enter the name of the card to be searched.\nName: ";
 		getline(cin, buffer);
 		upper(buffer);
 		TempCard->setName(buffer);
@@ -356,6 +356,7 @@ bool validKey(string &key) {
 
 char option() {
 	char option = NULL;
+	cout << "Enter option: ";
 	cin >> option;
 	if (!cin.good())
 		return NULL;
