@@ -53,6 +53,7 @@ void displayMenuOptions()
 	cout << "<I>\tPrint Indented Tree.\n\n";
 	cout << "<V>\tSave the database.\n\n";
 	cout << "<T>\tShow hash table statistics.\n\n";
+	cout << "<X>\tUndo Delete\n\n";
 	cout << "<M>\tShow Menu.\n\n";
 	cout << "<Q>\tQuit.\n\n";
 }
@@ -96,6 +97,9 @@ void runMenu(HashTable<string, Card*>* &hashTable, BinarySearchTree* keyTree,
 			break;
 		case 'T':
 			hashTable->displayStatistics();
+			break;
+		case 'X':
+			Managers::undoDeleteManager(keyTree, nameTree, hashTable, deleteStack);
 			break;
 		case 'M':
 			displayMenuOptions();
