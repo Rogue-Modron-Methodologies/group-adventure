@@ -1,3 +1,4 @@
+#define INT_MAX 2147483647
 
 #include "AVLTree.h"
 #include "BinarySearchTree.h"
@@ -17,7 +18,7 @@ void addManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashTable<string, 
 void upper(string &s);
 void searchManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashTable<string, Card*>* hashTable);
 void deleteManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashTable<string, Card*>* hashTable, stack<Card*>* deleteStack);
-void pushOnStack(Card *TempCard, stack<Card*>* deleteStack);
+void undoDeleteManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashTable<string, Card*>* hashTable, stack<Card*>* deleteStack);
 void saveManager(BinarySearchTree* keyTree, stack<Card*>* deleteStack);
 void DeleteStack(stack<Card*>* deleteStack);
 void displayHashStats(HashTable<string, Card*>* hashTable);
@@ -25,6 +26,7 @@ void displayTreeManager(BinarySearchTree* keyTree, AVLTree* nameTree);
 void displayIndentedTreeManager(BinarySearchTree* keyTree, AVLTree* nameTree);
 void displayHashedTable(HashTable<string, Card*>* hashTable);
 bool validKey(string &key);
+bool validOption(char &option);
 void displayList(LinkedList &anItem);
 void farewell();
 
@@ -87,6 +89,9 @@ void runMenu(HashTable<string, Card*>* &hashTable, BinarySearchTree* keyTree,
 			break;
 		case 'D':
 			deleteManager(keyTree, nameTree, hashTable, deleteStack);
+			break;
+		case 'U':
+			undoDeleteManager(keyTree, nameTree, hashTable, deleteStack);
 			break;
 		case 'F':
 			searchManager(keyTree, nameTree, hashTable);
@@ -169,21 +174,14 @@ void searchManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashTable<strin
 
 	cout << "SEARCH MANAGER\n\t1: Key\n\t2: Name\n\n";
 
-	cin >> option;
-
-	if (!cin.good()) {
-		cout << "Invalid input." << endl;
+	if (!validOption(option))
 		return;
-	}
-
-	cin.clear();
-	cin.ignore(INT_MAX, '\n');
 
 	if (option == '1') {
 		if (validKey(buffer)) {
 			Card *TempCard = new Card;
 			if (hashTable->search(buffer, TempCard))
-				cout << buffer << " found!" << *TempCard << endl;
+				cout << buffer << " found!\n\t" << *TempCard << endl;
 			else
 				cout << buffer << " not found." << endl;
 		}
@@ -210,33 +208,28 @@ void deleteManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashTable<strin
 
 	cout << "DELETE MANAGER\n\t1: Key\n\t2: Name\n\n";
 
-	cin >> option;
-
-	if (!cin.good()) {
-		cout << "Invalid input." << endl;
+	if (!validOption(option))
 		return;
-	}
-
-	cin.clear();
-	cin.ignore(INT_MAX, '\n');
 
 	if (option == '1') {
 		if (!validKey(key))
 			return;
 	}
 	else if (option == '2') {
-		cout << "Enter the name of the card to be deleted: ";
+		cout << "Enter the name of the card to be deleted.\nName: ";
 		getline(cin, name);
 		upper(name);
 		Card *target = new Card;
 		Card *TempCard = new Card;
 		target->setName(name);
 		LinkedList *listChoice = nameTree->getEntry(*target);
+		
+		//while (listChoice->GetNext(TempCard))
+		//	cout << TempCard << endl;
 
-		while (listChoice->GetNext(TempCard))
-			cout << TempCard << endl;
+		displayList(*listChoice);
 
-		cout << "Enter the key of one the cards displayed above: ";
+		cout << "Enter the key of one the cards displayed above." << endl;
 		if (!validKey(key))
 			return;
 	}
@@ -245,9 +238,11 @@ void deleteManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashTable<strin
 		return;
 	}
 
-	Card *TempCard = keyTree->findNode(key)->getCardPtr();
-	pushOnStack(TempCard, deleteStack);
-	cout << "Pushing " << key << " onto undo-delete stack..." << endl;
+	Card *TempCard = NULL;
+	hashTable->search(key, TempCard);
+	
+	deleteStack->push(TempCard);
+	cout << "\nPushing " << key << " onto undo-delete stack..." << endl;
 
 	if (keyTree->remove(key))
 		cout << key << " removed from keyTree." << endl;
@@ -265,8 +260,52 @@ void deleteManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashTable<strin
 		cout << key << " does not exist in hashTable." << endl;
 }
 
-void pushOnStack(Card *TempCard, stack<Card*>* deleteStack) {
-	deleteStack->push(TempCard);
+void undoDeleteManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashTable<string, Card*>* hashTable, stack<Card*>* deleteStack) {
+	if (deleteStack->empty()) {
+		cout << "Nothing to un-delete. Stack is empty!" << endl;
+		return;
+	}
+	
+	string key = deleteStack->top()->getCode();
+	Card *TempCard = new Card;
+
+	if (hashTable->search(key, TempCard)) {
+		cout << "(" << deleteStack->top() << ")" << " already exists.\n"
+			<< "\tReplace the card in the list? y/n: ";
+
+		char option = NULL;
+		if (!validOption(option))
+			return;
+		option = toupper(option);
+
+		switch (option) {
+		case 'Y':
+			if (keyTree->remove(key))
+				cout << key << " removed from keyTree." << endl;
+			if (nameTree->remove(*TempCard))
+				cout << key << " removed from nameTree." << endl;
+			if (hashTable->remove(key, TempCard))
+				cout << key << " removed from hashTable." << endl;
+			break;
+		case 'N':
+			deleteStack->pop();
+			return;
+		default:
+			cout << "Invalid entry." << endl;
+		}
+	}
+
+	TempCard = deleteStack->top();
+	
+	keyTree->insert(TempCard);
+	cout << "Inserting into keyTree..." << endl;
+	nameTree->insert(TempCard);
+	cout << "Inserting into nameTree..." << endl;
+	hashTable->addEntry(TempCard->getCode(), TempCard);
+	cout << "Inserting into hashTable..." << endl;
+	cout << "(" << TempCard << ")" << " restored." << endl;
+
+	deleteStack->pop();
 }
 
 void saveManager(BinarySearchTree* keyTree, stack<Card*>* deleteStack) {
@@ -286,11 +325,20 @@ void displayHashStats(HashTable<string, Card*>* hashTable) {
 }
 
 void welcome() {
-	cout << "Welcome" << endl;
+	cout << "Greetings. This program is designed to organize\n"
+		 << "a database of Magic: The Gathering cards using a\n"
+		 << "binary search tree, an AVL tree, and a hashed table.\n\n"
+		 << "Developers (in alphabetical order):"
+		 << "\n\tEdward Lim"
+		 << "\n\tEfrain Esquivel"
+		 << "\n\tJamie Johnson"
+		 << "\n\tJordan Cox"
+		 << "\n\tNick Arduini"
+		 << "\n\tSteven Bennet\n" << endl;
 }
 
 void farewell() {
-	cout << "Goodbye." << endl;
+	cout << "Thank you and farewell. We hope you enjoyed this presentation." << endl;
 }
 
 bool validKey(string &key) {
@@ -301,13 +349,9 @@ bool validKey(string &key) {
 		cout << "Invalid input." << endl;
 		return false;
 	}
-
-	key[0] = toupper(key[0]);
-	key[1] = toupper(key[1]);
-
-	// 65 - 90 = A-Z
-	// 48 - 57 = 0-9
-
+	
+	upper(key);
+	
 	for (int i = 0; i < 2; i++) {
 		if (key[i] < 65 || key[i] > 90) {
 			cout << "Invalid input." << endl;
@@ -323,64 +367,65 @@ bool validKey(string &key) {
 	return true;
 }
 
+bool validOption(char &option) {
+	cin >> option;
+	if (!cin.good()) {
+		cout << "Invalid entry." << endl;
+		return false;
+	}
+	cin.clear();
+	cin.ignore(INT_MAX, '\n');
+	return true;
+}
+
 void displayTreeManager(BinarySearchTree* keyTree, AVLTree* nameTree) {
 	char option = NULL;
 
-	cout << "Which tree would you like to display?\n"
-		<< "1: BST\n"
-		<< "2: BST (Non-Unique)\n" << endl;
+	cout << "Which tree would you like to display?\n1: BST\n2: AVL\n" << endl;
 
-	cin >> option;
-	while (!cin.good())
+	if (!validOption(option))
 		return;
 
-	if (option == '1') {
+	switch (option) {
+	case '1':
 		if (keyTree->isEmpty())
-			cout << "BST is empty! Nothing to display." << endl;
+			cout << "BST tree is empty! Nothing to display." << endl;
 		else
 			keyTree->displayTree();
-	}
-	else if (option == '2') {
+		break;
+	case '2':
 		if (nameTree->isEmpty())
-			cout << "BST (Non-Unique) is empty! Nothing to display." << endl;
+			cout << "AVL tree is empty! Nothing to display." << endl;
 		else
 			nameTree->inOrder(displayList);
+		break;
+	default:
+		cout << "Invalid entry." << endl;
 	}
-	else
-		cout << "Invalid input." << endl;
-
-	cin.clear();
-	cin.ignore(INT_MAX, '\n');
 }
 
 void displayIndentedTreeManager(BinarySearchTree* keyTree, AVLTree* nameTree) {
+	cout << "Which tree would you like to display?\n1: Indented BST\n2: Indented AVL\n" << endl;
+
 	char option = NULL;
-
-	cout << "Which tree would you like to display?\n"
-		<< "1: Indented BST\n"
-		<< "2: Indented BST (Non-Unique)\n" << endl;
-
-	cin >> option;
-	while (!cin.good())
+	if (!validOption(option))
 		return;
 
-	if (option == '1') {
+	switch (option) {
+	case '1':
 		if (keyTree->isEmpty())
-			cout << "BST is empty! Nothing to display." << endl;
+			cout << "BST tree is empty! Nothing to display." << endl;
 		else
 			keyTree->displayIndentedTree();
-	}
-	else if (option == '2') {
+		break;
+	case '2':
 		if (nameTree->isEmpty())
-			cout << "BST (Non-Unique) is empty! Nothing to display." << endl;
+			cout << "AVL tree is empty! Nothing to display." << endl;
 		else
 			nameTree->indentedList(displayList);
+	default:
+		cout << "Invalid entry." << endl;
 	}
-	else
-		cout << "Invalid input" << endl;
-
-	cin.clear();
-	cin.ignore(INT_MAX, '\n');
 }
 
 void displayHashedTable(HashTable<string, Card*>* hashTable) {
@@ -388,25 +433,22 @@ void displayHashedTable(HashTable<string, Card*>* hashTable) {
 		cout << "Hashed table is empty! Nothing to display." << endl;
 		return;
 	}
-
-	char option = NULL;
 	cout << "HASHED TABLE DISPLAY MANAGER\n\t1: Full Table\n\t2: Contents Only\n\n" << endl;
-	cin >> option;
-
-	if (!cin.good()) {
-		cout << "Invalid input." << endl;
+	
+	char option = NULL;
+	if (!validOption(option))
 		return;
-	}
 
-	if (option == '1')
+	switch (option) {
+	case '1': 
 		hashTable->printTable(Card::display);
-	else if (option == '2')
+		break;
+	case '2':
 		hashTable->displayTable(Card::display);
-	else
+		break;
+	default:
 		cout << "Invalid entry." << endl;
-
-	cin.clear();
-	cin.ignore(INT_MAX, '\n');
+	}
 }
 
 void displayList(LinkedList &anItem) {
@@ -415,10 +457,10 @@ void displayList(LinkedList &anItem) {
 	anItem.GetNext(toPrint);
 
 	cout << "Displaying item - " << toPrint->getName();
-	cout << " " << toPrint->getCode();
+	cout << "\n\n\t\t" << toPrint->getCode();
 	while (anItem.GetNext(toPrint))
 	{
-		cout << ", " << toPrint->getCode();
+		cout << "\n\t\t" << toPrint->getCode();
 	}
 	cout << endl;
 }
