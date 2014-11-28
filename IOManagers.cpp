@@ -77,15 +77,17 @@ void Managers::addManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashTabl
 	getline(cin, buffer);
 	upper(buffer);
 	TempCard->setRarity(buffer);
+	if (hashTable->addEntry(TempCard->getCode(), TempCard)) {
+		cout << "\nInserting " << "(" << TempCard << ")" << " into hashTable..." << endl;
+		keyTree->insert(TempCard);
+		cout << "Inserting " << "(" << TempCard << ")" << " into keyTree..." << endl;
+		nameTree->insert(TempCard);
+		cout << "Inserting " << "(" << TempCard << ")" << " into nameTree..." << endl;
 
-	keyTree->insert(TempCard);
-	cout << "\nInserting " << "(" << TempCard << ")" << " into keyTree..." << endl;
-	nameTree->insert(TempCard);
-	cout << "Inserting " << "(" << TempCard << ")" << " into nameTree..." << endl;
-	hashTable->addEntry(TempCard->getCode(), TempCard);
-	cout << "Inserting " << "(" << TempCard << ")" << " into hashTable..." << endl;
-
-	InventoryManager::checkLoadFactor(hashTable);
+		InventoryManager::checkLoadFactor(hashTable);
+	}
+	else
+		cout << TempCard->getCode() << " already exists." << endl;
 }
 
 void Managers::searchManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashTable<string, Card*>* hashTable) {
@@ -111,8 +113,10 @@ void Managers::searchManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashT
 		TempCard->setName(buffer);
 		listChoice = nameTree->getEntry(*TempCard);
 
-		while (listChoice->GetNext(TempCard))
-			cout << TempCard << endl;
+		if (!listChoice)
+			cout << buffer << " not found." << endl;
+		else
+			displayList(*listChoice);
 		break;
 	default:
 		cout << "Invalid input." << endl;
@@ -139,39 +143,36 @@ void Managers::deleteManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashT
 		TempCard->setName(name);
 		listChoice = nameTree->getEntry(*TempCard);
 
-		//while (listChoice->GetNext(TempCard))
-		//	cout << TempCard << endl;
-
-		displayList(*listChoice);
-
-		cout << "Enter the key of one the cards displayed above." << endl;
-		if (!validKey(key))
+		if (!listChoice) {
+			cout << name << " not found." << endl;
 			return;
+		}
+		else {
+			displayList(*listChoice);
+			cout << "Enter the key of one the cards displayed above." << endl;
+			if (!validKey(key))
+				return;
+		}
 		break;
 	default:
 		cout << "Invalid entry." << endl;
 		return;
 	}
 
-	hashTable->search(key, TempCard);
+	if (hashTable->search(key, TempCard)) {
 
-	deleteStack->push(TempCard);
-	cout << "\nPushing " << key << " onto undo-delete stack..." << endl;
+		deleteStack->push(TempCard);
+		cout << "\nPushing " << key << " onto undo-delete stack..." << endl;
 
-	if (keyTree->remove(key))
-		cout << key << " removed from keyTree." << endl;
+		if (keyTree->remove(key))
+			cout << key << " removed from keyTree." << endl;
+		if (nameTree->remove(*TempCard))
+			cout << key << " removed from nameTree." << endl;
+		if (hashTable->remove(key, TempCard))
+			cout << key << " removed from hashTable." << endl;
+	}
 	else
-		cout << key << " does not exist in keyTree." << endl;
-
-	if (nameTree->remove(*TempCard))
-		cout << key << " removed from nameTree." << endl;
-	else
-		cout << key << " does not exist in nameTree." << endl;
-
-	if (hashTable->remove(key, TempCard))
-		cout << key << " removed from hashTable." << endl;
-	else
-		cout << key << " does not exist in hashTable." << endl;
+		cout << key << " does not exist." << endl;
 }
 
 void Managers::undoDeleteManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashTable<string, Card*>* hashTable, stack<Card*>* deleteStack) {
