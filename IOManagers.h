@@ -1,9 +1,9 @@
 #ifndef IO_MANAGERS
 #define IO_MANAGERS
 
-#include "AVLTree.h"
-#include "BinarySearchTree.h"
-#include "HashTable.h"
+#define INT_MAX 2147483647
+#define NULL 0
+
 #include "InventoryManager.h"
 #include <stack>
 #include <iostream>
@@ -17,10 +17,6 @@ private:
 	static bool validKey(string &key);
 	static char option();
 public:
-	// Welcome and farewell functions.
-	static void welcome();
-	static void farewell();
-
 	// Insert, delete, search, undo-delete, save, and delete stack managers.
 	static void addManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashTable<string, Card*>* &hashTable);
 	static void searchManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashTable<string, Card*>* hashTable);

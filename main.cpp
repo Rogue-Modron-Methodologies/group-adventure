@@ -1,20 +1,12 @@
-#define INT_MAX 2147483647
-#define NULL 0
-
-#include "AVLTree.h"
-#include "BinarySearchTree.h"
-#include "HashTable.h"
-#include "InventoryManager.h"
 #include "IOManagers.h"
 #include <stack>
 #include <iostream>
 
-using namespace std;
-
+void welcome();
 void displayMenuOptions();
 void runMenu(HashTable<string, Card*>* &hashTable, BinarySearchTree* keyTree,
 	AVLTree* nameTree, stack<Card*>* deleteStack);
-void displayMenuOptions();
+void farewell();
 
 int main(){
 
@@ -23,13 +15,13 @@ int main(){
 	AVLTree* nameTree = new AVLTree;
 	stack<Card*>* deleteStack = new stack<Card*>;
 
-	Managers::welcome();
+	welcome();
 
 	InventoryManager::inventoryCreation(keyTree, nameTree, hashTable);		//InvManager - by Jordan
 
 	runMenu(hashTable, keyTree, nameTree, deleteStack);
 
-	Managers::farewell();
+	farewell();
 
 	//Destroy Structures - by Jordan
 
@@ -105,11 +97,28 @@ void runMenu(HashTable<string, Card*>* &hashTable, BinarySearchTree* keyTree,
 			displayMenuOptions();
 			break;
 		case 'Q':
-			//saveManager(keyTree, deleteStack);
+			Managers::saveManager(keyTree, deleteStack);
 			break;
 		default:
 			cout << "\nCommand not understood.  Please try again!\n\n";
 			break;
 		}
 	} while (toupper(choice[0]) != 'Q');
+}
+
+void welcome() {
+	cout << "Greetings. This program is designed to organize\n"
+		<< "a database of Magic: The Gathering cards using a\n"
+		<< "binary search tree, an AVL tree, and a hashed table.\n\n"
+		<< "Developers (in alphabetical order):"
+		<< "\n\tEdward Lim"
+		<< "\n\tEfrain Esquivel"
+		<< "\n\tJamie Johnson"
+		<< "\n\tJordan Cox"
+		<< "\n\tNick Arduini"
+		<< "\n\tSteven Bennet\n" << endl;
+}
+
+void farewell() {
+	cout << "Thank you and farewell. We hope you enjoyed this presentation." << endl;
 }

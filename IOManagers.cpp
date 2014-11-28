@@ -51,23 +51,6 @@ char Managers::option() {
 	return toupper(option);
 }
 
-void Managers::welcome() {
-	cout << "Greetings. This program is designed to organize\n"
-		<< "a database of Magic: The Gathering cards using a\n"
-		<< "binary search tree, an AVL tree, and a hashed table.\n\n"
-		<< "Developers (in alphabetical order):"
-		<< "\n\tEdward Lim"
-		<< "\n\tEfrain Esquivel"
-		<< "\n\tJamie Johnson"
-		<< "\n\tJordan Cox"
-		<< "\n\tNick Arduini"
-		<< "\n\tSteven Bennet\n" << endl;
-}
-
-void Managers::farewell() {
-	cout << "Thank you and farewell. We hope you enjoyed this presentation." << endl;
-}
-
 void Managers::addManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashTable<string, Card*>* &hashTable) {
 	string key = "", buffer = "";
 
