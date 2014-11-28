@@ -26,7 +26,6 @@ public:
 	static void DeleteStack(stack<Card*>* deleteStack);
 	
 	// Display managers.
-	static void displayHashStats(HashTable<string, Card*>* hashTable);
 	static void displayTreeManager(BinarySearchTree* keyTree, AVLTree* nameTree);
 	static void displayIndentedTreeManager(BinarySearchTree* keyTree, AVLTree* nameTree);
 	static void displayHashedTable(HashTable<string, Card*>* hashTable);
