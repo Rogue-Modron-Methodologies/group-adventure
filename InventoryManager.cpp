@@ -209,13 +209,18 @@ make sure user enters good name for save file
 bool InventoryManager::getSaveFileName(string &save_file_name)
 {
 	ifstream check_name;
+	int txt_check;
 
 	cout << "\n\n\tEnter name of save file.\n";		//cout message to request name
 
 	getline(cin, save_file_name);
 
-	//cin >> save_file_name;
+	txt_check = (save_file_name.size() - 4);
 
+	if (txt_check > 0 && save_file_name.compare(txt_check, 4, ".txt") != 0)
+	{
+		save_file_name.append(".txt");
+	}
 
 	check_name.open(save_file_name.c_str());
 
@@ -226,11 +231,44 @@ bool InventoryManager::getSaveFileName(string &save_file_name)
 	}
 	else
 	{
-		cout << "\n\n\tFile already exists\n";
-		return false;
+		cout << "\n\tA file with that name already exists\n";
+		return replaceOrNot(save_file_name);
 	}
 
 	
+}
+
+bool InventoryManager::replaceOrNot(string &save_file_name)
+{
+	string option;
+
+	cout << "\n\tWould you like to replace the file named " << save_file_name << " with a new card list?\n"
+		<< "\t\t1: Keep file named " << save_file_name << " BUT replace the list of cards.\n"
+		<< "\t\t2: Enter new file name to save the list of cards to.\n";
+
+	getline(cin, option);
+
+	if (option == "1")
+	{
+	const char * c = save_file_name.c_str();
+
+		if (remove(c))
+			cout << "\n\tFile successfully deleted\n";
+		else
+			cout << "\n\tError deleting file\n";
+		return true;
+	}
+	else if (option == "2")
+	{
+		return false;
+	}
+	else
+	{
+		cout << "\n\tINVALID ENTRY!!";
+
+		return replaceOrNot(save_file_name);
+	}
+
 }
 
 /** (っ◕‿◕)っ <(n_n<)
@@ -270,7 +308,7 @@ void InventoryManager::ripEmUp(HashTable<string, Card*>* hash_table)
 
 	hash_table->getItems(card_collection);
 
-	for (int i = card_collection.size(); i >= card_collection.size(); i--)		//traverse hash_table deleting all card objects
+	for (int i = card_collection.size(); i >= 0; i--)		//traverse hash_table deleting all card objects
 	{
 		delete card_collection[i];
 	}

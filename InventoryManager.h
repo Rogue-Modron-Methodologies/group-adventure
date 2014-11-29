@@ -34,6 +34,7 @@ private:
 	static bool getSaveFileName(string&);
 	static void makeSaveFile(BinarySearchTree*, string);
 	static void ripEmUp(HashTable<string, Card*>*);
+	static bool replaceOrNot(string&);
 
 public:
 
