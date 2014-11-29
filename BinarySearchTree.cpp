@@ -16,7 +16,7 @@
 using namespace std;
 /*
  INSERTS A NODE INTO THE BINARY TREE
-modified pointer to node is passed in
+ modified pointer to node is passed in
  */
 bool BinarySearchTree::insert(Card* newCardPtr){
     
@@ -50,14 +50,16 @@ TreeNode* BinarySearchTree::_insert(TreeNode* nodePtr, TreeNode* newNode){
 /*
  DELETES THE TARGET NODE PASSED INTO FUNCTION
  USER PASSESS IN A CODE!!!
+ ALWAYS ASSUME THAT INFO PASSED IN IS TRUE!!!
  IF NODE IS NOT FOUND, RETURNS FALSE
  */
 bool BinarySearchTree::remove(const string & code){
     bool isRemoved = false;
+    
     _remove(rootPtr, code);
     isRemoved = true, count--;
     
-    return isRemoved;
+    return isRemoved; // toggles if not found
 }
 
 TreeNode* BinarySearchTree::_remove(TreeNode* root, string target){
@@ -72,22 +74,18 @@ TreeNode* BinarySearchTree::_remove(TreeNode* root, string target){
     else{ //        basically keeps setting left/right as root node
         // Case 1:  No child
         if(root->getLeftPtr() == NULL && root->getRightPtr() == NULL) {
-            //delete root;
-            root = NULL; 
+            root = NULL;
         }
         //Case 2: One child
         else if(root->getRightPtr() == NULL) {
-            //TreeNode* temp = root;
             root = root->getLeftPtr();
-            //delete temp;
         }
         else if(root->getLeftPtr() == NULL) {
-            //TreeNode* temp = root;
             root = root->getRightPtr();
-            //delete temp;
         }
         // case 3: 2 children
         else {
+
             TreeNode *temp = findMin(root->getRightPtr());
             
             //Data transfer
@@ -95,15 +93,15 @@ TreeNode* BinarySearchTree::_remove(TreeNode* root, string target){
             root->getCardPtr()->setCode(temp->getCardPtr()->getCode());
             root->getCardPtr()->setCost(temp->getCardPtr()->getCost());
             root->getCardPtr()->setRarity(temp->getCardPtr()->getRarity());
-     
+            
             root->setRightPtr(_remove(root->getRightPtr(),temp->getCardPtr()->getCode()));
         }
     }
     return root;
 }
 /*
- RETRUNS A BOOL, IF NOT FOUND RETURNS FALSE, 
- ELSE RETURNS TRUE WITH DISPLAY MESSAGE. 
+ RETRUNS A POINTER, IF NOT FOUND RETURNS NULL,
+ ELSE REUTRNS TRUE
  (NO DISP MSG IF FALSE)
  */
 TreeNode* BinarySearchTree::findNode(const string & code){
@@ -111,29 +109,30 @@ TreeNode* BinarySearchTree::findNode(const string & code){
     TreeNode* node= _findNode(rootPtr,code);
 
     return node;
-
+    
 }
 TreeNode* BinarySearchTree::_findNode(TreeNode* treePtr, const string & code){
+    
     if(!treePtr) return treePtr;
-    
-    else if(treePtr->getCardPtr()->getCode() == code) return treePtr;
-    
-    else if(code < treePtr->getCardPtr()->getCode()){
-        if(!(treePtr->getLeftPtr()))
-            return treePtr->getLeftPtr();
+
+    else if (code == treePtr->getCardPtr()->getCode())
+        return treePtr;
+    else if (code < treePtr->getCardPtr()->getCode()) {
+        if (left == NULL)
+            return NULL;
         else
-            _findNode(treePtr->getLeftPtr(),code);
+            return _findNode(treePtr->getLeftPtr(), code);
     }
-    else{
-        if(treePtr->getRightPtr())
-            return treePtr->getRightPtr();
+    else if (code > treePtr->getCardPtr()->getCode()) {
+        if (right == NULL)
+            return NULL;
         else
-            _findNode(treePtr->getRightPtr(),code);
+            return _findNode(treePtr->getRightPtr(), code);
     }
-    return treePtr = NULL;
+    return NULL;
 }
 /*
- THIS FUCNCTION DISPLAY THE TREE IN 
+ THIS FUCNCTION DISPLAY THE TREE IN
  IN ORDER TRAVERSAL
  */
 void BinarySearchTree::displayTree(){
@@ -143,12 +142,12 @@ void BinarySearchTree::_displayTree(TreeNode* nodePtr){
     
     if(nodePtr){
         _displayTree(nodePtr->getLeftPtr());
-
-
-             cout << "Name: "<< nodePtr->getCardPtr()->getName() << " "
-                  << "Code: "<< nodePtr->getCardPtr()->getCode() << endl;
-
-
+        
+        
+        cout << "Name: "<< nodePtr->getCardPtr()->getName() << " "
+        << "Code: "<< nodePtr->getCardPtr()->getCode() << endl;
+        
+        
         _displayTree(nodePtr->getRightPtr());
     }
 }
@@ -170,10 +169,9 @@ void BinarySearchTree::_displayIndentedTree(TreeNode* nodePtr, int &lineNum){ //
         for(int i=0;i<lineNum;i++) {    cout << "\t";}
         lineNum++;
         
-
         cout << lineNum << ".) " << "Name: "<< nodePtr->getCardPtr()->getName();
         cout << " " << "Code: " << nodePtr->getCardPtr()->getCode() << endl;
-
+        
         _displayIndentedTree(nodePtr->getRightPtr(),lineNum);
         _displayIndentedTree(nodePtr->getLeftPtr(),lineNum);
         
@@ -189,8 +187,8 @@ TreeNode* BinarySearchTree::findMin(TreeNode* root)
 }
 
 /*
-THIS FUNCTION CALLS THE DESTROY TREE
-PRIVATE FUNCTION AND RETURNS FALSE
+ THIS FUNCTION CALLS THE DESTROY TREE
+ PRIVATE FUNCTION AND RETURNS FALSE
  IF ROOT IS EMPTY
  */
 bool BinarySearchTree::clear(){
@@ -226,38 +224,26 @@ bool BinarySearchTree::isEmpty() const{
 }
 
 /*
- PASS IN A OFSTREAM OPERATOR AND 
+ PASS IN A OFSTREAM OPERATOR AND
  A FILE NAME I WILL SAVE IT TO THE FILE
  (MAKE SURE STRING IS VALID BEFORE PASSED)
-*/
+ */
 void BinarySearchTree::writeTreeToFile(ofstream &outFile){
     _writeTreeToFile(rootPtr,outFile);
 }
 
 void BinarySearchTree::_writeTreeToFile(TreeNode* current_pointer,ofstream &outFile){
-
-	if (current_pointer == 0)
-		return;
-
-	_writeTreeToFile(current_pointer->getLeftPtr(), outFile);
-		
-	outFile << current_pointer->getCardPtr()->getCode() << "\t"
-			<< current_pointer->getCardPtr()->getName() << "\t"
-			<< current_pointer->getCardPtr()->getCost() << "\t"
-			<< current_pointer->getCardPtr()->getRarity() << endl;
-
-	_writeTreeToFile(current_pointer->getRightPtr(), outFile);
-	
+    
+    if (current_pointer == 0)
+        return;
+    
+    _writeTreeToFile(current_pointer->getLeftPtr(), outFile);
+    
+    outFile << current_pointer->getCardPtr()->getCode() << "\t"
+    << current_pointer->getCardPtr()->getName() << "\t"
+    << current_pointer->getCardPtr()->getCost() << "\t"
+    << current_pointer->getCardPtr()->getRarity() << endl;
+    
+    _writeTreeToFile(current_pointer->getRightPtr(), outFile);
+    
 }
-
-
-
-
-
-
-
-
-
-
-
-

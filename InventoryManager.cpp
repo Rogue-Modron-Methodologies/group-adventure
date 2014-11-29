@@ -32,7 +32,7 @@ void InventoryManager::inventoryCreation(BinarySearchTree* binary_tree, AVLTree*
 	string card_block;
 	vector<Card*> card_collection;
 
-	input_file_names.open("InputFileNames.txt");
+	input_file_names.open("InputFileNameTemp.txt");
 
 	if (!input_file_names)														//if statement to ensure .txt file exists
 	{
