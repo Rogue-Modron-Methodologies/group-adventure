@@ -12,16 +12,9 @@ Jamie Johnson, Edward Lim, Nick Arduini, Efrain Esquivel, Jordan Cox, and Steven
 
 #include "InventoryManager.h"
 
-#include <iostream>
 #include <fstream>
-#include <iomanip>
-#include <cstring>
 #include <cstdlib>
 #include <ctime>
-#include <vector>
-#include <sstream> 
-
-using namespace std;
 
 /** (っ◕‿◕)っ <(n_n<)
 function calls other function, together they read files and creat initial data structures

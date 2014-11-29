@@ -17,10 +17,6 @@ Jamie Johnson, Edward Lim, Nick Arduini, Efrain Esquivel, Jordan Cox, and Steven
 #include "BinarySearchTree.h"
 #include "AVLTree.h"
 #include "HashTable.h"
-#include <string>
-#include <iostream>
-
-using namespace std;
 
 class InventoryManager
 {
