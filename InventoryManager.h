@@ -33,15 +33,15 @@ private:
 	static bool checkNotPrime(int);
 	static bool getSaveFileName(string&);
 	static void makeSaveFile(BinarySearchTree*, string);
-	static void ripEmUp(HashTable<string, Card*>*);
 	static bool replaceOrNot(string&);
+	static void ripEmUp(vector<Card*> &);
 
 public:
 
 	static void inventoryCreation(BinarySearchTree*, AVLTree*, HashTable<string, Card*>* &);
 	static void checkLoadFactor(HashTable<string, Card*>* &);
 	static void saveCurrentCollection(BinarySearchTree*);
-	static void destroyEverything(BinarySearchTree*, AVLTree*, HashTable<string, Card*>*);
+	static void destroyEverything(BinarySearchTree* &, AVLTree* &, HashTable<string, Card*>* &);
 };
 
 #endif //INVENTORY_MANAGER_H

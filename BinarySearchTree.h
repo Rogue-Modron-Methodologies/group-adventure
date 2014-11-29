@@ -18,7 +18,7 @@ public:
     BinarySearchTree() { rootPtr = 0; count = 0; }
     BinarySearchTree(const BinarySearchTree & sourceTree);
     BinarySearchTree & operator = (const BinarySearchTree & sourceTree);
-    ~BinarySearchTree() { };
+	~BinarySearchTree() { destroyTree(rootPtr); };
     
     // common functions for all BinarySearchTree trees
     bool isEmpty() const;

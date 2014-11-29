@@ -84,7 +84,8 @@ void AVLTree::destroyTree(AVLNode* nodePtr)
 	{
 		destroyTree(nodePtr->getLeftPtr());
 		destroyTree(nodePtr->getRightPtr());
-		delete nodePtr;
+		//delete nodePtr;
+		nodePtr = NULL;
 	}
 	return;
 }

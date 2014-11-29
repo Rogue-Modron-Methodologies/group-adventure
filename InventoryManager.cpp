@@ -32,11 +32,11 @@ void InventoryManager::inventoryCreation(BinarySearchTree* binary_tree, AVLTree*
 	string card_block;
 	vector<Card*> card_collection;
 
-	input_file_names.open("InputFileNameTemp.txt");
+	input_file_names.open("InputFileNames.txt");
 
 	if (!input_file_names)														//if statement to ensure .txt file exists
 	{
-		cout << "\n\tERROR! InputFileName.txt was not found!\n\n";
+		cout << "\n\tERROR! InputFileNames.txt was not found!\n\n";
 
 		exit(EXIT_FAILURE);
 	}
@@ -107,8 +107,7 @@ populate the structures with cards (pointers)
 */
 void InventoryManager::populateStructures(BinarySearchTree* binary_tree, AVLTree* avl_tree, HashTable<string, Card*>* hash_table, vector<Card*>& card_collection)
 {
-	int random_select;		
-	Card* hold;
+	int random_select;	
 
 	srand(time(NULL));		
 
@@ -232,43 +231,48 @@ bool InventoryManager::getSaveFileName(string &save_file_name)
 	else
 	{
 		cout << "\n\tA file with that name already exists\n";
-		return replaceOrNot(save_file_name);
+		return replaceOrNot(save_file_name);				//if file exist check what user wants to do
 	}
 
 	
 }
 
+/** (っ◕‿◕)っ <(n_n<)
+check if user wants to replace contents of a text file when saving current collection of cards
+*/
 bool InventoryManager::replaceOrNot(string &save_file_name)
 {
-	string option;
+	string option = " ";
 
-	cout << "\n\tWould you like to replace the file named " << save_file_name << " with a new card list?\n"
-		<< "\t\t1: Keep file named " << save_file_name << " BUT replace the list of cards.\n"
-		<< "\t\t2: Enter new file name to save the list of cards to.\n";
 
-	getline(cin, option);
+	while (option != "1" && option != "2")
+	{ 
+			//give user options in this situation
+		cout << "\n\tWould you like to replace card list saved in the file named " << save_file_name << " with a new card list?\n"
+			<< "\t\t1: Keep file named " << save_file_name << " BUT replace the list of cards.\n"
+			<< "\t\t2: Enter new file name to save the list of cards to.\n";
 
-	if (option == "1")
-	{
-	const char * c = save_file_name.c_str();
+		getline(cin, option);
 
-		if (remove(c))
-			cout << "\n\tFile successfully deleted\n";
+		if (option == "1")
+		{
+		const char * c = save_file_name.c_str();
+
+			if (remove(c))										//emtpying file which will recieve new card collection
+				cout << "\n\tContents of " << save_file_name << " successfully deleted\n";
+			else
+				cout << "\n\tError deleting file\n";
+			return true;
+		}
+		else if (option == "2")
+		{
+			return false;										//user will be prompted to select a new name for a save file
+		}
 		else
-			cout << "\n\tError deleting file\n";
-		return true;
+		{
+			cout << "\n\tINVALID ENTRY!!";		
+		}
 	}
-	else if (option == "2")
-	{
-		return false;
-	}
-	else
-	{
-		cout << "\n\tINVALID ENTRY!!";
-
-		return replaceOrNot(save_file_name);
-	}
-
 }
 
 /** (っ◕‿◕)っ <(n_n<)
@@ -288,28 +292,29 @@ void InventoryManager::makeSaveFile(BinarySearchTree* binary_tree, string save_f
 /** (っ◕‿◕)っ <(n_n<)
 delete all stuctures to release memory
 */
-void InventoryManager::destroyEverything(BinarySearchTree* binary_tree, AVLTree* avl_tree, HashTable<string, Card*>* hash_table)
+void InventoryManager::destroyEverything(BinarySearchTree* &binary_tree, AVLTree* &avl_tree, HashTable<string, Card*>* &hash_table)
 {
+
+	vector<Card*> card_collection;
+
+	hash_table->getItems(card_collection);
+
 	delete binary_tree;		//call delete binary_tree
 
 	delete avl_tree;		//call delete avl_tree
 
-	ripEmUp(hash_table);	//traverse hash_table deleting all card objects
-
 	delete hash_table;		//call delete hash_table
+
+	ripEmUp(card_collection);	//traverse hash_table deleting all card objects
 }
 
 /** (っ◕‿◕)っ <(n_n<)
 delete cards
 */
-void InventoryManager::ripEmUp(HashTable<string, Card*>* hash_table)
+void InventoryManager::ripEmUp(vector<Card*> &card_collection)
 {
-	vector<Card*> card_collection;
-
-	hash_table->getItems(card_collection);
-
-	for (int i = card_collection.size(); i >= 0; i--)		//traverse hash_table deleting all card objects
+	for (int i = (card_collection.size()-1); i >= 0; i--)		//traverse hash_table deleting all card objects
 	{
-		delete card_collection[i];
+		delete card_collection[(i)];
 	}
 }

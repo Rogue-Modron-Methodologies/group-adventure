@@ -25,7 +25,7 @@ int main(){
 
 	//Destroy Structures - by Jordan
 
-	//InventoryManager::destroyEverything(keyTree, nameTree, hashTable);
+	InventoryManager::destroyEverything(keyTree, nameTree, hashTable);
 
 	return 0;
 }
