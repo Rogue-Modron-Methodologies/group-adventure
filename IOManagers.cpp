@@ -67,11 +67,14 @@ void Managers::addManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashTabl
 	if (!validKey(key))
 		return;
 
-	Card *TempCard = new Card;
+	Card *target = NULL;
 
-	TempCard->setCode(key);
+	if (!hashTable->search(key, target)) { // Checks if card key already exists first
 
-	if (!hashTable->search(key, TempCard)) { // Checks if card key already exists first
+		Card *TempCard = new Card();
+
+		TempCard->setCode(key);
+		
 		cout << "Enter name: ";
 		getline(cin, buffer);
 		upper(buffer);
@@ -86,7 +89,7 @@ void Managers::addManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashTabl
 		getline(cin, buffer);
 		upper(buffer);
 		TempCard->setRarity(buffer);
-		
+
 		hashTable->addEntry(TempCard->getCode(), TempCard);
 		cout << "\nInserting " << "(" << TempCard << ")" << " into hashTable..." << endl;
 		keyTree->insert(TempCard);
@@ -96,10 +99,8 @@ void Managers::addManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashTabl
 
 		InventoryManager::checkLoadFactor(hashTable);
 	}
-	else {
-		cout << TempCard->getCode() << " already exists." << endl;
-		delete TempCard; // If card already exists, TempCard is deleted to free memory.
-	}
+	else
+		cout << target->getCode() << " already exists." << endl;
 }
 
 // Member function searchManager searches the hashed table for a card if a key is given;
@@ -166,10 +167,17 @@ void Managers::deleteManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashT
 			return;
 		}
 		else {
-			displayList(*listChoice);
-			cout << "Enter the key of one the cards displayed above." << endl;
-			if (!validKey(key))
-				return;
+			if (listChoice->GetCount() == 1) {
+				Card* nameCard;
+				listChoice->GetFirst(nameCard);
+				key = nameCard->getCode();
+			}
+			else {
+				displayList(*listChoice);
+				cout << "Enter the key of one the cards displayed above." << endl;
+				if (!validKey(key))
+					return;
+			}
 		}
 		break;
 	default:

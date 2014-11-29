@@ -60,6 +60,7 @@ void runMenu(HashTable<string, Card*>* &hashTable, BinarySearchTree* keyTree,
 	string choice;
 	do{										//cycles through commands until the user decides to quit
 		cout << "Please enter a command.\t<M> for help." << endl;
+		cout << "> ";
 		getline(cin, choice);
 
 		switch (toupper(choice[0])){
