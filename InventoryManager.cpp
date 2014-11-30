@@ -36,6 +36,8 @@ void InventoryManager::inventoryCreation(BinarySearchTree* binary_tree, AVLTree*
 
 	while (getline(input_file_names, card_block))
 	{
+		cout << "\n\tAdding cards from " << card_block << " to collection.\n";
+
 		makeVector(card_collection, card_block);		//read file into vector
 
 		if (!hash_table)								//beginning size of hash table
@@ -46,7 +48,7 @@ void InventoryManager::inventoryCreation(BinarySearchTree* binary_tree, AVLTree*
 
 			hash_table = new HashTable<string, Card*>(Card::oat_hash, prime);
 
-			cout << "Hash size: " << hash_table->getTableSize() << "\n";
+			cout << "\n\tHash size: " << hash_table->getTableSize() << "\n";
 
 		}
 
@@ -125,6 +127,10 @@ checks load factor of hash
 */
 void InventoryManager::checkLoadFactor(HashTable<string, Card*>* &hash_table)
 {
+	cout << "\n\tLoad factor of hash table is " << fixed << setprecision(2) << hash_table->getLoadFactor() << ".\n";
+
+	system("PAUSE");
+
 	//if statment to check if load factor is greater then 75%, if yes call below
 	if (hash_table->getLoadFactor() > 0.75)
 		reformHashTable(hash_table);	//ReHash
@@ -148,6 +154,8 @@ void InventoryManager::reformHashTable(HashTable<string, Card*>* &hash_table)
 	hash_table = temp_table;			//important re-hashing step
 
 	cout << "\n\tRe-hash complete.\n";
+
+	cout << "\n\tLoad factor of hash table is " << fixed << setprecision(2) << hash_table->getLoadFactor() << ".\n";
 }
 
 /** (っ◕‿◕)っ <(n_n<)
@@ -210,6 +218,10 @@ bool InventoryManager::getSaveFileName(string &save_file_name)
 	txt_check = (save_file_name.size() - 4);
 
 	if (txt_check > 0 && save_file_name.compare(txt_check, 4, ".txt") != 0)
+	{
+		save_file_name.append(".txt");
+	}
+	else if( txt_check < 1)
 	{
 		save_file_name.append(".txt");
 	}
