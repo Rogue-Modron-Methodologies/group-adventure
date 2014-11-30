@@ -28,6 +28,7 @@ private:
 	static int getHashSizePrime(int);
 	static bool checkNotPrime(int);
 	static bool getSaveFileName(string&);
+	static void removeNonAlphaNumeric(string&);
 	static void makeSaveFile(BinarySearchTree*, string);
 	static bool replaceOrNot(string&);
 	static void ripEmUp(vector<Card*> &);

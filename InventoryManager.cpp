@@ -217,6 +217,8 @@ bool InventoryManager::getSaveFileName(string &save_file_name)
 
 	txt_check = (save_file_name.size() - 4);
 
+	removeNonAlphaNumeric(save_file_name);
+
 	if (txt_check > 0 && save_file_name.compare(txt_check, 4, ".txt") != 0)
 	{
 		save_file_name.append(".txt");
@@ -230,16 +232,31 @@ bool InventoryManager::getSaveFileName(string &save_file_name)
 
 	if (!check_name)				//check name is good
 	{
-		check_name.close();
 		return true;
 	}
 	else
 	{
+		check_name.close();
+
 		cout << "\n\tA file with that name already exists\n";
 		return replaceOrNot(save_file_name);				//if file exist check what user wants to do
 	}
+}
 
-	
+/** (っ◕‿◕)っ <(n_n<)
+remove unacceptable characters from save file name
+*/
+void InventoryManager::removeNonAlphaNumeric(string &save_file_name)
+{
+	int i = save_file_name.size();
+
+	while (i >= 0)
+	{
+		if (!isalnum(save_file_name[i]))
+			save_file_name.erase(i, 1);
+		
+		i--;
+	}
 }
 
 /** (っ◕‿◕)っ <(n_n<)
