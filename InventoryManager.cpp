@@ -215,11 +215,15 @@ bool InventoryManager::getSaveFileName(string &save_file_name)
 
 	getline(cin, save_file_name);
 
-	txt_check = (save_file_name.size() - 4);
-
 	removeNonAlphaNumeric(save_file_name);
 
-	if (txt_check > 0 && save_file_name.compare(txt_check, 4, ".txt") != 0)
+	txt_check = (save_file_name.size() - 4);
+
+	if (txt_check == -4)
+	{
+		return false;
+	}
+	else if (txt_check > 0 && save_file_name.compare(txt_check, 4, ".txt") != 0)
 	{
 		save_file_name.append(".txt");
 	}
