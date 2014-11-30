@@ -4,6 +4,10 @@
 Creates the head node for the list and initializes the values
 for the head node, count and current pointer.
 *~**/
+
+/**~*~*		Name
+
+*~**/
 LinkedList::LinkedList()
 {
 	head = new ListNode;
@@ -60,12 +64,12 @@ pointer to the target node.
 bool LinkedList::Search(Card &target)
 {
 	ListNode *nodePtr;
-
+	/*
 	if (!this)
 	{
 		return false;
 	}
-
+	*/
 	nodePtr = head;
 
 	// Move through the list until we reach a value greater than or equal to the target or a null pointer
@@ -96,13 +100,16 @@ head node, otherwise it returns true.
 *~**/
 bool LinkedList::GetNext(Card* &nextNode)
 {
+	// Checks if the curr pointer has reached the end of the list
 	if (!curr->next)
 	{
 		curr = head;
 		return false;
 	}
 
+	// If not move curr to the next node in the list
 	curr = curr->next;
+	// And update nextNode with the data contained in that node
 	nextNode = curr->data;
 
 	return true;
@@ -117,11 +124,13 @@ head node, otherwise it returns true.
 *~**/
 bool LinkedList::GetFirst(Card* &firstNode)
 {
+	// Checks if the linked list is empty
 	if (!head->next)
 	{
 		return false;
 	}
 
+	// If not empty updates firstNode with the first entry in the list
 	firstNode = head->next->data;
 
 	return true;

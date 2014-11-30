@@ -1,7 +1,12 @@
 /**~*~*
+  The AVLTree class is an AVL tree of Card objects with a
+  non-unique key. In addition to containing various traversals
+  and the functions necesarry for maintaining balance this tree
+  also allows the user to either get all cards with the same name
+  or search for a card with a specific name and code.
 
-Written by: Steven Bennett
-Date: 11/20/2014
+  Written by: Steven Bennett
+  Date: 11/20/2014
 *~**/
 
 #ifndef _AVL_TREE
@@ -12,14 +17,11 @@ Date: 11/20/2014
 class AVLTree
 {
 protected:
-	AVLNode* rootPtr;		// ptr to root node
-	int count;							// number of nodes in tree
+	AVLNode*	rootPtr;		// ptr to root node
+	int			count;			// number of nodes in tree
 private:
 	// delete all nodes from the tree
 	void destroyTree(AVLNode* nodePtr);
-
-	// copy from the tree rooted at nodePtr and returns a pointer to the copy
-	//AVLNode* copyTree(const AVLNode* nodePtr);
 
 	// internal traverse
 	void _preorder(void visit(LinkedList &), AVLNode*) const;
@@ -55,7 +57,6 @@ public:
 	AVLTree() { rootPtr = 0; count = 0; }
 	AVLTree(const AVLTree & tree){ *this = tree; }
 	~AVLTree() { destroyTree(rootPtr); }
-	//AVLTree & operator = (const AVLTree & sourceTree);
 
 	// common functions for all binary trees
 	bool isEmpty() const	{ return count == 0; }

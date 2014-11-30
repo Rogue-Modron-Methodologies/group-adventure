@@ -1,10 +1,8 @@
 /**~*~*
-  This is a templated sorted linked list. It begins at a head node
-  and is terminated by a null pointer. The linked list assumes that
-  the type it contains has overloaded comparison operators. The list
-  can be searched and have entries deleted. It also has a current
-  pointer to allow outside programs to easily walk the list either
-  from beginning to end or from a searched node.
+  This is a sorted linked list of Card pointers. It begins at a head node
+  and is terminated by a null pointer. The list can be searched and have 
+  entries deleted. It also has a current pointer to allow outside programs
+  to easily walk the list either from beginning to end or from a searched node.
 
   Written by: Steven Bennett
   Date: 11/20/2014
@@ -20,12 +18,12 @@ private:
 	// Declare structure for list nodes
 	struct ListNode
 	{
-		Card* data;						// Data to be stored in the list
-		ListNode *next;				// Pointer to the next node
+		Card*		data;				// Data to be stored in the list
+		ListNode*	next;				// Pointer to the next node
 	};
-	ListNode *head;					// Pointer to the sentinel node
-	ListNode *curr;					// Pointer to the current node
-	int count;						// Count of total active nodes in the list
+	ListNode*	head;					// Pointer to the sentinel node
+	ListNode*	curr;					// Pointer to the current node
+	int			count;					// Count of total active nodes in the list
 public:
 	// Constructor
 	LinkedList();
