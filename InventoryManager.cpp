@@ -129,8 +129,6 @@ void InventoryManager::checkLoadFactor(HashTable<string, Card*>* &hash_table)
 {
 	cout << "\n\tLoad factor of hash table is " << fixed << setprecision(2) << hash_table->getLoadFactor() << ".\n";
 
-	system("PAUSE");
-
 	//if statment to check if load factor is greater then 75%, if yes call below
 	if (hash_table->getLoadFactor() > 0.75)
 		reformHashTable(hash_table);	//ReHash
@@ -196,11 +194,25 @@ void InventoryManager::saveCurrentCollection(BinarySearchTree* binary_tree)
 	ofstream save_file;
 
 	//while statment is to help get good name (don't forget there is a ! before the function call)
-	while (!getSaveFileName(save_file_name));			//ask for name of save-too file and check availabilty of the name
-
-	//save_file.open(save_file_name.c_str());
+	while (!getSaveFileName(save_file_name));			//ask for name of save-to file and check availabilty of the name
 
 	makeSaveFile(binary_tree, save_file_name);			//create file with user entered name and output card collection to file 
+}
+
+/** (っ◕‿◕)っ <(n_n<)
+remove unacceptable characters from save file name
+*/
+void InventoryManager::removeNonAlphaNumeric(string &save_file_name)
+{
+	int i = save_file_name.size();
+
+	while (i >= 0)
+	{
+		if (!isalnum(save_file_name[i]))
+			save_file_name.erase(i, 1);
+		
+		i--;
+	}
 }
 
 /** (っ◕‿◕)っ <(n_n<)
@@ -232,10 +244,12 @@ bool InventoryManager::getSaveFileName(string &save_file_name)
 		save_file_name.append(".txt");
 	}
 
-	check_name.open(save_file_name.c_str());
+	check_name.open(save_file_name);		//.c_str()
 
 	if (!check_name)				//check name is good
 	{
+		cout << "\n\tSave file is called " << save_file_name << ".\n";
+
 		return true;
 	}
 	else
@@ -244,22 +258,6 @@ bool InventoryManager::getSaveFileName(string &save_file_name)
 
 		cout << "\n\tA file with that name already exists\n";
 		return replaceOrNot(save_file_name);				//if file exist check what user wants to do
-	}
-}
-
-/** (っ◕‿◕)っ <(n_n<)
-remove unacceptable characters from save file name
-*/
-void InventoryManager::removeNonAlphaNumeric(string &save_file_name)
-{
-	int i = save_file_name.size();
-
-	while (i >= 0)
-	{
-		if (!isalnum(save_file_name[i]))
-			save_file_name.erase(i, 1);
-		
-		i--;
 	}
 }
 
@@ -282,13 +280,20 @@ bool InventoryManager::replaceOrNot(string &save_file_name)
 
 		if (option == "1")
 		{
-		const char * c = save_file_name.c_str();
+			const char * c = save_file_name.c_str();
 
 			if (remove(c))										//emtpying file which will recieve new card collection
-				cout << "\n\tContents of " << save_file_name << " successfully deleted\n";
+			{ 
+				cout << "\n\tContents of " << save_file_name << " successfully deleted,\n"
+					<< "\tcards will be saved here.\n";
+
+				return true;
+			}
 			else
-				cout << "\n\tError deleting file\n";
-			return true;
+			{ 
+				cout << "\n\tError cleaning file\n";
+				return false;
+			}
 		}
 		else if (option == "2")
 		{
