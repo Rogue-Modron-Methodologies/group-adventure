@@ -107,7 +107,7 @@ void Managers::addManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashTabl
 // otherwise, it displays all cards with the same name if a name is given.
 void Managers::searchManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashTable<string, Card*>* hashTable) {
 	string buffer;
-	Card *TempCard = new Card;
+	Card *TempCard;
 	LinkedList *listChoice = NULL;
 
 	cout << "SEARCH MANAGER\n\t1: Key\n\t2: Name\n\n";
@@ -144,7 +144,7 @@ void Managers::searchManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashT
 // The deleted card gets pushed onto the undo delete stack.
 void Managers::deleteManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashTable<string, Card*>* hashTable, stack<Card*>* deleteStack) {
 	string key = "", name = "";
-	Card *TempCard = new Card;
+	Card *TempCard;
 	LinkedList *listChoice = NULL;
 
 
@@ -258,8 +258,11 @@ void Managers::saveManager(BinarySearchTree* keyTree, stack<Card*>* deleteStack)
 // Member function DeleteStack empties the undo delete stack.
 // Note: Thinking about deprecating this one.
 void Managers::DeleteStack(stack<Card*>* deleteStack) {
-	while (!deleteStack->empty())
+	while (!deleteStack->empty()) {
+		Card* deleteCard = deleteStack->top();
+		delete deleteCard;
 		deleteStack->pop();
+	}
 }
 
 // Member function displayTreeManager displays either the BST or AVL Tree.
