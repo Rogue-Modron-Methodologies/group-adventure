@@ -2,14 +2,12 @@
 //  BinarySearchTree.cpp
 //  Created by Edward Lim on 11/13/14.
 //  Copyright (c) 2014 Edward Lim. All rights reserved.
-
 // Team 3 Group Project
 // CIS 22C - 2014
 // Jamie Johnson, Edward Lim, Nick Arduini, Efrain Esquivel, Jordan Cox, and Steven Bennett
 //
 
 #include <stdio.h>
-
 #include "BinarySearchTree.h"
 #include <iomanip>
 #include <fstream>
@@ -18,7 +16,7 @@
 using namespace std;
 /*
  INSERTS A NODE INTO THE BINARY TREE
- modified pointer to node is passed in
+ AND RETURNS TRUE
  */
 bool BinarySearchTree::insert(Card* newCardPtr){
     
@@ -28,7 +26,11 @@ bool BinarySearchTree::insert(Card* newCardPtr){
     count++;
     return true;
 }
-
+/*
+ THIS FUNCTION IS THE PRIVATE FUNCTION
+ THAT GETS CALLED BY THE PUB FUNCTION
+ INSERT()
+ */
 TreeNode* BinarySearchTree::_insert(TreeNode* nodePtr, TreeNode* newNode){
     
     if(nodePtr == 0){
@@ -53,7 +55,6 @@ TreeNode* BinarySearchTree::_insert(TreeNode* nodePtr, TreeNode* newNode){
  DELETES THE TARGET NODE PASSED INTO FUNCTION
  USER PASSESS IN A CODE!!!
  ALWAYS ASSUME THAT INFO PASSED IN IS TRUE!!!
- IF NODE IS NOT FOUND, RETURNS FALSE
  */
 bool BinarySearchTree::remove(const string & code){
     bool isRemoved = false;
@@ -63,7 +64,11 @@ bool BinarySearchTree::remove(const string & code){
     
     return isRemoved; // toggles if not found
 }
-
+/*
+ THIS FUNCTION IS CALLED BY THE PUBLIC FUNCTION
+ AND IT REMOVES THE NODE PASSED IN, ALWAYS ASSUME
+ NODE EXIST ALL IT DOES NOTHING
+ */
 TreeNode* BinarySearchTree::_remove(TreeNode* root, string target){
     
     if(root == NULL) return root;
@@ -108,8 +113,7 @@ TreeNode* BinarySearchTree::_remove(TreeNode* root, string target){
 }
 /*
  RETRUNS A POINTER, IF NOT FOUND RETURNS NULL,
- ELSE REUTRNS TRUE
- (NO DISP MSG IF FALSE)
+ ELSE REUTRNS A POINTER TO THE NODE
  */
 TreeNode* BinarySearchTree::findNode(const string & code){
     
@@ -118,6 +122,12 @@ TreeNode* BinarySearchTree::findNode(const string & code){
     return node;
     
 }
+/*
+ THIS FUNCTION IS CALLED BY THE PUBLIC FUNCTION
+ FINDNODE() AND IT CALLS PASSES THE ROOT AND THE
+ KEY(CODE) AND RETURNS THE NODE IF FOUND, ELSE
+ RETURNS NULL
+ */
 TreeNode* BinarySearchTree::_findNode(TreeNode* treePtr, const string & code){
     
     if(!treePtr) return treePtr;
@@ -167,7 +177,10 @@ void BinarySearchTree::displayIndentedTree(void display(Card* const &card)){
 	_displayIndentedTree(display, rootPtr, lineNum);
     
 }
-
+/*
+ THIS FUCNCTION DISPLAY THE TREE IN
+ IN ORDER TRAVERSAL WITH INDENTS
+ */
 void BinarySearchTree::_displayIndentedTree(void display(Card* const &card), TreeNode* nodePtr, int &lineNum){ //       lineNum should always pass 0 in
     
     if(nodePtr){
@@ -185,7 +198,11 @@ void BinarySearchTree::_displayIndentedTree(void display(Card* const &card), Tre
         
     }
 }
-//Function to find minimum in a tree.
+/*
+ THIS FUCNCTION FINDS THE MINIMUN IN A
+ TREE/ SUBTREE AND RETURNS THE POINTER
+ TO THE NODE
+ */
 TreeNode* BinarySearchTree::findMin(TreeNode* root)
 {
     while(root->getLeftPtr() != NULL) root = root->getLeftPtr();
@@ -205,7 +222,11 @@ bool BinarySearchTree::clear(){
     count = 0;
     return true;
 }
-
+/*
+ THIS FUNCTION IS CALLED BY THE
+ PUB FUCNCTION CLEAR(), IT DESTROYS
+ ALL THE ELEMENTS IN THE TREE
+ */
 void BinarySearchTree::destroyTree(TreeNode* nodePtr){
     if (!nodePtr)return;
     destroyTree(nodePtr->getLeftPtr());
@@ -229,7 +250,6 @@ bool BinarySearchTree::isEmpty() const{
     
     return isEmp;
 }
-
 /*
  PASS IN A OFSTREAM OPERATOR AND
  A FILE NAME I WILL SAVE IT TO THE FILE
@@ -238,7 +258,11 @@ bool BinarySearchTree::isEmpty() const{
 void BinarySearchTree::writeTreeToFile(ofstream &outFile){
     _writeTreeToFile(rootPtr,outFile);
 }
-
+/*
+ THIS FUNCTION GETS CALLED BY THE PUB
+ FUCNTION WRITETREETOFILE() AND SAVES
+ THE TREE TO A FILE
+ */
 void BinarySearchTree::_writeTreeToFile(TreeNode* current_pointer,ofstream &outFile){
     
     if (current_pointer == 0)
