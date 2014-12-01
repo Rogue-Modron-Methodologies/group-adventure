@@ -290,21 +290,6 @@ bool InventoryManager::replaceOrNot(string &save_file_name)
 				<< "\tnew card list will be saved here.\n";
 
 			clear_file.close();
-
-			/*const char * c = save_file_name.c_str();
-
-			if (remove(c))										
-			{ 
-				cout << "\n\tContents of " << save_file_name << " successfully deleted,\n"
-					<< "\tcards will be saved here.\n";
-
-				return true;
-			}
-			else
-			{ 
-				cout << "\n\tError cleaning file\n";
-				return false;
-			}*/
 		}
 		else if (option == "2")
 		{
