@@ -253,7 +253,7 @@ void Managers::undoDeleteManager(BinarySearchTree* keyTree, AVLTree* nameTree, H
 
 // Member function saveManager empties the undo delete stack and saves the collection.
 void Managers::saveManager(BinarySearchTree* keyTree, Stack<Card*>* deleteStack) {
-	DeleteStackManager(deleteStack);
+	deleteStackManager(deleteStack);
 	cout << "Deleting stack..." << endl;
 	InventoryManager::saveCurrentCollection(keyTree);
 	cout << "Saving current collection..." << endl;
@@ -261,7 +261,7 @@ void Managers::saveManager(BinarySearchTree* keyTree, Stack<Card*>* deleteStack)
 
 // Member function DeleteStack empties the undo delete stack.
 // Note: Thinking about deprecating this one.
-void Managers::DeleteStackManager(Stack<Card*>* deleteStack) {
+void Managers::deleteStackManager(Stack<Card*>* deleteStack) {
 	while (!deleteStack->isEmpty()) {
 		Card* deleteCard;
         deleteStack->pop(deleteCard);
