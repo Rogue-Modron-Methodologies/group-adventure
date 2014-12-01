@@ -21,7 +21,7 @@ void InventoryManager::inventoryCreation(BinarySearchTree* binary_tree, AVLTree*
 	string card_block;
 	vector<Card*> card_collection;
 
-	input_file_names.open("InputFileNameTemp.txt");
+	input_file_names.open("InputFileNames.txt");
 
 	if (!input_file_names)														//if statement to ensure .txt file exists
 	{
@@ -57,7 +57,7 @@ void InventoryManager::inventoryCreation(BinarySearchTree* binary_tree, AVLTree*
 }
 
 /** (っ◕‿◕)っ <(n_n<)
-read from files to make a vector of card pointers
+read from files to create cards and pass back a vector of card pointers
 */
 void InventoryManager::makeVector(vector<Card*> &card_collection, string card_block)
 {
@@ -94,7 +94,7 @@ void InventoryManager::makeVector(vector<Card*> &card_collection, string card_bl
 }
 
 /** (っ◕‿◕)っ <(n_n<)
-populate the structures with cards (pointers)
+populate the structures with card pointers
 */
 void InventoryManager::populateStructures(BinarySearchTree* binary_tree, AVLTree* avl_tree, HashTable<string, Card*>* hash_table, vector<Card*>& card_collection)
 {
