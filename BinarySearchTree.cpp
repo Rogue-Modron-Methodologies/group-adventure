@@ -80,8 +80,9 @@ TreeNode* BinarySearchTree::_remove(TreeNode* root, string target){
     }
     else{ //        basically keeps setting left/right as root node
         // Case 1:  No child
-        if(root->getLeftPtr() == NULL && root->getRightPtr() == NULL) {			    		delete root;
-            		root = NULL;
+        if(root->getLeftPtr() == NULL && root->getRightPtr() == NULL) {			    		
+        	delete root;
+       		root = NULL;
         }
         //Case 2: One child
         else if(root->getRightPtr() == NULL) {
