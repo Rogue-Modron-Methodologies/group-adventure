@@ -64,7 +64,12 @@ pointer to the target node.
 bool LinkedList::Search(Card &target)
 {
 	ListNode *nodePtr;
-	
+	/*
+	if (!this)
+	{
+		return false;
+	}
+	*/
 	nodePtr = head;
 
 	// Move through the list until we reach a value greater than or equal to the target or a null pointer

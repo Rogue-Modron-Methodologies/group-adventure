@@ -21,7 +21,7 @@ using namespace std;
  modified pointer to node is passed in
  */
 bool BinarySearchTree::insert(Card* newCardPtr){
-
+    
     TreeNode* newCard = new TreeNode();
     newCard->setCardPtr(newCardPtr);
     rootPtr = _insert(rootPtr,newCard);
@@ -30,7 +30,7 @@ bool BinarySearchTree::insert(Card* newCardPtr){
 }
 
 TreeNode* BinarySearchTree::_insert(TreeNode* nodePtr, TreeNode* newNode){
-
+    
     if(nodePtr == 0){
         nodePtr = newNode;
     }
@@ -57,15 +57,15 @@ TreeNode* BinarySearchTree::_insert(TreeNode* nodePtr, TreeNode* newNode){
  */
 bool BinarySearchTree::remove(const string & code){
     bool isRemoved = false;
-
+    
     _remove(rootPtr, code);
     isRemoved = true, count--;
-
+    
     return isRemoved; // toggles if not found
 }
 
 TreeNode* BinarySearchTree::_remove(TreeNode* root, string target){
-
+    
     if(root == NULL) return root;
     else if(target < root->getCardPtr()->getCode()){
         root->setLeftPtr((_remove(root->getLeftPtr(),target)));
@@ -76,31 +76,31 @@ TreeNode* BinarySearchTree::_remove(TreeNode* root, string target){
     else{ //        basically keeps setting left/right as root node
         // Case 1:  No child
         if(root->getLeftPtr() == NULL && root->getRightPtr() == NULL) {
-            delete root;
+			delete root;
             root = NULL;
         }
         //Case 2: One child
         else if(root->getRightPtr() == NULL) {
-            TreeNode *temp = root->getLeftPtr();
-            delete root;
-            root = temp;
+			TreeNode *temp = root->getLeftPtr();
+			delete root;
+			root = temp;
         }
         else if(root->getLeftPtr() == NULL) {
-            TreeNode *temp = root->getRightPtr();
-            delete root;
-            root = temp;
+			TreeNode *temp = root->getRightPtr();
+			delete root;
+			root = temp;
         }
         // case 3: 2 children
         else {
 
             TreeNode *temp = findMin(root->getRightPtr());
-
+            
             //Data transfer
             root->getCardPtr()->setName(temp->getCardPtr()->getName());
             root->getCardPtr()->setCode(temp->getCardPtr()->getCode());
             root->getCardPtr()->setCost(temp->getCardPtr()->getCost());
             root->getCardPtr()->setRarity(temp->getCardPtr()->getRarity());
-
+            
             root->setRightPtr(_remove(root->getRightPtr(),temp->getCardPtr()->getCode()));
         }
     }
@@ -112,14 +112,14 @@ TreeNode* BinarySearchTree::_remove(TreeNode* root, string target){
  (NO DISP MSG IF FALSE)
  */
 TreeNode* BinarySearchTree::findNode(const string & code){
-
+    
     TreeNode* node= _findNode(rootPtr,code);
 
     return node;
-
+    
 }
 TreeNode* BinarySearchTree::_findNode(TreeNode* treePtr, const string & code){
-
+    
     if(!treePtr) return treePtr;
 
     else if (code == treePtr->getCardPtr()->getCode())
@@ -142,48 +142,47 @@ TreeNode* BinarySearchTree::_findNode(TreeNode* treePtr, const string & code){
  THIS FUCNCTION DISPLAY THE TREE IN
  IN ORDER TRAVERSAL
  */
-void BinarySearchTree::displayTree(){
-    _displayTree(rootPtr);
+void BinarySearchTree::displayTree(void display(Card* const &card)){
+	_displayTree(display, rootPtr);
 }
-void BinarySearchTree::_displayTree(TreeNode* nodePtr){
-
+void BinarySearchTree::_displayTree(void display(Card* const &card), TreeNode* nodePtr){
+    
     if(nodePtr){
-        _displayTree(nodePtr->getLeftPtr());
-
-
-        cout << "Name: "<< nodePtr->getCardPtr()->getName() << " "
-        << "Code: "<< nodePtr->getCardPtr()->getCode() << endl;
-
-
-        _displayTree(nodePtr->getRightPtr());
+		_displayTree(display, nodePtr->getLeftPtr());
+        
+		display(nodePtr->getCardPtr());
+        cout << endl;
+        
+		_displayTree(display, nodePtr->getRightPtr());
     }
 }
 /*
  THIS FUCNCTION DISPLAY THE TREE IN
  IN ORDER TRAVERSAL WITH INDENTS
  */
-void BinarySearchTree::displayIndentedTree(){
-
+void BinarySearchTree::displayIndentedTree(void display(Card* const &card)){
+    
     int lineNum = 0;
-
-    _displayIndentedTree(rootPtr,lineNum);
-
+    
+	_displayIndentedTree(display, rootPtr, lineNum);
+    
 }
 
-void BinarySearchTree::_displayIndentedTree(TreeNode* nodePtr, int &lineNum){ //       lineNum should always pass 0 in
-
+void BinarySearchTree::_displayIndentedTree(void display(Card* const &card), TreeNode* nodePtr, int &lineNum){ //       lineNum should always pass 0 in
+    
     if(nodePtr){
         for(int i=0;i<lineNum;i++) {    cout << "\t";}
         lineNum++;
-
-        cout << lineNum << ".) " << "Name: "<< nodePtr->getCardPtr()->getName();
-        cout << " " << "Code: " << nodePtr->getCardPtr()->getCode() << endl;
-
-        _displayIndentedTree(nodePtr->getRightPtr(),lineNum);
-        _displayIndentedTree(nodePtr->getLeftPtr(),lineNum);
-
+        
+		cout << lineNum << ".) ";
+		display(nodePtr->getCardPtr());
+		cout << endl;
+        
+		_displayIndentedTree(display, nodePtr->getRightPtr(), lineNum);
+		_displayIndentedTree(display, nodePtr->getLeftPtr(), lineNum);
+        
         lineNum--;
-
+        
     }
 }
 //Function to find minimum in a tree.
@@ -211,7 +210,7 @@ void BinarySearchTree::destroyTree(TreeNode* nodePtr){
     if (!nodePtr)return;
     destroyTree(nodePtr->getLeftPtr());
     destroyTree(nodePtr->getRightPtr());
-    delete nodePtr;
+	delete nodePtr;
     nodePtr = NULL;
 }
 /**
@@ -227,7 +226,7 @@ int BinarySearchTree::size() const{
 bool BinarySearchTree::isEmpty() const{
     bool isEmp = false;
     if(count == 0) isEmp = true;
-
+    
     return isEmp;
 }
 
@@ -241,17 +240,17 @@ void BinarySearchTree::writeTreeToFile(ofstream &outFile){
 }
 
 void BinarySearchTree::_writeTreeToFile(TreeNode* current_pointer,ofstream &outFile){
-
+    
     if (current_pointer == 0)
         return;
-
+    
     _writeTreeToFile(current_pointer->getLeftPtr(), outFile);
-
+    
     outFile << current_pointer->getCardPtr()->getCode() << "\t"
     << current_pointer->getCardPtr()->getName() << "\t"
     << current_pointer->getCardPtr()->getCost() << "\t"
     << current_pointer->getCardPtr()->getRarity() << endl;
-
+    
     _writeTreeToFile(current_pointer->getRightPtr(), outFile);
-
+    
 }

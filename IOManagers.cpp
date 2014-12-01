@@ -74,7 +74,7 @@ void IOManagers::addManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashTa
 		Card *TempCard = new Card();
 
 		TempCard->setCode(key);
-
+		
 		cout << "Enter name: ";
 		getline(cin, buffer);
 		upper(buffer);
@@ -132,7 +132,10 @@ void IOManagers::searchManager(BinarySearchTree* keyTree, AVLTree* nameTree, Has
 		if (!listChoice) // Check if name is found.
 			cout << buffer << " not found." << endl;
 		else
-			displayList(*listChoice);
+		{
+			cout << buffer << " found!\n";
+			displayName(*listChoice);
+		}
 		break;
 	default:
 		cout << "Invalid input." << endl;
@@ -174,7 +177,7 @@ void IOManagers::deleteManager(BinarySearchTree* keyTree, AVLTree* nameTree, Has
 				key = nameCard->getCode();
 			}
 			else {
-				displayList(*listChoice);
+				displayName(*listChoice);
 				cout << "Enter the key of one the cards displayed above." << endl;
 				if (!validKey(key))
 					return;
@@ -212,7 +215,7 @@ void IOManagers::undoDeleteManager(BinarySearchTree* keyTree, AVLTree* nameTree,
 		cout << "Nothing to restore. Stack is empty!" << endl;
 		return;
 	}
-    Card *topCard = NULL, *TempCard = NULL;
+	Card *topCard = NULL, *TempCard = NULL;
 	deleteStack->getTop(topCard);
 	string key = topCard->getCode();
 
@@ -229,7 +232,7 @@ void IOManagers::undoDeleteManager(BinarySearchTree* keyTree, AVLTree* nameTree,
 				cout << key << " removed from nameTree." << endl;
 			if (hashTable->remove(key, TempCard))
 				cout << key << " removed from hashTable." << endl;
-            delete TempCard;
+			delete TempCard;
 			break;
 		case 'N':
 			deleteStack->pop();
@@ -239,7 +242,7 @@ void IOManagers::undoDeleteManager(BinarySearchTree* keyTree, AVLTree* nameTree,
 		}
 	}
 
-
+	
 	keyTree->insert(topCard);
 	cout << "Inserting into keyTree..." << endl;
 	nameTree->insert(topCard);
@@ -264,7 +267,7 @@ void IOManagers::saveManager(BinarySearchTree* keyTree, Stack<Card*>* deleteStac
 void IOManagers::deleteStackManager(Stack<Card*>* deleteStack) {
 	while (!deleteStack->isEmpty()) {
 		Card* deleteCard;
-        deleteStack->pop(deleteCard);
+		deleteStack->pop(deleteCard);
 		delete deleteCard;
 	}
 }
@@ -278,7 +281,7 @@ void IOManagers::displayTreeManager(BinarySearchTree* keyTree, AVLTree* nameTree
 		if (keyTree->isEmpty())
 			cout << "BST tree is empty! Nothing to display." << endl;
 		else
-			keyTree->displayTree();
+			keyTree->displayTree(displayCard);
 		break;
 	case '2':
 		if (nameTree->isEmpty())
@@ -300,7 +303,7 @@ void IOManagers::displayIndentedTreeManager(BinarySearchTree* keyTree, AVLTree* 
 		if (keyTree->isEmpty())
 			cout << "BST tree is empty! Nothing to display." << endl;
 		else
-			keyTree->displayIndentedTree();
+			keyTree->displayIndentedTree(displayCard);
 		break;
 	case '2':
 		if (nameTree->isEmpty())
@@ -323,10 +326,10 @@ void IOManagers::displayHashedTable(HashTable<string, Card*>* hashTable) {
 
 	switch (option()) {
 	case '1':
-		hashTable->printTable(Card::display);
+		hashTable->printTable(displayCard);
 		break;
 	case '2':
-		hashTable->displayTable(Card::display);
+		hashTable->displayTable(displayCard);
 		break;
 	default:
 		cout << "Invalid entry." << endl;
@@ -340,11 +343,32 @@ void IOManagers::displayList(LinkedList &anItem) {
 	Card* toPrint = 0;
 	anItem.GetNext(toPrint);
 
-	cout << "Displaying item - " << toPrint->getName();
-	cout << "\n\n\t\t" << toPrint->getCode();
+	cout << toPrint->getName();
+	cout << " " << toPrint->getCode();
 	while (anItem.GetNext(toPrint))
 	{
-		cout << "\n\t\t" << toPrint->getCode();
+		cout << ", " << toPrint->getCode();
 	}
 	cout << endl;
+}
+
+// Member function displayName displays complete information
+// about all cards with the same name.
+void IOManagers::displayName(LinkedList &anItem) {
+	anItem.ResetCurr();
+	Card* toPrint = 0;
+	anItem.GetNext(toPrint);
+
+	cout << "\t" << *toPrint << endl;
+	while (anItem.GetNext(toPrint))
+	{
+		cout << "\t" << *toPrint << endl;
+	}
+}
+
+// Member function displayCard displays the code for
+// a card followed by its name.
+void IOManagers::displayCard(Card* const &card) {
+	cout << card->getCode() << " "
+		 << card->getName();
 }

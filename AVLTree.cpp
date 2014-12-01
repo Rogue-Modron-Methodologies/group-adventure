@@ -168,7 +168,7 @@ void AVLTree::_indentedList(void visit(LinkedList &), AVLNode* nodePtr, int leve
 
 		// Print out current hight followed by if this is a left or right child as well as the balance factor
 		int bal = bfactor(nodePtr);
-		cout << level << "." << child << "." << bal << " ";
+		cout << level << "." << child << "." << bal << ".) ";
 
 		// Fetch data from AVL tree node
 		LinkedList* item = nodePtr->getItem();
