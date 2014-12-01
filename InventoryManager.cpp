@@ -69,7 +69,7 @@ void InventoryManager::makeVector(vector<Card*> &card_collection, string card_bl
 	getline(block_source, temp_buff);					//get first line of document
 
 	block_name = temp_buff.substr(0, 2);				//get first 2 characters
-	
+
 	while (getline(block_source, code, '\t'))			//read document and assign card
 	{
 		code.insert(0, block_name);						//isnerts block code before card number to create unique key
@@ -98,11 +98,11 @@ populate the structures with cards (pointers)
 */
 void InventoryManager::populateStructures(BinarySearchTree* binary_tree, AVLTree* avl_tree, HashTable<string, Card*>* hash_table, vector<Card*>& card_collection)
 {
-	int random_select;	
+	int random_select;
 
-	srand(time(NULL));		
+	srand(time(NULL));
 
-	//for loop repeats with size of vector and calls following functions from 
+	//for loop repeats with size of vector and calls following functions from
 	//team's work
 	while (0 < card_collection.size())
 	{
@@ -191,7 +191,7 @@ void InventoryManager::saveCurrentCollection(BinarySearchTree* binary_tree)
 	//while statment is to help get good name (don't forget there is a ! before the function call)
 	while (!getSaveFileName(save_file_name));			//ask for name of save-to file and check availabilty of the name
 
-	makeSaveFile(binary_tree, save_file_name);			//create file with user entered name and output card collection to file 
+	makeSaveFile(binary_tree, save_file_name);			//create file with user entered name and output card collection to file
 }
 
 /** (っ◕‿◕)っ <(n_n<)
@@ -212,7 +212,7 @@ bool InventoryManager::getSaveFileName(string &save_file_name)
 
 	txtCheck(save_file_name);
 
-	check_name.open(save_file_name);		
+	check_name.open(save_file_name.c_str());
 
 	if (!check_name)				//check name is good
 	{
@@ -225,6 +225,7 @@ bool InventoryManager::getSaveFileName(string &save_file_name)
 		check_name.close();
 
 		cout << "\n\tA file with that name already exists\n";
+
 		return replaceOrNot(save_file_name);				//if file exist check what user wants to do
 	}
 }
@@ -240,7 +241,7 @@ void InventoryManager::removeNonAlphaNumeric(string &save_file_name)
 	{
 		if (!isalnum(save_file_name[i]))
 			save_file_name.erase(i, 1);
-		
+
 		i--;
 	}
 }
@@ -252,7 +253,7 @@ void InventoryManager::txtCheck(string &save_file_name)
 {
 	int txt_check;
 
-	txt_check = (save_file_name.size() - 4);							//int txt_check used for size comparisons and stating point for string comparison 
+	txt_check = (save_file_name.size() - 4);							//int txt_check used for size comparisons and stating point for string comparison
 
 	if (txt_check > 0 && save_file_name.compare(txt_check, 4, ".txt") != 0)
 	{
@@ -272,9 +273,11 @@ bool InventoryManager::replaceOrNot(string &save_file_name)
 {
 	string option = " ";
 	ofstream clear_file;
+    bool replace = false;
 
 	while (option != "1" && option != "2")
-	{ 
+	{
+
 			//give user options in this situation
 		cout << "\n\tWould you like to remove the card list saved in the file named \"" << save_file_name << "\" and save the new card list here?\n"
 			<< "\t\t1: Remove old card list, save new card list in \"" << save_file_name << "\".\n"
@@ -284,22 +287,24 @@ bool InventoryManager::replaceOrNot(string &save_file_name)
 
 		if (option == "1")
 		{
-			clear_file.open(save_file_name);			//emtpying file which will recieve new card collection
+			clear_file.open(save_file_name.c_str());			//emtpying file which will recieve new card collection
 
 			cout << "\n\tContents of " << save_file_name << " successfully removed,\n"
 				<< "\tnew card list will be saved here.\n";
 
 			clear_file.close();
+			replace = true;
 		}
 		else if (option == "2")
 		{
-			return false;										//user will be prompted to select a new name for a save file
+			replace =  false;										//user will be prompted to select a new name for a save file
 		}
 		else
 		{
-			cout << "\n\tINVALID ENTRY!!";		
+			cout << "\n\tINVALID ENTRY!!";
 		}
 	}
+	return replace;
 }
 
 /** (っ◕‿◕)っ <(n_n<)

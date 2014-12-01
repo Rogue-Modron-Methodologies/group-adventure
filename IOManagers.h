@@ -5,7 +5,7 @@
 #define NULL 0
 
 #include "InventoryManager.h"
-#include <stack>
+#include "Stack.h"
 #include <iostream>
 
 using namespace std;
@@ -20,11 +20,11 @@ public:
 	// Insert, delete, search, undo-delete, save, and delete stack managers.
 	static void addManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashTable<string, Card*>* &hashTable);
 	static void searchManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashTable<string, Card*>* hashTable);
-	static void deleteManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashTable<string, Card*>* hashTable, stack<Card*>* deleteStack);
-	static void undoDeleteManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashTable<string, Card*>* hashTable, stack<Card*>* deleteStack);
-	static void saveManager(BinarySearchTree* keyTree, stack<Card*>* deleteStack);
-	static void deleteStackManager(stack<Card*>* deleteStack);
-	
+	static void deleteManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashTable<string, Card*>* hashTable, Stack<Card*>* deleteStack);
+	static void undoDeleteManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashTable<string, Card*>* hashTable, Stack<Card*>* deleteStack);
+	static void saveManager(BinarySearchTree* keyTree, Stack<Card*>* deleteStack);
+	static void DeleteStackManager(Stack<Card*>* deleteStack);
+
 	// Display managers.
 	static void displayTreeManager(BinarySearchTree* keyTree, AVLTree* nameTree);
 	static void displayIndentedTreeManager(BinarySearchTree* keyTree, AVLTree* nameTree);

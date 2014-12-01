@@ -1,11 +1,11 @@
 #include "IOManagers.h"
-#include <stack>
+#include "Stack.h"
 #include <iostream>
 
 void welcome();
 void displayMenuOptions();
 void runMenu(HashTable<string, Card*>* &hashTable, BinarySearchTree* keyTree,
-	AVLTree* nameTree, stack<Card*>* deleteStack);
+	AVLTree* nameTree, Stack<Card*>* deleteStack);
 void farewell();
 
 int main(){
@@ -13,7 +13,7 @@ int main(){
 	HashTable<string, Card*>* hashTable = 0;
 	BinarySearchTree* keyTree = new BinarySearchTree;
 	AVLTree* nameTree = new AVLTree;
-	stack<Card*>* deleteStack = new stack<Card*>;
+	Stack<Card*>* deleteStack = new Stack<Card*>();
 
 	welcome();
 
@@ -26,6 +26,7 @@ int main(){
 	//Destroy Structures - by Jordan
 
 	InventoryManager::destroyEverything(keyTree, nameTree, hashTable);
+	delete deleteStack;
 
 	return 0;
 }
@@ -54,7 +55,7 @@ void displayMenuOptions()
 //  Continues until user decides to quit.
 // (¯`'•.¸//(*_*)\\¸.•'´¯`'•.¸//(*_*)\\¸.•'´¯`'•.¸//(*_*)\\¸.•'´¯)
 void runMenu(HashTable<string, Card*>* &hashTable, BinarySearchTree* keyTree,
-	AVLTree* nameTree, stack<Card*>* deleteStack)
+	AVLTree* nameTree, Stack<Card*>* deleteStack)
 {
 	string choice;
 	do{										//cycles through commands until the user decides to quit

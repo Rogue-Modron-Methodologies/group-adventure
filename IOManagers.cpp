@@ -74,7 +74,7 @@ void Managers::addManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashTabl
 		Card *TempCard = new Card();
 
 		TempCard->setCode(key);
-		
+
 		cout << "Enter name: ";
 		getline(cin, buffer);
 		upper(buffer);
@@ -143,7 +143,7 @@ void Managers::searchManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashT
 // If name is given, a list is displayed and the user must choose the key corresponding
 // to the card they wish to delete.
 // The deleted card gets pushed onto the undo delete stack.
-void Managers::deleteManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashTable<string, Card*>* hashTable, stack<Card*>* deleteStack) {
+void Managers::deleteManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashTable<string, Card*>* hashTable, Stack<Card*>* deleteStack) {
 	string key = "", name = "";
 	Card TempCard;
 	LinkedList *listChoice = NULL;
@@ -207,18 +207,19 @@ void Managers::deleteManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashT
 // Member function undoDeleteManager restores a deleted card back to the BST, AVL Tree, and Hashed Table.
 // If a card with the same key is found, the two cards are displayed and the user chooses which card
 // to keep.
-void Managers::undoDeleteManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashTable<string, Card*>* hashTable, stack<Card*>* deleteStack) {
-	if (deleteStack->empty()) {
+void Managers::undoDeleteManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashTable<string, Card*>* hashTable, Stack<Card*>* deleteStack) {
+	if (deleteStack->isEmpty()) {
 		cout << "Nothing to restore. Stack is empty!" << endl;
 		return;
 	}
+    Card *topCard = NULL, *TempCard = NULL;
+	deleteStack->getTop(topCard);
+	string key = topCard->getCode();
 
-	string key = deleteStack->top()->getCode();
-	Card *TempCard = NULL;
 
 	if (hashTable->search(key, TempCard)) {
-		cout << "(" << deleteStack->top() << ")" << " already exists.\n"
-			<< "\nReplace (" << TempCard << ") with (" << deleteStack->top() << ")? y/n: ";
+		cout << "(" << topCard << ")'s key already exists in db.\n"
+			<< "\nReplace (" << TempCard << ") with (" << topCard << ")? y/n: ";
 
 		switch (option()) {
 		case 'Y':
@@ -228,6 +229,7 @@ void Managers::undoDeleteManager(BinarySearchTree* keyTree, AVLTree* nameTree, H
 				cout << key << " removed from nameTree." << endl;
 			if (hashTable->remove(key, TempCard))
 				cout << key << " removed from hashTable." << endl;
+            delete TempCard;
 			break;
 		case 'N':
 			deleteStack->pop();
@@ -237,22 +239,21 @@ void Managers::undoDeleteManager(BinarySearchTree* keyTree, AVLTree* nameTree, H
 		}
 	}
 
-	TempCard = deleteStack->top();
 
-	keyTree->insert(TempCard);
+	keyTree->insert(topCard);
 	cout << "Inserting into keyTree..." << endl;
-	nameTree->insert(TempCard);
+	nameTree->insert(topCard);
 	cout << "Inserting into nameTree..." << endl;
-	hashTable->addEntry(TempCard->getCode(), TempCard);
+	hashTable->addEntry(topCard->getCode(), topCard);
 	cout << "Inserting into hashTable..." << endl;
-	cout << "(" << TempCard << ")" << " restored." << endl;
+	cout << "(" << topCard << ")" << " restored." << endl;
 
 	deleteStack->pop();
 }
 
 // Member function saveManager empties the undo delete stack and saves the collection.
-void Managers::saveManager(BinarySearchTree* keyTree, stack<Card*>* deleteStack) {
-	deleteStackManager(deleteStack);
+void Managers::saveManager(BinarySearchTree* keyTree, Stack<Card*>* deleteStack) {
+	DeleteStackManager(deleteStack);
 	cout << "Deleting stack..." << endl;
 	InventoryManager::saveCurrentCollection(keyTree);
 	cout << "Saving current collection..." << endl;
@@ -260,11 +261,11 @@ void Managers::saveManager(BinarySearchTree* keyTree, stack<Card*>* deleteStack)
 
 // Member function DeleteStack empties the undo delete stack.
 // Note: Thinking about deprecating this one.
-void Managers::deleteStackManager(stack<Card*>* deleteStack) {
-	while (!deleteStack->empty()) {
-		Card* deleteCard = deleteStack->top();
+void Managers::DeleteStackManager(Stack<Card*>* deleteStack) {
+	while (!deleteStack->isEmpty()) {
+		Card* deleteCard;
+        deleteStack->pop(deleteCard);
 		delete deleteCard;
-		deleteStack->pop();
 	}
 }
 
