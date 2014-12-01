@@ -20,20 +20,24 @@ void InventoryManager::inventoryCreation(BinarySearchTree* binary_tree, AVLTree*
 	ifstream input_file_names;
 	string card_block;
 	vector<Card*> card_collection;
+	string inputName;
 
-	input_file_names.open("InputFileNames.txt");
+	cout << "Please enter input file: ";
+	getline(cin, inputName);
+
+	input_file_names.open(inputName.c_str());
 
 	if (!input_file_names)														//if statement to ensure .txt file exists
 	{
-		cout << "\n\tERROR! InputFileNames.txt was not found!\n\n";
+		cout << "\n\tERROR! " << inputName << " was not found!\n\n";
 
 		exit(EXIT_FAILURE);
 	}
- 
+
 	while (getline(input_file_names, card_block))
 	{
 	    if (card_block.size() == 0) continue;  // if line is blank skip to next line
-	    
+
 		cout << "\n\tAdding cards from " << card_block << " to collection.\n";
 
 		makeVector(card_collection, card_block);		//read file into vector
@@ -69,11 +73,11 @@ void InventoryManager::makeVector(vector<Card*> &card_collection, string card_bl
 	block_source.open(card_block.c_str());						//first 2 characters of first line of document represent block of magic cards
 
 	block_source >> block_name;				//get first word of document
-	
+
 	if (block_name.size() == 2) {			// for reading our normal input files
 
 		getline(block_source, temp_buff);
-						
+
 
 		while (getline(block_source, code, '\t'))			//read document and assign card
 		{
@@ -97,7 +101,7 @@ void InventoryManager::makeVector(vector<Card*> &card_collection, string card_bl
 		}
 	}
 	else {													// for reading in from a previously made input file
-	
+
 		code = block_name;									// first card
 		block_source >> ws;
 		getline(block_source, name, '\t');
@@ -105,7 +109,7 @@ void InventoryManager::makeVector(vector<Card*> &card_collection, string card_bl
 		block_source >> rarity;
 		Card* new_ptr = new Card(code, name, cost, rarity); //create new card object
 		card_collection.push_back(new_ptr);				//add card pointer to vector
-		
+
 		while (block_source >> code)					// subsequent cards
 		{
 			block_source >> ws;
@@ -114,10 +118,10 @@ void InventoryManager::makeVector(vector<Card*> &card_collection, string card_bl
 			block_source >> rarity;
 			Card* new_ptr = new Card(code, name, cost, rarity); //create new card object
 
-			card_collection.push_back(new_ptr);				//add card pointer to vector	
-		
+			card_collection.push_back(new_ptr);				//add card pointer to vector
+
 		}
-	
+
 	}
 	block_source.close();
 }
@@ -203,7 +207,7 @@ bool InventoryManager::checkNotPrime(int find_prime)
 {
 	for (int i = 3; i < (find_prime / 2); i += 2)
 	{
-		if (find_prime % i == 0) 
+		if (find_prime % i == 0)
 			return true;
 	}
 
