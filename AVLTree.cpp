@@ -255,6 +255,7 @@ AVLNode* AVLTree::_remove(AVLNode* nodePtr, Card target, bool & success)
 		{
 			// If it does then we simply call the linked lists delete function
 			success = nodePtr->getItem()->Delete(&target);
+			count--;
 			return nodePtr;
 		}
 		// If we get here then we know we need to completely delete the node found
@@ -265,6 +266,7 @@ AVLNode* AVLTree::_remove(AVLNode* nodePtr, Card target, bool & success)
 		// With the children saved we delete the target node and set success to true
 		delete nodePtr;
 		success = true;
+		count--;
 
 		// Now we check if the right child is actually valid
 		if (!root)
