@@ -59,13 +59,11 @@ void displayMenuOptions()
 void runMenu(HashTable<string, Card*>* &hashTable, BinarySearchTree* keyTree,
 	AVLTree* nameTree, Stack<Card*>* deleteStack)
 {
-	string choice;
+	char choice;
 	do{										//cycles through commands until the user decides to quit
 		cout << "Please enter a command.\t<M> for help." << endl;
-		cout << "> ";
-		getline(cin, choice);
-
-		switch (toupper(choice[0])){
+		choice = IOManagers::option();
+		switch (choice){
 		case 'A':
 			IOManagers::addManager(keyTree, nameTree, hashTable);
 			break;
@@ -103,7 +101,7 @@ void runMenu(HashTable<string, Card*>* &hashTable, BinarySearchTree* keyTree,
 			cout << "\nCommand not understood.  Please try again!\n\n";
 			break;
 		}
-	} while (toupper(choice[0]) != 'Q');
+	} while (choice != 'Q');
 }
 
 void welcome() {

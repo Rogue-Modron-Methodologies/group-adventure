@@ -18,8 +18,8 @@ private:
 	// Input validation functions.
 	static void upper(string &s);
 	static bool validKey(string &key);
-	static char option();
 public:
+	static char option();
 	// Insert, delete, search, undo-delete, save, and delete stack managers.
 	static void addManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashTable<string, Card*>* &hashTable);
 	static void searchManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashTable<string, Card*>* hashTable);

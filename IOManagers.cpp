@@ -48,14 +48,12 @@ bool IOManagers::validKey(string &key) {
 // to be used in switch statements.
 // If invalid, it returns NULL
 char IOManagers::option() {
-	char option = NULL;
-	cout << "Enter option: ";
-	cin >> option;
-	if (!cin.good())
+	string option = "";
+	cout << "> ";
+	getline(cin, option);
+	if (option.length() != 1)
 		return NULL;
-	cin.clear();
-	cin.ignore(INT_MAX, '\n');
-	return toupper(option);
+	return toupper(option[0]);
 }
 
 // Member function addManager adds a new card to the BST, AVL Tree, and Hashed Table
