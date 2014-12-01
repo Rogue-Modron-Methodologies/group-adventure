@@ -82,6 +82,7 @@ TreeNode* BinarySearchTree::_remove(TreeNode* root, string target){
         // Case 1:  No child
         if(root->getLeftPtr() == NULL && root->getRightPtr() == NULL) {
 			delete root;
+			cout << "Got here";
             root = NULL;
         }
         //Case 2: One child
@@ -101,10 +102,7 @@ TreeNode* BinarySearchTree::_remove(TreeNode* root, string target){
             TreeNode *temp = findMin(root->getRightPtr());
             
             //Data transfer
-            root->getCardPtr()->setName(temp->getCardPtr()->getName());
-            root->getCardPtr()->setCode(temp->getCardPtr()->getCode());
-            root->getCardPtr()->setCost(temp->getCardPtr()->getCost());
-            root->getCardPtr()->setRarity(temp->getCardPtr()->getRarity());
+            root->setCardPtr(temp->getCardPtr());output
             
             root->setRightPtr(_remove(root->getRightPtr(),temp->getCardPtr()->getCode()));
         }
