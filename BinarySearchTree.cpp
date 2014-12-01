@@ -101,7 +101,7 @@ TreeNode* BinarySearchTree::_remove(TreeNode* root, string target){
             TreeNode *temp = findMin(root->getRightPtr());
             
             //Data transfer
-            root->setCardPtr(temp->getCardPtr());output
+            root->setCardPtr(temp->getCardPtr());
             
             root->setRightPtr(_remove(root->getRightPtr(),temp->getCardPtr()->getCode()));
         }
