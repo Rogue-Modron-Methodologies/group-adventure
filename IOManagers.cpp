@@ -107,7 +107,8 @@ void Managers::addManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashTabl
 // otherwise, it displays all cards with the same name if a name is given.
 void Managers::searchManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashTable<string, Card*>* hashTable) {
 	string buffer;
-	Card *TempCard;
+	Card TempCard;
+	Card *tempPtr = NULL;
 	LinkedList *listChoice = NULL;
 
 	cout << "SEARCH MANAGER\n\t1: Key\n\t2: Name\n\n";
@@ -115,8 +116,8 @@ void Managers::searchManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashT
 	switch (option()) {
 	case '1':
 		if (validKey(buffer)) {
-			if (hashTable->search(buffer, TempCard))
-				cout << buffer << " found!\n\t" << *TempCard << endl;
+			if (hashTable->search(buffer, tempPtr))
+				cout << buffer << " found!\n\t" << *tempPtr << endl;
 			else
 				cout << buffer << " not found." << endl;
 		}
@@ -125,8 +126,8 @@ void Managers::searchManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashT
 		cout << "Enter the name of the card to be searched.\nName: ";
 		getline(cin, buffer);
 		upper(buffer);
-		TempCard->setName(buffer);
-		listChoice = nameTree->getEntry(*TempCard);
+		TempCard.setName(buffer);
+		listChoice = nameTree->getEntry(TempCard);
 
 		if (!listChoice) // Check if name is found.
 			cout << buffer << " not found." << endl;
