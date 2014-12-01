@@ -239,7 +239,7 @@ bool InventoryManager::getSaveFileName(string &save_file_name)
 	if (save_file_name.size() == 0)
 		return false;
 
-	//txtCheck(save_file_name);
+	txtCheck(save_file_name);
 
 	check_name.open(save_file_name.c_str());
 
@@ -268,7 +268,7 @@ void InventoryManager::removeNonAlphaNumeric(string &save_file_name)
 
 	while (i >= 0)
 	{
-		if (!isalnum(save_file_name[i]))
+		if (!isalnum(save_file_name[i]) && save_file_name[i] != '.')
 			save_file_name.erase(i, 1);
 
 		i--;
