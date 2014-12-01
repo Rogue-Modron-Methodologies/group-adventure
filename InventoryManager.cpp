@@ -29,9 +29,11 @@ void InventoryManager::inventoryCreation(BinarySearchTree* binary_tree, AVLTree*
 
 		exit(EXIT_FAILURE);
 	}
-
+ 
 	while (getline(input_file_names, card_block))
 	{
+	    if (card_block.size() == 0) continue;  // if line is blank skip to next line
+	    
 		cout << "\n\tAdding cards from " << card_block << " to collection.\n";
 
 		makeVector(card_collection, card_block);		//read file into vector
@@ -62,33 +64,60 @@ read from files to create cards and pass back a vector of card pointers
 void InventoryManager::makeVector(vector<Card*> &card_collection, string card_block)
 {
 	ifstream block_source;
-	string temp_code, block_name, temp_buff, code, name, cost, rarity;
+	string block_name, temp_buff, code, name, cost, rarity;
 
 	block_source.open(card_block.c_str());						//first 2 characters of first line of document represent block of magic cards
 
-	getline(block_source, temp_buff);					//get first line of document
+	block_source >> block_name;				//get first word of document
+	
+	if (block_name.size() == 2) {			// for reading our normal input files
 
-	block_name = temp_buff.substr(0, 2);				//get first 2 characters
+		getline(block_source, temp_buff);
+						
 
-	while (getline(block_source, code, '\t'))			//read document and assign card
-	{
-		code.insert(0, block_name);						//isnerts block code before card number to create unique key
+		while (getline(block_source, code, '\t'))			//read document and assign card
+		{
+			code.insert(0, block_name);						//isnerts block code before card number to create unique key
 
-		getline(block_source, name, '\t');				//puts card name into string
+			getline(block_source, name, '\t');				//puts card name into string
 
-		for (int i = 0; i < name.length(); i++)			//needs to be uppercase
-			name[i] = toupper(name[i]);
+			for (int i = 0; i < name.length(); i++)			//needs to be uppercase
+				name[i] = toupper(name[i]);
 
-		getline(block_source, cost, '\t');				//puts card cost into string
+			getline(block_source, cost, '\t');				//puts card cost into string
 
-		getline(block_source, rarity, '\n');			//puts card rarity into string
+			getline(block_source, rarity, '\n');			//puts card rarity into string
 
-		for (int i = 0; i < rarity.length(); i++)		//needs to be uppercase
-			rarity[i] = toupper(rarity[i]);
+			for (int i = 0; i < rarity.length(); i++)		//needs to be uppercase
+				rarity[i] = toupper(rarity[i]);
 
+			Card* new_ptr = new Card(code, name, cost, rarity); //create new card object
+
+			card_collection.push_back(new_ptr);				//add card pointer to vector
+		}
+	}
+	else {													// for reading in from a previously made input file
+	
+		code = block_name;									// first card
+		block_source >> ws;
+		getline(block_source, name, '\t');
+		block_source >> cost;
+		block_source >> rarity;
 		Card* new_ptr = new Card(code, name, cost, rarity); //create new card object
-
 		card_collection.push_back(new_ptr);				//add card pointer to vector
+		
+		while (block_source >> code)					// subsequent cards
+		{
+			block_source >> ws;
+			getline(block_source, name, '\t');
+			block_source >> cost;
+			block_source >> rarity;
+			Card* new_ptr = new Card(code, name, cost, rarity); //create new card object
+
+			card_collection.push_back(new_ptr);				//add card pointer to vector	
+		
+		}
+	
 	}
 	block_source.close();
 }
@@ -174,7 +203,7 @@ bool InventoryManager::checkNotPrime(int find_prime)
 {
 	for (int i = 3; i < (find_prime / 2); i += 2)
 	{
-		if (find_prime % i == 0)				//as soon as an interger leaves no remainder return true to continue search
+		if (find_prime % i == 0) 
 			return true;
 	}
 
@@ -201,7 +230,7 @@ bool InventoryManager::getSaveFileName(string &save_file_name)
 {
 	ifstream check_name;
 
-	cout << "\n\n\tEnter name for save file. (Alphanumeric only)\n";		//cout message to request name
+	cout << "\n\n\tEnter name for save file. (Alphanumeric only)\n> ";		//cout message to request name
 
 	getline(cin, save_file_name);
 
@@ -210,7 +239,7 @@ bool InventoryManager::getSaveFileName(string &save_file_name)
 	if (save_file_name.size() == 0)
 		return false;
 
-	txtCheck(save_file_name);
+	//txtCheck(save_file_name);
 
 	check_name.open(save_file_name.c_str());
 

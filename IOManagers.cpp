@@ -52,7 +52,7 @@ char IOManagers::option() {
 	cout << "> ";
 	getline(cin, option);
 	if (option.length() != 1)
-		return NULL;
+		return '\0';
 	return toupper(option[0]);
 }
 
