@@ -135,45 +135,44 @@ TreeNode* BinarySearchTree::_findNode(TreeNode* treePtr, const string & code){
  THIS FUCNCTION DISPLAY THE TREE IN
  IN ORDER TRAVERSAL
  */
-void BinarySearchTree::displayTree(){
-    _displayTree(rootPtr);
+void BinarySearchTree::displayTree(void display(Card* const &card)){
+	_displayTree(display, rootPtr);
 }
-void BinarySearchTree::_displayTree(TreeNode* nodePtr){
+void BinarySearchTree::_displayTree(void display(Card* const &card), TreeNode* nodePtr){
     
     if(nodePtr){
-        _displayTree(nodePtr->getLeftPtr());
+		_displayTree(display, nodePtr->getLeftPtr());
         
+		display(nodePtr->getCardPtr());
+        cout << endl;
         
-        cout << "Name: "<< nodePtr->getCardPtr()->getName() << " "
-        << "Code: "<< nodePtr->getCardPtr()->getCode() << endl;
-        
-        
-        _displayTree(nodePtr->getRightPtr());
+		_displayTree(display, nodePtr->getRightPtr());
     }
 }
 /*
  THIS FUCNCTION DISPLAY THE TREE IN
  IN ORDER TRAVERSAL WITH INDENTS
  */
-void BinarySearchTree::displayIndentedTree(){
+void BinarySearchTree::displayIndentedTree(void display(Card* const &card)){
     
     int lineNum = 0;
     
-    _displayIndentedTree(rootPtr,lineNum);
+	_displayIndentedTree(display, rootPtr, lineNum);
     
 }
 
-void BinarySearchTree::_displayIndentedTree(TreeNode* nodePtr, int &lineNum){ //       lineNum should always pass 0 in
+void BinarySearchTree::_displayIndentedTree(void display(Card* const &card), TreeNode* nodePtr, int &lineNum){ //       lineNum should always pass 0 in
     
     if(nodePtr){
         for(int i=0;i<lineNum;i++) {    cout << "\t";}
         lineNum++;
         
-        cout << lineNum << ".) " << "Name: "<< nodePtr->getCardPtr()->getName();
-        cout << " " << "Code: " << nodePtr->getCardPtr()->getCode() << endl;
+		cout << lineNum << ".) ";
+		display(nodePtr->getCardPtr());
+		cout << endl;
         
-        _displayIndentedTree(nodePtr->getRightPtr(),lineNum);
-        _displayIndentedTree(nodePtr->getLeftPtr(),lineNum);
+		_displayIndentedTree(display, nodePtr->getRightPtr(), lineNum);
+		_displayIndentedTree(display, nodePtr->getLeftPtr(), lineNum);
         
         lineNum--;
         

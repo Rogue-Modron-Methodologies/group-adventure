@@ -30,6 +30,8 @@ public:
 	static void displayIndentedTreeManager(BinarySearchTree* keyTree, AVLTree* nameTree);
 	static void displayHashedTable(HashTable<string, Card*>* hashTable);
 	static void displayList(LinkedList &anItem);
+	static void displayName(LinkedList &anItem);
+	static void displayCard(Card* const &card);
 };
 
 #endif

@@ -108,7 +108,7 @@ void Managers::addManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashTabl
 void Managers::searchManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashTable<string, Card*>* hashTable) {
 	string buffer;
 	Card TempCard;
-	Card *tempPtr = NULL;
+	Card *tmpPtr = 0;
 	LinkedList *listChoice = NULL;
 
 	cout << "SEARCH MANAGER\n\t1: Key\n\t2: Name\n\n";
@@ -116,8 +116,8 @@ void Managers::searchManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashT
 	switch (option()) {
 	case '1':
 		if (validKey(buffer)) {
-			if (hashTable->search(buffer, tempPtr))
-				cout << buffer << " found!\n\t" << *tempPtr << endl;
+			if (hashTable->search(buffer, tmpPtr))
+				cout << buffer << " found!\n\t" << *tmpPtr << endl;
 			else
 				cout << buffer << " not found." << endl;
 		}
@@ -132,7 +132,10 @@ void Managers::searchManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashT
 		if (!listChoice) // Check if name is found.
 			cout << buffer << " not found." << endl;
 		else
-			displayList(*listChoice);
+		{
+			cout << buffer << " found!\n";
+			displayName(*listChoice);
+		}
 		break;
 	default:
 		cout << "Invalid input." << endl;
@@ -169,12 +172,12 @@ void Managers::deleteManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashT
 		}
 		else {
 			if (listChoice->GetCount() == 1) {
-				Card* nameCard;
+				Card* nameCard = 0;
 				listChoice->GetFirst(nameCard);
 				key = nameCard->getCode();
 			}
 			else {
-				displayList(*listChoice);
+				displayName(*listChoice);
 				cout << "Enter the key of one the cards displayed above." << endl;
 				if (!validKey(key))
 					return;
@@ -186,8 +189,7 @@ void Managers::deleteManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashT
 		return;
 	}
 
-	Card *tempPtr = NULL;
-
+	Card* tempPtr = 0;
 	if (hashTable->search(key, tempPtr)) { // Check if card exists.
 
 		deleteStack->push(tempPtr);
@@ -277,7 +279,7 @@ void Managers::displayTreeManager(BinarySearchTree* keyTree, AVLTree* nameTree) 
 		if (keyTree->isEmpty())
 			cout << "BST tree is empty! Nothing to display." << endl;
 		else
-			keyTree->displayTree();
+			keyTree->displayTree(displayCard);
 		break;
 	case '2':
 		if (nameTree->isEmpty())
@@ -299,7 +301,7 @@ void Managers::displayIndentedTreeManager(BinarySearchTree* keyTree, AVLTree* na
 		if (keyTree->isEmpty())
 			cout << "BST tree is empty! Nothing to display." << endl;
 		else
-			keyTree->displayIndentedTree();
+			keyTree->displayIndentedTree(displayCard);
 		break;
 	case '2':
 		if (nameTree->isEmpty())
@@ -322,10 +324,10 @@ void Managers::displayHashedTable(HashTable<string, Card*>* hashTable) {
 
 	switch (option()) {
 	case '1':
-		hashTable->printTable(Card::display);
+		hashTable->printTable(displayCard);
 		break;
 	case '2':
-		hashTable->displayTable(Card::display);
+		hashTable->displayTable(displayCard);
 		break;
 	default:
 		cout << "Invalid entry." << endl;
@@ -339,11 +341,32 @@ void Managers::displayList(LinkedList &anItem) {
 	Card* toPrint = 0;
 	anItem.GetNext(toPrint);
 
-	cout << "Displaying item - " << toPrint->getName();
-	cout << "\n\n\t\t" << toPrint->getCode();
+	cout << toPrint->getName();
+	cout << " " << toPrint->getCode();
 	while (anItem.GetNext(toPrint))
 	{
-		cout << "\n\t\t" << toPrint->getCode();
+		cout << ", " << toPrint->getCode();
 	}
 	cout << endl;
+}
+
+// Member function displayName displays complete information
+// about all cards with the same name.
+void Managers::displayName(LinkedList &anItem) {
+	anItem.ResetCurr();
+	Card* toPrint = 0;
+	anItem.GetNext(toPrint);
+
+	cout << "\t" << *toPrint << endl;
+	while (anItem.GetNext(toPrint))
+	{
+		cout << "\t" << *toPrint << endl;
+	}
+}
+
+// Member function displayName displays complete information
+// about all cards with the same name.
+void Managers::displayCard(Card* const &card) {
+	cout << card->getCode() << " "
+		 << card->getName();
 }

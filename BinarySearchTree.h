@@ -32,9 +32,9 @@ public:
     // find a target node
     TreeNode* findNode(const string & target);
     // displays tree in order
-    void displayTree();
+	void displayTree(void display(Card* const &card));
     // display indented tree
-    void displayIndentedTree();
+	void displayIndentedTree(void display(Card* const &card));
     //  write tree to file
     void writeTreeToFile(ofstream &outFile);
     
@@ -52,9 +52,9 @@ private:
     //seach for min node
     TreeNode* findMin(TreeNode* root);
     
-    void _displayTree(TreeNode* nodePtr);
+	void _displayTree(void display(Card* const &card), TreeNode* nodePtr);
     
-    void _displayIndentedTree(TreeNode* nodePtr, int &lineNum);
+	void _displayIndentedTree(void display(Card* const &card), TreeNode* nodePtr, int &lineNum);
     
     // delete all nodes from the tree
     void destroyTree(TreeNode* nodePtr);
