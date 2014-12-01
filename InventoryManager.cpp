@@ -12,10 +12,6 @@ Jamie Johnson, Edward Lim, Nick Arduini, Efrain Esquivel, Jordan Cox, and Steven
 
 #include "InventoryManager.h"
 
-#include <fstream>
-#include <cstdlib>
-#include <ctime>
-
 /** (っ◕‿◕)っ <(n_n<)
 function calls other function, together they read files and creat initial data structures
 */
@@ -139,7 +135,7 @@ reform hash table using count of old tables pointers
 */
 void InventoryManager::reformHashTable(HashTable<string, Card*>* &hash_table)
 {
-	cout << "\n\n\tHash table load factor over 75%.\n\n\tRe-hashing.\n";
+	cout << "\n\tHash table load factor over 75%.\n\n\tRe-hashing.\n";
 
 	int big_prime_number = getHashSizePrime((hash_table->getFilledSlots() + hash_table->getCollisions()));
 
@@ -153,7 +149,7 @@ void InventoryManager::reformHashTable(HashTable<string, Card*>* &hash_table)
 
 	cout << "\n\tRe-hash complete.\n";
 
-	cout << "\n\tLoad factor of hash table is " << fixed << setprecision(2) << hash_table->getLoadFactor() << ".\n";
+	cout << "\n\tLoad factor of hash table is " << fixed << setprecision(2) << hash_table->getLoadFactor() << ".\n\n";
 }
 
 /** (っ◕‿◕)っ <(n_n<)
@@ -191,7 +187,6 @@ save the current collection of cards with user chosen name
 void InventoryManager::saveCurrentCollection(BinarySearchTree* binary_tree)
 {
 	string save_file_name;
-	ofstream save_file;
 
 	//while statment is to help get good name (don't forget there is a ! before the function call)
 	while (!getSaveFileName(save_file_name));			//ask for name of save-to file and check availabilty of the name
@@ -200,51 +195,24 @@ void InventoryManager::saveCurrentCollection(BinarySearchTree* binary_tree)
 }
 
 /** (っ◕‿◕)っ <(n_n<)
-remove unacceptable characters from save file name
-*/
-void InventoryManager::removeNonAlphaNumeric(string &save_file_name)
-{
-	int i = save_file_name.size();
-
-	while (i >= 0)
-	{
-		if (!isalnum(save_file_name[i]))
-			save_file_name.erase(i, 1);
-		
-		i--;
-	}
-}
-
-/** (っ◕‿◕)っ <(n_n<)
 make sure user enters good name for save file
 */
 bool InventoryManager::getSaveFileName(string &save_file_name)
 {
 	ifstream check_name;
-	int txt_check;
 
-	cout << "\n\n\tEnter name of save file.\n";		//cout message to request name
+	cout << "\n\n\tEnter name for save file. (Alphanumeric only)\n";		//cout message to request name
 
 	getline(cin, save_file_name);
 
-	removeNonAlphaNumeric(save_file_name);
+	removeNonAlphaNumeric(save_file_name);			//only alpanumeric allowed, this removes un-allowed characters
 
-	txt_check = (save_file_name.size() - 4);
-
-	if (txt_check == -4)
-	{
+	if (save_file_name.size() == 0)
 		return false;
-	}
-	else if (txt_check > 0 && save_file_name.compare(txt_check, 4, ".txt") != 0)
-	{
-		save_file_name.append(".txt");
-	}
-	else if( txt_check < 1)
-	{
-		save_file_name.append(".txt");
-	}
 
-	check_name.open(save_file_name);		//.c_str()
+	txtCheck(save_file_name);
+
+	check_name.open(save_file_name);		
 
 	if (!check_name)				//check name is good
 	{
@@ -262,27 +230,70 @@ bool InventoryManager::getSaveFileName(string &save_file_name)
 }
 
 /** (っ◕‿◕)っ <(n_n<)
+remove the untouchable characters from save file name
+*/
+void InventoryManager::removeNonAlphaNumeric(string &save_file_name)
+{
+	int i = save_file_name.size();
+
+	while (i >= 0)
+	{
+		if (!isalnum(save_file_name[i]))
+			save_file_name.erase(i, 1);
+		
+		i--;
+	}
+}
+
+/** (っ◕‿◕)っ <(n_n<)
+add a ".txt" if the user didn't include it
+*/
+void InventoryManager::txtCheck(string &save_file_name)
+{
+	int txt_check;
+
+	txt_check = (save_file_name.size() - 4);							//int txt_check used for size comparisons and stating point for string comparison 
+
+	if (txt_check > 0 && save_file_name.compare(txt_check, 4, ".txt") != 0)
+	{
+		save_file_name.append(".txt");
+	}
+	else if (txt_check < 1)
+	{
+		save_file_name.append(".txt");
+	}
+
+}
+
+/** (っ◕‿◕)っ <(n_n<)
 check if user wants to replace contents of a text file when saving current collection of cards
 */
 bool InventoryManager::replaceOrNot(string &save_file_name)
 {
 	string option = " ";
-
+	ofstream clear_file;
 
 	while (option != "1" && option != "2")
 	{ 
 			//give user options in this situation
-		cout << "\n\tWould you like to replace card list saved in the file named " << save_file_name << " with a new card list?\n"
-			<< "\t\t1: Keep file named " << save_file_name << " BUT replace the list of cards.\n"
-			<< "\t\t2: Enter new file name to save the list of cards to.\n";
+		cout << "\n\tWould you like to remove the card list saved in the file named \"" << save_file_name << "\" and save the new card list here?\n"
+			<< "\t\t1: Remove old card list, save new card list in \"" << save_file_name << "\".\n"
+			<< "\t\t2: Keep old card list and enter new file name to save the new card list to.\n";
 
 		getline(cin, option);
 
 		if (option == "1")
 		{
-			const char * c = save_file_name.c_str();
+			clear_file.open(save_file_name);			//emtpying file which will recieve new card collection
 
-			if (remove(c))										//emtpying file which will recieve new card collection
+			cout << "\n\tContents of " << save_file_name << " successfully removed,\n"
+				<< "\tnew card list will be saved here.\n";
+
+			clear_file.close();
+
+			/*const char * c = save_file_name.c_str();
+
+			if (remove(c))										
 			{ 
 				cout << "\n\tContents of " << save_file_name << " successfully deleted,\n"
 					<< "\tcards will be saved here.\n";
@@ -293,7 +304,7 @@ bool InventoryManager::replaceOrNot(string &save_file_name)
 			{ 
 				cout << "\n\tError cleaning file\n";
 				return false;
-			}
+			}*/
 		}
 		else if (option == "2")
 		{

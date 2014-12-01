@@ -18,6 +18,10 @@ Jamie Johnson, Edward Lim, Nick Arduini, Efrain Esquivel, Jordan Cox, and Steven
 #include "AVLTree.h"
 #include "HashTable.h"
 
+#include <fstream>
+#include <cstdlib>
+#include <ctime>
+
 class InventoryManager
 {
 private:
@@ -29,6 +33,7 @@ private:
 	static bool checkNotPrime(int);
 	static bool getSaveFileName(string&);
 	static void removeNonAlphaNumeric(string&);
+	static void txtCheck(string &);
 	static void makeSaveFile(BinarySearchTree*, string);
 	static bool replaceOrNot(string&);
 	static void ripEmUp(vector<Card*> &);
