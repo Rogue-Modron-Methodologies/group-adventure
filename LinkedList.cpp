@@ -1,12 +1,12 @@
+// Team 3 Group Project
+// CIS 22C - 2014
+// Jamie Johnson, Edward Lim, Nick Arduini, Efrain Esquivel, Jordan Cox, and Steven Bennett
+
 #include "LinkedList.h"
 
 /**~*~*		Constructor
 Creates the head node for the list and initializes the values
 for the head node, count and current pointer.
-*~**/
-
-/**~*~*		Name
-
 *~**/
 LinkedList::LinkedList()
 {

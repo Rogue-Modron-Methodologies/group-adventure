@@ -11,14 +11,14 @@
 
 // Member function upper sets all characters in a string
 // to uppercase.
-void Managers::upper(string &s) {
+void IOManagers::upper(string &s) {
 	for (int i = 0; i < s.length(); i++)
 		s[i] = toupper(s[i]);
 }
 
 // Member function validKey checks to make sure the key
 // a user enters is valid.
-bool Managers::validKey(string &key) {
+bool IOManagers::validKey(string &key) {
 	cout << "Enter key: ";
 	getline(cin, key);
 
@@ -47,7 +47,7 @@ bool Managers::validKey(string &key) {
 // Member function option returns a valid, uppercase character
 // to be used in switch statements.
 // If invalid, it returns NULL
-char Managers::option() {
+char IOManagers::option() {
 	char option = NULL;
 	cout << "Enter option: ";
 	cin >> option;
@@ -59,7 +59,7 @@ char Managers::option() {
 }
 
 // Member function addManager adds a new card to the BST, AVL Tree, and Hashed Table
-void Managers::addManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashTable<string, Card*>* &hashTable) {
+void IOManagers::addManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashTable<string, Card*>* &hashTable) {
 	string key = "", buffer = "";
 
 	cout << "ADD MANAGER\n\tPlease enter a valid serial number in the format AA111." << endl;
@@ -105,7 +105,7 @@ void Managers::addManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashTabl
 
 // Member function searchManager searches the hashed table for a card if a key is given;
 // otherwise, it displays all cards with the same name if a name is given.
-void Managers::searchManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashTable<string, Card*>* hashTable) {
+void IOManagers::searchManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashTable<string, Card*>* hashTable) {
 	string buffer;
 	Card TempCard;
 	Card *tempPtr = NULL;
@@ -143,7 +143,7 @@ void Managers::searchManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashT
 // If name is given, a list is displayed and the user must choose the key corresponding
 // to the card they wish to delete.
 // The deleted card gets pushed onto the undo delete stack.
-void Managers::deleteManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashTable<string, Card*>* hashTable, Stack<Card*>* deleteStack) {
+void IOManagers::deleteManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashTable<string, Card*>* hashTable, Stack<Card*>* deleteStack) {
 	string key = "", name = "";
 	Card TempCard;
 	LinkedList *listChoice = NULL;
@@ -207,7 +207,7 @@ void Managers::deleteManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashT
 // Member function undoDeleteManager restores a deleted card back to the BST, AVL Tree, and Hashed Table.
 // If a card with the same key is found, the two cards are displayed and the user chooses which card
 // to keep.
-void Managers::undoDeleteManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashTable<string, Card*>* hashTable, Stack<Card*>* deleteStack) {
+void IOManagers::undoDeleteManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashTable<string, Card*>* hashTable, Stack<Card*>* deleteStack) {
 	if (deleteStack->isEmpty()) {
 		cout << "Nothing to restore. Stack is empty!" << endl;
 		return;
@@ -252,7 +252,7 @@ void Managers::undoDeleteManager(BinarySearchTree* keyTree, AVLTree* nameTree, H
 }
 
 // Member function saveManager empties the undo delete stack and saves the collection.
-void Managers::saveManager(BinarySearchTree* keyTree, Stack<Card*>* deleteStack) {
+void IOManagers::saveManager(BinarySearchTree* keyTree, Stack<Card*>* deleteStack) {
 	deleteStackManager(deleteStack);
 	cout << "Deleting stack..." << endl;
 	InventoryManager::saveCurrentCollection(keyTree);
@@ -261,7 +261,7 @@ void Managers::saveManager(BinarySearchTree* keyTree, Stack<Card*>* deleteStack)
 
 // Member function DeleteStack empties the undo delete stack.
 // Note: Thinking about deprecating this one.
-void Managers::deleteStackManager(Stack<Card*>* deleteStack) {
+void IOManagers::deleteStackManager(Stack<Card*>* deleteStack) {
 	while (!deleteStack->isEmpty()) {
 		Card* deleteCard;
         deleteStack->pop(deleteCard);
@@ -270,7 +270,7 @@ void Managers::deleteStackManager(Stack<Card*>* deleteStack) {
 }
 
 // Member function displayTreeManager displays either the BST or AVL Tree.
-void Managers::displayTreeManager(BinarySearchTree* keyTree, AVLTree* nameTree) {
+void IOManagers::displayTreeManager(BinarySearchTree* keyTree, AVLTree* nameTree) {
 	cout << "Which tree would you like to display?\n1: BST\n2: AVL\n" << endl;
 
 	switch (option()) {
@@ -292,7 +292,7 @@ void Managers::displayTreeManager(BinarySearchTree* keyTree, AVLTree* nameTree) 
 }
 
 // Member function displayIndentedTreeManager displays the BST or AVL Tree indented.
-void Managers::displayIndentedTreeManager(BinarySearchTree* keyTree, AVLTree* nameTree) {
+void IOManagers::displayIndentedTreeManager(BinarySearchTree* keyTree, AVLTree* nameTree) {
 	cout << "Which tree would you like to display?\n1: Indented BST\n2: Indented AVL\n" << endl;
 
 	switch (option()) {
@@ -314,7 +314,7 @@ void Managers::displayIndentedTreeManager(BinarySearchTree* keyTree, AVLTree* na
 
 // Member function displayHashedTable displays either the full hashed table
 // including the empty indicies or only the occupied indicies.
-void Managers::displayHashedTable(HashTable<string, Card*>* hashTable) {
+void IOManagers::displayHashedTable(HashTable<string, Card*>* hashTable) {
 	if (hashTable->getListCount() == 0) {
 		cout << "Hashed table is empty! Nothing to display." << endl;
 		return;
@@ -335,7 +335,7 @@ void Managers::displayHashedTable(HashTable<string, Card*>* hashTable) {
 
 // Member function displayList displays a list of keys corresponding
 // to a name of a card.
-void Managers::displayList(LinkedList &anItem) {
+void IOManagers::displayList(LinkedList &anItem) {
 	anItem.ResetCurr();
 	Card* toPrint = 0;
 	anItem.GetNext(toPrint);

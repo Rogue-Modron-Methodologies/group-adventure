@@ -1,6 +1,10 @@
+/** 
+Team 3 Group Project
+De Anza - CIS 22C
+Fall 2014
+Jamie Johnson, Edward Lim, Nick Arduini, Efrain Esquivel, Jordan Cox, and Steven Bennett */
+
 #include "IOManagers.h"
-#include "Stack.h"
-#include <iostream>
 
 void welcome();
 void displayMenuOptions();
@@ -17,13 +21,11 @@ int main(){
 
 	welcome();
 
-	InventoryManager::inventoryCreation(keyTree, nameTree, hashTable);		//InvManager - by Jordan
+	InventoryManager::inventoryCreation(keyTree, nameTree, hashTable);
 
 	runMenu(hashTable, keyTree, nameTree, deleteStack);
 
 	farewell();
-
-	//Destroy Structures - by Jordan
 
 	InventoryManager::destroyEverything(keyTree, nameTree, hashTable);
 	delete deleteStack;
@@ -65,28 +67,28 @@ void runMenu(HashTable<string, Card*>* &hashTable, BinarySearchTree* keyTree,
 
 		switch (toupper(choice[0])){
 		case 'A':
-			Managers::addManager(keyTree, nameTree, hashTable);
+			IOManagers::addManager(keyTree, nameTree, hashTable);
 			break;
 		case 'D':
-			Managers::deleteManager(keyTree, nameTree, hashTable, deleteStack);
+			IOManagers::deleteManager(keyTree, nameTree, hashTable, deleteStack);
 			break;
 		case 'U':
-			Managers::undoDeleteManager(keyTree, nameTree, hashTable, deleteStack);
+			IOManagers::undoDeleteManager(keyTree, nameTree, hashTable, deleteStack);
 			break;
 		case 'F':
-			Managers::searchManager(keyTree, nameTree, hashTable);
+			IOManagers::searchManager(keyTree, nameTree, hashTable);
 			break;
 		case 'H':
-			Managers::displayHashedTable(hashTable);
+			IOManagers::displayHashedTable(hashTable);
 			break;
 		case 'S':
-			Managers::displayTreeManager(keyTree, nameTree);
+			IOManagers::displayTreeManager(keyTree, nameTree);
 			break;
 		case 'I':
-			Managers::displayIndentedTreeManager(keyTree, nameTree);
+			IOManagers::displayIndentedTreeManager(keyTree, nameTree);
 			break;
 		case 'V':
-			Managers::saveManager(keyTree, deleteStack);
+			IOManagers::saveManager(keyTree, deleteStack);
 			break;
 		case 'T':
 			hashTable->displayStatistics();
@@ -95,7 +97,7 @@ void runMenu(HashTable<string, Card*>* &hashTable, BinarySearchTree* keyTree,
 			displayMenuOptions();
 			break;
 		case 'Q':
-			Managers::saveManager(keyTree, deleteStack);
+			IOManagers::saveManager(keyTree, deleteStack);
 			break;
 		default:
 			cout << "\nCommand not understood.  Please try again!\n\n";

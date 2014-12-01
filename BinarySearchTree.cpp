@@ -1,9 +1,11 @@
 //
 //  BinarySearchTree.cpp
-//  hw4
-//
 //  Created by Edward Lim on 11/13/14.
 //  Copyright (c) 2014 Edward Lim. All rights reserved.
+
+// Team 3 Group Project
+// CIS 22C - 2014
+// Jamie Johnson, Edward Lim, Nick Arduini, Efrain Esquivel, Jordan Cox, and Steven Bennett
 //
 
 #include <stdio.h>

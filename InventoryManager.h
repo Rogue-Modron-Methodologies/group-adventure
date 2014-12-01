@@ -13,7 +13,6 @@ Jamie Johnson, Edward Lim, Nick Arduini, Efrain Esquivel, Jordan Cox, and Steven
 #ifndef INVENTORY_MANAGER_H
 #define INVENTORY_MANAGER_H
 
-#include "Card.h"
 #include "BinarySearchTree.h"
 #include "AVLTree.h"
 #include "HashTable.h"

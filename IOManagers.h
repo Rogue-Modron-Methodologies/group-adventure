@@ -1,3 +1,7 @@
+// Team 3 Group Project
+// CIS 22C - 2014
+// Jamie Johnson, Edward Lim, Nick Arduini, Efrain Esquivel, Jordan Cox, and Steven Bennett
+
 #ifndef IO_MANAGERS
 #define IO_MANAGERS
 
@@ -6,11 +10,10 @@
 
 #include "InventoryManager.h"
 #include "Stack.h"
-#include <iostream>
 
 using namespace std;
 
-class Managers {
+class IOManagers {
 private:
 	// Input validation functions.
 	static void upper(string &s);
