@@ -144,7 +144,7 @@ void Managers::searchManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashT
 // The deleted card gets pushed onto the undo delete stack.
 void Managers::deleteManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashTable<string, Card*>* hashTable, stack<Card*>* deleteStack) {
 	string key = "", name = "";
-	Card *TempCard;
+	Card TempCard;
 	LinkedList *listChoice = NULL;
 
 
@@ -159,8 +159,8 @@ void Managers::deleteManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashT
 		cout << "Enter the name of the card to be deleted.\nName: ";
 		getline(cin, name);
 		upper(name);
-		TempCard->setName(name);
-		listChoice = nameTree->getEntry(*TempCard);
+		TempCard.setName(name);
+		listChoice = nameTree->getEntry(TempCard);
 
 		if (!listChoice) {
 			cout << name << " not found." << endl;
@@ -185,16 +185,18 @@ void Managers::deleteManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashT
 		return;
 	}
 
-	if (hashTable->search(key, TempCard)) { // Check if card exists.
+	Card *tempPtr = NULL;
 
-		deleteStack->push(TempCard);
+	if (hashTable->search(key, tempPtr)) { // Check if card exists.
+
+		deleteStack->push(tempPtr);
 		cout << "\nPushing " << key << " onto undo-delete stack..." << endl;
 
 		if (keyTree->remove(key))
 			cout << key << " removed from keyTree." << endl;
-		if (nameTree->remove(*TempCard))
+		if (nameTree->remove(*tempPtr))
 			cout << key << " removed from nameTree." << endl;
-		if (hashTable->remove(key, TempCard))
+		if (hashTable->remove(key, tempPtr))
 			cout << key << " removed from hashTable." << endl;
 	}
 	else
