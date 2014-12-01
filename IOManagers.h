@@ -23,7 +23,7 @@ public:
 	static void deleteManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashTable<string, Card*>* hashTable, stack<Card*>* deleteStack);
 	static void undoDeleteManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashTable<string, Card*>* hashTable, stack<Card*>* deleteStack);
 	static void saveManager(BinarySearchTree* keyTree, stack<Card*>* deleteStack);
-	static void DeleteStack(stack<Card*>* deleteStack);
+	static void deleteStackManager(stack<Card*>* deleteStack);
 	
 	// Display managers.
 	static void displayTreeManager(BinarySearchTree* keyTree, AVLTree* nameTree);
