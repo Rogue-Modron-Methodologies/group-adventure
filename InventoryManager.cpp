@@ -81,14 +81,14 @@ void InventoryManager::makeVector(vector<Card*> &card_collection, string card_bl
 
 			getline(block_source, name, '\t');				//puts card name into string
 
-			for (int i = 0; i < name.length(); i++)			//needs to be uppercase
+			for (unsigned int i = 0; i < name.length(); i++)			//needs to be uppercase
 				name[i] = toupper(name[i]);
 
 			getline(block_source, cost, '\t');				//puts card cost into string
 
 			getline(block_source, rarity, '\n');			//puts card rarity into string
 
-			for (int i = 0; i < rarity.length(); i++)		//needs to be uppercase
+			for (unsigned int i = 0; i < rarity.length(); i++)		//needs to be uppercase
 				rarity[i] = toupper(rarity[i]);
 
 			Card* new_ptr = new Card(code, name, cost, rarity); //create new card object

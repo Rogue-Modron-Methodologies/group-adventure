@@ -12,7 +12,7 @@
 // Member function upper sets all characters in a string
 // to uppercase.
 void IOManagers::upper(string &s) {
-	for (int i = 0; i < s.length(); i++)
+	for (unsigned int i = 0; i < s.length(); i++)
 		s[i] = toupper(s[i]);
 }
 
@@ -248,6 +248,8 @@ void IOManagers::undoDeleteManager(BinarySearchTree* keyTree, AVLTree* nameTree,
 	hashTable->addEntry(topCard->getCode(), topCard);
 	cout << "Inserting into hashTable..." << endl;
 	cout << "(" << topCard << ")" << " restored." << endl;
+
+	InventoryManager::checkLoadFactor(hashTable);
 
 	deleteStack->pop();
 }
