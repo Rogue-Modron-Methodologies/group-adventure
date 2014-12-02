@@ -243,7 +243,7 @@ int BinarySearchTree::size() const{
  */
 bool BinarySearchTree::isEmpty() const{
     bool isEmp = false;
-    if(rootPtr != NULL) isEmp = true;
+    if(rootPtr == NULL) isEmp = true;
     
     return isEmp;
 }
