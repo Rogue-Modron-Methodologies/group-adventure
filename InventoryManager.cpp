@@ -20,16 +20,19 @@ void InventoryManager::inventoryCreation(BinarySearchTree* binary_tree, AVLTree*
 	ifstream input_file_names;
 	string card_block;
 	vector<Card*> card_collection;
-	string inputName;
+	string input_name;
 
 	cout << "Please enter input file: ";
-	getline(cin, inputName);
 
-	input_file_names.open(inputName.c_str());
+	getline(cin, input_name);
+
+	txtCheck(input_name);
+
+	input_file_names.open(input_name.c_str());
 
 	if (!input_file_names)														//if statement to ensure .txt file exists
 	{
-		cout << "\n\tERROR! " << inputName << " was not found!\n\n";
+		cout << "\n\tERROR! " << input_name << " was not found!\n\n";
 
 		exit(EXIT_FAILURE);
 	}
