@@ -7,6 +7,8 @@
 
 using namespace std;
 
+// Very slightly modified version of Jenkins' One-At-A-Time Hash
+// http://en.wikipedia.org/wiki/Jenkins_hash_function#one-at-a-time
 unsigned int Card::oat_hash(const string &key, int num )
 {
     unsigned int h = 5381;
