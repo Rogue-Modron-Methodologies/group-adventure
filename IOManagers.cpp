@@ -89,11 +89,11 @@ void IOManagers::addManager(BinarySearchTree* keyTree, AVLTree* nameTree, HashTa
 		TempCard->setRarity(buffer);
 
 		hashTable->addEntry(TempCard->getCode(), TempCard);
-		cout << "\nInserting " << "(" << TempCard << ")" << " into hashTable..." << endl;
+		cout << "\nInserting " << "(" << TempCard << ")" << " into Hashed Table..." << endl;
 		keyTree->insert(TempCard);
-		cout << "Inserting " << "(" << TempCard << ")" << " into keyTree..." << endl;
+		cout << "Inserting " << "(" << TempCard << ")" << " into BST..." << endl;
 		nameTree->insert(TempCard);
-		cout << "Inserting " << "(" << TempCard << ")" << " into nameTree..." << endl;
+		cout << "Inserting " << "(" << TempCard << ")" << " into AVL Tree..." << endl;
 
 		InventoryManager::checkLoadFactor(hashTable);
 	}
@@ -195,11 +195,11 @@ void IOManagers::deleteManager(BinarySearchTree* keyTree, AVLTree* nameTree, Has
 		cout << "\nPushing " << key << " onto undo-delete stack..." << endl;
 
 		if (keyTree->remove(key))
-			cout << key << " removed from keyTree." << endl;
+			cout << key << " removed from BST." << endl;
 		if (nameTree->remove(*tempPtr))
-			cout << key << " removed from nameTree." << endl;
+			cout << key << " removed from AVL Tree." << endl;
 		if (hashTable->remove(key, tempPtr))
-			cout << key << " removed from hashTable." << endl;
+			cout << key << " removed from Hashed Table." << endl;
 	}
 	else
 		cout << key << " does not exist." << endl;
@@ -225,11 +225,11 @@ void IOManagers::undoDeleteManager(BinarySearchTree* keyTree, AVLTree* nameTree,
 		switch (option()) {
 		case 'Y':
 			if (keyTree->remove(key))
-				cout << key << " removed from keyTree." << endl;
+				cout << key << " removed from BST." << endl;
 			if (nameTree->remove(*TempCard))
-				cout << key << " removed from nameTree." << endl;
+				cout << key << " removed from AVL Tree." << endl;
 			if (hashTable->remove(key, TempCard))
-				cout << key << " removed from hashTable." << endl;
+				cout << key << " removed from Hashed Table." << endl;
 			delete TempCard;
 			break;
 		case 'N':
@@ -242,11 +242,11 @@ void IOManagers::undoDeleteManager(BinarySearchTree* keyTree, AVLTree* nameTree,
 
 	
 	keyTree->insert(topCard);
-	cout << "Inserting into keyTree..." << endl;
+	cout << "Inserting into BST..." << endl;
 	nameTree->insert(topCard);
-	cout << "Inserting into nameTree..." << endl;
+	cout << "Inserting into AVL Tree..." << endl;
 	hashTable->addEntry(topCard->getCode(), topCard);
-	cout << "Inserting into hashTable..." << endl;
+	cout << "Inserting into Hashed Table..." << endl;
 	cout << "(" << topCard << ")" << " restored." << endl;
 
 	InventoryManager::checkLoadFactor(hashTable);
@@ -279,7 +279,7 @@ void IOManagers::displayTreeManager(BinarySearchTree* keyTree, AVLTree* nameTree
 	switch (option()) {
 	case '1':
 		if (keyTree->isEmpty())
-			cout << "BST tree is empty! Nothing to display." << endl;
+			cout << "BST is empty! Nothing to display." << endl;
 		else
 			keyTree->displayTree(displayCard);
 		break;
@@ -301,7 +301,7 @@ void IOManagers::displayIndentedTreeManager(BinarySearchTree* keyTree, AVLTree* 
 	switch (option()) {
 	case '1':
 		if (keyTree->isEmpty())
-			cout << "BST tree is empty! Nothing to display." << endl;
+			cout << "BST is empty! Nothing to display." << endl;
 		else
 			keyTree->displayIndentedTree(displayCard);
 		break;
@@ -310,6 +310,7 @@ void IOManagers::displayIndentedTreeManager(BinarySearchTree* keyTree, AVLTree* 
 			cout << "AVL tree is empty! Nothing to display." << endl;
 		else
 			nameTree->indentedList(displayList);
+		break;
 	default:
 		cout << "Invalid entry." << endl;
 	}
