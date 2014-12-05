@@ -22,25 +22,37 @@ void InventoryManager::inventoryCreation(BinarySearchTree* binary_tree, AVLTree*
 	vector<Card*> card_collection;
 	string input_name;
 	bool not_file_name = true;
+	char defaultChoice;
+
 
 	while (not_file_name)					//loop until acceptable file name is entered
 	{ 
-		cout << "Please enter input file: ";
+		cout << "Press X to enter use default file. (inputFileNames.txt) \n";  // for ease of use for Delia  :)
+		defaultChoice = cin.get();
+		cin.ignore(1000, '\n');
+		cin.clear();
 
-		getline(cin, input_name);
-
-		txtCheck(input_name);					//append .txt if needed
-
-		input_file_names.open(input_name.c_str());
-
-		if (!input_file_names)														//if statement to ensure .txt file exists
+		if (defaultChoice == 'X' || defaultChoice == 'x')
 		{
-			cout << "\n\tERROR! " << input_name << " was not found!\n\n";
+			input_name = "inputFileNames.txt.";
+			input_file_names.open(input_name.c_str());
+			cout << input_name << " opened!\n\n";
 		}
 		else
 		{
-			not_file_name = false;			//end loop when file exists
-		}
+			cout << "Please enter input file: ";
+
+			getline(cin, input_name);
+
+			txtCheck(input_name);					//append .txt if needed
+
+			input_file_names.open(input_name.c_str());
+		}	
+
+		if (!input_file_names)									//if statement to ensure .txt file exists
+			cout << "\n\tERROR! " << input_name << " was not found!\n\n";
+		else
+			not_file_name = false;			//end loop when file exists	
 	}
 
 	while (getline(input_file_names, card_block))
