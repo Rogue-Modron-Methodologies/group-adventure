@@ -34,7 +34,7 @@ void InventoryManager::inventoryCreation(BinarySearchTree* binary_tree, AVLTree*
 
 		if (defaultChoice == 'X' || defaultChoice == 'x')
 		{
-			input_name = "inputFileNames.txt.";
+			input_name = "Input Files/inputFileNames.txt.";
 			input_file_names.open(input_name.c_str());
 			cout << input_name << " opened!\n\n";
 		}

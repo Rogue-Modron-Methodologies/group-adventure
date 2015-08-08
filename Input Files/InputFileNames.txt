@@ -1,5 +1,5 @@
-AlphaCardList.txt
+Input Files/AlphaCardList.txt
 
-RevisedCardList.txt
+Input Files/RevisedCardList.txt
 
-UrzasSagaCardList.txt
+Input Files/UrzasSagaCardList.txt
